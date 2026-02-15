@@ -85,7 +85,8 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
 - ✔️ Styling dengan CSS Modules
 
 **Progress:**
-![Progress](https://progress-bar.dev/100/?title=Completed&width=400&color=00ff00)
+
+![Progress](https://geps.dev/progress/100)
 
 </details>
 
@@ -96,7 +97,8 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
 **Status:** ⏳ Belum Dimulai
 
 **Progress:**
-![Progress](https://progress-bar.dev/0/?title=Pending&width=400&color=bababa)
+
+![Progress](https://geps.dev/progress/0)
 
 </details>
 
@@ -107,7 +109,8 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
 **Status:** ⏳ Belum Dimulai
 
 **Progress:**
-![Progress](https://progress-bar.dev/0/?title=Pending&width=400&color=bababa)
+
+![Progress](https://geps.dev/progress/0)
 
 </details>
 
@@ -143,11 +146,23 @@ Buka [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya.
 
 ## 📈 Progress Keseluruhan
 
+<div align="center">
+
+### 🎯 Total Completion: 33.3%
+
 ```
-Overall Completion: ███░░░░░░░ 33%
+████████████░░░░░░░░░░░░░░░░░░░░░░░░  33.3%
 ```
 
-![Overall Progress](https://progress-bar.dev/33/?title=Total%20Progress&width=600&color=2e9ef7)
+**🟩🟩🟩⬜⬜⬜⬜⬜⬜** 1 dari 3 Jobsheet selesai
+
+|  Jobsheet  | Status | Progress |
+|:----------:|:------:|:--------:|
+| Jobsheet 1 | ✅ Selesai | 100% |
+| Jobsheet 2 | ⏳ Pending | 0% |
+| Jobsheet 3 | ⏳ Pending | 0% |
+
+</div>
 
 ---
 
