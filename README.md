@@ -144,27 +144,6 @@ Buka [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya.
 
 ---
 
-## 📈 Progress Keseluruhan
-
-<div align="center">
-
-### 🎯 Total Completion: 33.3%
-
-```
-████████████░░░░░░░░░░░░░░░░░░░░░░░░  33.3%
-```
-
-**🟩🟩🟩⬜⬜⬜⬜⬜⬜** 1 dari 3 Jobsheet selesai
-
-|  Jobsheet  | Status | Progress |
-|:----------:|:------:|:--------:|
-| Jobsheet 1 | ✅ Selesai | 100% |
-| Jobsheet 2 | ⏳ Pending | 0% |
-| Jobsheet 3 | ⏳ Pending | 0% |
-
-</div>
-
----
 
 
 <div align="center">
