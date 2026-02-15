@@ -151,15 +151,6 @@ Overall Completion: ███░░░░░░░ 33%
 
 ---
 
-## 📝 Catatan Penting
-
-> 💡 **Info:** Repository ini akan terus diupdate seiring dengan berjalannya perkuliahan dan penambahan jobsheet/tugas baru.
-
-> ⚠️ **Reminder:** Pastikan untuk selalu menginstall dependencies sebelum menjalankan project!
-
-> 🔥 **Tips:** Gunakan `npm run dev` untuk development mode dengan hot-reload!
-
----
 
 <div align="center">
 
