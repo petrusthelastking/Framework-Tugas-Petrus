@@ -199,6 +199,20 @@ Mengubah styling background aplikasi dengan:
 </details>
 
 ---
+## Pertanyaan Refleksi
+1. Mengapa Pages Router disebut sebagai routing berbasis file?<br>
+Jawab:<br>
+Pages Router disebut routing berbasis file karena sistem routingnya bergantung langsung pada struktur file dan folder yang dibuat. Jadi setiap file yang kita buat di dalam folder pages/ akan otomatis menjadi sebuah route atau halaman di website. Misalnya, kalau bikin file about.tsx di dalam folder pages/, maka secara otomatis akan terbentuk route /about yang bisa diakses di browser. Ini sangat berbeda dengan React biasa yang memerlukan untuk mendefinisikan route secara manual menggunakan library seperti React Router. Dengan sistem file-based routing ini, kita tidak perlu repot-repot membuat konfigurasi routing yang rumit, cukup buat file di lokasi yang tepat dan Next.js akan menangani sisanya.
+2. Apa perbedaan Next.js dengan React standar (CRA)?<br>
+Jawab:<br>
+Perbedaan utama Next.js dengan React standar atau Create React App adalah Next.js merupakan framework yang lebih lengkap dan powerful. React standar hanya melakukan rendering di sisi client atau browser, sehingga ketika halaman pertama kali dibuka, browser harus mendownload semua JavaScript, menjalankannya, baru kemudian konten muncul. Sedangkan Next.js bisa melakukan rendering di server (SSR), sehingga konten HTML sudah jadi di server dan langsung dikirim ke browser, membuat loading lebih cepat dan bagus untuk SEO.
+Next.js sudah memiliki sistem routing bawaan yang berbasis file, sedangkan React standar harus menginstall React Router sendiri dan mengkonfigurasi secara manual. Next.js juga punya fitur API Routes yang memungkinkan kita membuat backend API dalam satu project yang sama, jadi tidak perlu setup server terpisah. Ada juga optimasi otomatis untuk gambar, code splitting otomatis, dan berbagai fitur production-ready lainnya yang di React standar harus kita setup sendiri. Intinya, Next.js itu seperti React yang sudah di-upgrade dengan banyak fitur tambahan untuk memudahkan development dan meningkatkan performa aplikasi.
+3. Apa fungsi perintah npm run dev?<br>
+Jawab:<br>
+Perintah npm run dev mengaktifkan server lokal Next.js (biasanya di port 3000) untuk memantau perubahan kode secara real-time. Fitur Fast Refresh memastikan browser otomatis terupdate saat file disimpan, sementara Error Overlay memudahkan proses debugging dengan menampilkan pesan kesalahan yang detail secara langsung.
+4. Apa perbedaan npm run dev dan run build ?<br>
+Jawab:<br>
+Gunakan npm run dev saat menulis kode untuk mendapatkan fitur hot reload dan debugging yang cepat. Sebaliknya, gunakan npm run build sebelum deploy untuk mengoptimasi, mengecilkan ukuran file, dan memastikan aplikasi berjalan ringan di tangan pengguna. Setelah di-build, jalankan npm start untuk mengaktifkan server produksinya.
 
 ## 🎯 Kesimpulan
 
