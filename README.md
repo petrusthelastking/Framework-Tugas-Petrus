@@ -35,6 +35,7 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
  ┣ 📂 JOBSHEET1          # ✅ Jobsheet praktikum pertama
  ┃ ┗ 📂 my-app          # Next.js Application
  ┣ 📂 JOBSHEET2          # ⏳ Coming Soon...
+ ┃ ┗ 📂 next-routing    # Next.js Application
  ┣ 📂 JOBSHEET3          # ⏳ Coming Soon...
  ┗ 📜 README.md          # Dokumentasi
 ```
@@ -92,9 +93,18 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
 
 <details>
 <summary><b>📌 JOBSHEET 2 - Coming Soon</b></summary>
+**Status:** ✅ Selesai
+
+**Materi:**
+- ✔️ Setup project Next.js
+- ✔️ Routing dan navigasi
+- ✔️ Pages dan components
+- ✔️ Styling dengan CSS Modules
+
+**Progress:**
 <br>
 
-**Status:** ⏳ Belum Dimulai
+**Status:** ⏳ selesai
 
 **Progress:**
 
