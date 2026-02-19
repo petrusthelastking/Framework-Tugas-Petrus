@@ -108,7 +108,7 @@ Repository ini dibuat sebagai tempat penyimpanan dan dokumentasi untuk seluruh k
 
 **Progress:**
 
-![Progress](https://geps.dev/progress/0)
+![Progress](https://geps.dev/progress/100)
 
 </details>
 
