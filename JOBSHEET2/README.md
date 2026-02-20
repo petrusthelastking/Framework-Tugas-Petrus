@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>📖 Praktikum</b></td>
-<td>Jobsheet 02 - Routing, Nested Routing, Dynamic Routing, dan Layouting pada Next.js (Pages Router)</td>
+<td>Jobsheet 03 - Routing, Nested Routing, Dynamic Routing, dan Layouting pada Next.js (Pages Router)</td>
 </tr>
 <tr>
 <td><b>👤 Nama</b></td>

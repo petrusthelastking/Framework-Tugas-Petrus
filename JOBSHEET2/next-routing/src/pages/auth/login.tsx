@@ -12,9 +12,10 @@ const HalamanLogin = () => {
   return (
     <div>
       <h1>Halaman Login</h1>
-      <button onClick={() => handlerLogin()}>Login</button>
-      <br />
-      <Link href="/auth/register">belum punya akun</Link>
+      <button onClick={handlerLogin}>Login</button> <br />
+      <button onClick={() => push("/produk")}>Login</button> <br />
+      <button onClick={() => handlerLogin()}>Login</button> <br />
+      <Link href="/auth/register">ke Halaman Register</Link>
     </div>
   );
 };
