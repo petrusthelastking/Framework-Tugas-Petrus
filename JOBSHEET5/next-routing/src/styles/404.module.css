@@ -3,19 +3,44 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   padding: 2rem;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .error_image {
-  width: 700px;
+  width: 300px;
   max-width: 80%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .error_title {
   font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+}
+
+.error_desc {
+  font-size: 1rem;
+  color: #718096;
+  margin-bottom: 1.5rem;
+}
+
+.error_button {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background-color: #4f46e5;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.error_button:hover {
+  background-color: #4338ca;
 }
