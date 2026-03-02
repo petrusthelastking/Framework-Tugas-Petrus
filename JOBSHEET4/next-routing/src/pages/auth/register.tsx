@@ -1,12 +1,7 @@
-import Link from "next/link";
+import TampilanRegister from "../../views/auth/register";
 
-const HalamanRegister = () => {
-  return (
-    <div>
-      <h1>Halaman Register</h1>
-      <Link href="/auth/login">ke Halaman Login</Link>
-    </div>
-  );
+const halamanRegister = () => {
+  return <TampilanRegister />;
 };
 
-export default HalamanRegister;
+export default halamanRegister;
