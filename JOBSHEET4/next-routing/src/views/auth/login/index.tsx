@@ -8,6 +8,7 @@ const TampilanLogin = () => {
 
   const handleLogin = () => {
     // logic login disini
+    localStorage.setItem("isLogin", "true");
     push('/produk');
   }
 
