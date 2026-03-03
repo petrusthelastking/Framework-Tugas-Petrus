@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%5005&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%6006&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # 📘 Laporan Praktikum
 
@@ -56,12 +56,14 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Memahami fungsi Custom Document (_document.js) pada Next.js.
-- ✅ Mengimplementasikan custom document untuk kebutuhan global aplikasi.
-- ✅ Membuat dan mengatur Custom Error Page (404).
-- ✅ Menambahkan styling khusus pada halaman error.
-- ✅ Menampilkan gambar dari folder public.
-- ✅ Melakukan handling komponen global (misalnya Navbar) pada halaman error.
+- ✅ Memahami konsep API Routes pada Next.js.
+- ✅ Membuat API sederhana menggunakan Next.js.
+- ✅ Mengirim response JSON dengan status code.
+- ✅ Mengambil data API di sisi frontend menggunakan fetch.
+- ✅ Mengintegrasikan Firebase Firestore sebagai database.
+- ✅ Mengelola environment variable (.env.local).
+- ✅ Menampilkan data dinamis dari database ke halaman web.
+
 
 ---
 
@@ -75,193 +77,197 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ██████████████████████████████████████  100%
 ```
 
-🟢 **6 Langkah** | ✅ **Semua Selesai**
+🟢 **10 Langkah** | ✅ **Semua Selesai**
 
 </div>
 
 ---
 
 <details open>
-<summary><h3>🔍 Langkah 2 – Membuat Custom Document</h3></summary>
-<h4>Modifikasi pada folder pages _document.js</h4>
+<summary><h3>🔍 Langkah 2 – Membuat API Produk</h3></summary>
+<h4>1. Buat file pad pages/api/produk.js</h4>
 
-![alt text](<Images/Langkah 2 – Membuat Custom Document ().png>)
+![alt text](<Images/Langkah 2 – Membuat API Produk(Buat file pad pagesapiproduk.js).png>)
+
+<h4>2. Tambahkan data statis:</h4>
+
+![alt text](<Images/Langkah 2 – Membuat API Produk(Tambahkan data statis).png>)
+
+<h4>3. Akses: http://localhost:3000/api/produk</h4>
+
+![alt text](<Images/Langkah 2 – Membuat API Produk(Jalankan).png>)
+
 
 **Deskripsi:**<br>
-Langkah ini dilakukan untuk membuat Custom Document di Next.js, yaitu dengan memodifikasi file _document.js yang berada di dalam folder pages. Fungsi dari Custom Document (_document.js) adalah untuk mengatur struktur dasar HTML aplikasi secara global, mencakup tag html,head, dan body. Dalam praktikum ini, modifikasi yang dilakukan adalah mengubah atribut lang dari tag html dari en menjadi id. Setelah kode diisi, hasilnya bisa diperiksa di Inspect Element untuk memastikan atribut lang="id" sudah berubah. Perlu diingat bahwa tag title tidak disarankan diletakkan di _document.js, melainkan di masing-masing halaman.
+Langkah 2 – Membuat API Produk bertujuan untuk membuat endpoint API sederhana pada Next.js dengan nama /api/produk. Prosesnya meliputi pembuatan file pages/api/produk.js atau produk.ts, penambahan data produk statis di dalamnya, dan pengiriman response JSON yang berisi data produk, status true, dan status_code 200. Endpoint ini kemudian dapat diakses melalui browser di ``http://localhost:3000/api/produk.``
 </details>
 
 ---
 
 <details open>
-<summary><h3>📦 Langkah 3 – Pengaturan Title per Halaman</h3></summary>
-<h4>1. Buka pages/index.js.<br>
-2. Tambahkan:</h4>
+<summary><h3>📦 Langkah 3 – Fetch Data API di Frontend</h3></summary>
+<h4>1. Buka pages/product/index.ts</h4>
 
-![alt text](<Images/Langkah 3 – Pengaturan Title per Halaman (Buka pagesindex.js.).png>)
+- Modifikasi kode<br>
+o Tambahkan useEffect() dan comment useEffect untuk isLogin
 
-- Refresh halaman dan perhatikan judul tab browser.<br>
+![alt text](<Images/Langkah 3 – Fetch Data API di Frontend(1. Buka pagesproductindex.tsx).png>)
 
-![alt text](<Images/Langkah 3 – Pengaturan Title per Halaman (Refresh halaman dan perhatikan judul tab browser.).png>)
+<h4>2. Jalankan browser http://localhost:3000/produk</h4>
+
+![alt text](<Images/Langkah 3 – Fetch Data API di Frontend(jalankan).png>)
 
 **Deskripsi:**<br>
-Langkah ini bertujuan untuk mengatur judul spesifik pada setiap halaman, mengikuti praktik terbaik Next.js yang tidak menyarankan penempatan tag <br>
-
-> title
-
-di Custom Document (
-
-> _document.js 
-
-). Pengaturan ini dilakukan dengan memodifikasi file halaman yang bersangkutan, misalnya
-
-> pages/index.js 
-
-. Di dalam komponen halaman tersebut, tag
-
-> head 
-
-dari Next.js digunakan untuk menambahkan tag
-
-> title
-
-. Setelah title ditambahkan, halaman perlu di-refresh untuk melihat perubahan judul yang muncul pada tab browser. Dengan cara ini, setiap halaman dapat memiliki judul unik yang relevan.
+Langkah 3 – Fetch Data API di Frontend dilakukan dengan membuka file pages/product/index.tsx dan memodifikasi kodenya. Modifikasi tersebut meliputi penambahan useEffect() untuk mengambil data API produk menggunakan fetch("/api/produk"), yang akan mengirimkan response JSON. Data produk yang diterima kemudian disimpan menggunakan setProducts(responsedata.data) dan ditampilkan di halaman. Selanjutnya, Anda dapat menjalankan browser di http://localhost:3000/produk untuk melihat hasilnya.
 </details>
 
 ---
 
 <details open>
-<summary><h3>🚀 Langkah 4 – Membuat Custom Error Page (404) </h3></summary>
+<summary><h3>🚀 Langkah 5 – Setup Firebase</h3></summary>
 
-<h4>Di folder pages, buat file</h4>
+<h4>Buat project baru</h4>
 
-- 404.tsx
+[text](README.md) ![text](<Images/Langkah 5 – Setup Firebase(1).png>) ![text](<Images/Langkah 5 – Setup Firebase(2).png>) ![text](<Images/Langkah 5 – Setup Firebase(3).png>) ![text](<Images/Langkah 5 – Setup Firebase(4).png>) ![text](<Images/Langkah 5 – Setup Firebase(5).png>) ![text](<Images/Langkah 5 – Setup Firebase(6).png>)
 
-![alt text](<Images/Langkah 4 – Membuat Custom Error Page (404)(Di folder pages, buat file).png>)
-
-- Isi kode:
-
-![alt text](<Images/Langkah 4 – Membuat Custom Error Page (404)(Isi kode).png>)
-
-- Akses URL yang tidak ada, misalnya:
-
-![alt text](<Images/Langkah 4 – Membuat Custom Error Page (404)(Akses URL yang tidak ada, misalnya).png>)
+[text](README.md) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baru).png>) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baruu).png>) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baruuu).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database1).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database2).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database3).png>) ![text](<Images/Langkah 5 – Setup Firebase(Note klik add app dan pilih web).png>)
 
 
 **Deskripsi:**<br>
-Langkah ini bertujuan untuk membuat halaman kesalahan (error page) kustom (404) yang akan otomatis ditampilkan Next.js saat pengguna mengakses route atau URL yang tidak ditemukan. Pembuatan halaman ini sangat sederhana, yaitu dengan membuat file baru bernama ```404.tsx``` di dalam folder
+Langkah 5 – Setup Firebase meliputi beberapa tahapan, diawali dengan membuka Firebase Go To Console (login dengan akun Google) dan membuat project baru. Dalam proses pembuatan project, Anda perlu memberikan nama, misalnya "Framework-next", dan memastikan untuk menonaktifkan Google Analytics sebelum menekan "Create project".
 
-> pages 
+Setelah project siap, lanjutkan dengan menambahkan aplikasi dengan memilih platform "web". Daftarkan aplikasi web dengan memberikan julukan (misalnya "Framework-next2026") dan klik "Register app". Setelah itu, klik "Continue to console".
 
-. Setelah file dibuat, di dalamnya diisi dengan komponen React sederhana yang menampilkan pesan bahwa "Halaman Tidak Ditemukan" dan "Maaf, halaman yang Anda cari tidak ada". Setelah itu, hasilnya bisa langsung diuji dengan mengakses URL yang tidak ada, seperti
+Tahap berikutnya adalah mengaktifkan Firestore Database dengan mengklik "Create database". Pilih Select edition (Standard edition atau Enterprise edition) dan tentukan Database ID & location, misalnya asia-southeast2 (Jakarta). Setelah mengklik Configure atau Next, atur security rules dengan mengubah rules menjadi allow read, write: if true; dan klik publish.
 
-> /dashboard 
-
-. Dengan adanya file ini, tampilan error standar dari browser akan digantikan oleh halaman kustom yang telah dibuat.
+Terakhir, buat collection baru dengan ID products dan tambahkan document pertama menggunakan auto-id. Tambahkan field seperti name (string, contoh: "baju polo"), price (number, contoh: 100000), dan size (string, contoh: "xl").
 </details>
 
 ---
 
 <details open>
-<summary><h3>🎨 Langkah 5 – Styling Halaman 404</h3></summary>
+<summary><h3>🎨 Langkah 6 – Install Firebase</h3></summary>
 
-<h4>Buat file:</h4>
+<h4>1. npm install firebase</h4>
 
-- styles/404.module.scss<br>
+![alt text](<Images/Langkah 6 – Install Firebase(1. npm install firebase).png>)
 
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(styles404.modulescss).png>)
+<h4>2. Buat folder dan file ts pada pages utlis/db/firebase.ts</h4>
 
--  Tambahkan style:
-
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(Tambahkan style).png>)
-
--  Modifikasi kode pada pages/404.tsx:
-
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(Modifikasi kode pada pages404.tsx).png>)
-
--  Jalankan browser
-
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(output).png>)
-
--  Tambahkan ’/404’ pada disable navbar
-
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(Tambahkan ’404’ pada disable navbar).png>)
-
--  Jalankan browser
-
-![alt text](<Images/Langkah 5 – Styling Halaman 404(Buat file)(Jalankan browser).png>)
+![alt text](<Images/Langkah 6 – Install Firebase(Buat folder dan file ts pada pages utlisdbfirebase.ts.png>)
 
 **Deskripsi:**<br>
-Langkah ini bertujuan untuk menambahkan gaya spesifik pada Halaman Error 404 yang telah dibuat. Pertama, dibuat file CSS Module baru, yaitu ```styles/404.module.scss```. Di dalam file tersebut, ditambahkan class CSS (misalnya ```.error```) untuk mengatur tata letak halaman agar tampilannya menjadi lebih baik, seperti mengatur halaman menjadi penuh (width: 100vw, height: 100vh) dan menengahkan konten secara horizontal maupun vertikal.
-Selanjutnya, file ```404.tsx``` dimodifikasi dengan mengimpor style dari ```404.module.scss``` dan menerapkan class ```styles.error``` pada elemen utama div.
-Jika setelah styling dijalankan Navbar masih muncul di halaman 404, maka dilakukan handling dengan menambahkan ```/404``` ke dalam daftar array ```disableNavbar``` di komponen Appshell. Dengan demikian, Navbar tidak akan lagi ditampilkan pada halaman error tersebut.
-
+Langkah 6 – Install Firebase diawali dengan menjalankan perintah npm install firebase di terminal. Setelah instalasi berhasil, buat folder dan file firebase.ts di pages/utils/db/firebase.ts. Kemudian, salin dan tempel kode konfigurasi Firebase yang ada pada kotak merah di Project settings ke dalam file firebase.ts tersebut.
 </details>
 
 ---
 
 <details open>
-<summary><h3>Langkah 6 – Menampilkan Gambar dari Folder Public</h3></summary>
+<summary><h3>Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush
+di repository</h3></summary>
 
-<h4>Simpan gambar not-found.png ke folder public/ dan rename agar memudahkan</h4>
+<h4>1. Buat file: .env.local</h4>
 
-![alt text](<Images/Langkah 6 – Menampilkan Gambar dari Folder Public(Simpan gambar not-found.png).png>)
+![alt text](<Images/Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush(Buat file .env.local).png>)
 
-<h4>Modifikasi kode pada 404.tsx:</h4>
+<h4>2. Modifikasi file env</h4>
 
-![alt text](<Images/Langkah 6 – Menampilkan Gambar dari Folder Public(Modifikasi kode pada 404.tsx).png>)
-
-- Jalankan browser<br>
-
-![alt text](<Images/Langkah 6 – Menampilkan Gambar dari Folder Public(Jalankan Browser).png>)
-
+![alt text](<Images/Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush(Modifikasi file env).png>)
 
 **Deskripsi:**<br>
-Langkah ini bertujuan untuk menampilkan gambar ilustrasi di Halaman Error 404, dengan memanfaatkan folder ```public``` dari Next.js.
-
-Pertama, gambar yang akan digunakan (misalnya not-found.png yang diunduh dari undraw.co) disimpan ke dalam folder ```public``` dan diberi nama yang memudahkan, misalnya ```page-not-found.png```.
-
-Keunggulan utama folder ```public``` adalah aset di dalamnya dapat diakses langsung dari root URL tanpa perlu diimpor. Oleh karena itu, di dalam file ```404.tsx```, elemen ```<img>``` ditambahkan dengan atribut
-
-> src 
-
-yang mengarah langsung ke ```"/page-not-found.png"```. Selain itu, class ```styles.error_image``` juga ditambahkan pada tag
-
-> img
-
-untuk mengatur ukuran gambar. Setelah dimodifikasi, hasilnya dapat dilihat di browser bahwa gambar ilustrasi sudah muncul di halaman 404.
+Langkah 7 – Konfigurasi Environment Variable bertujuan agar kredensial Firebase tidak dapat dilihat saat di-push ke repository. Langkah-langkahnya adalah sebagai berikut:
+Buat file bernama .env.local di root directory proyek (6.praktikum-ApiRoutes\my-app).
+Modifikasi file .env.local dengan menambahkan variabel-variabel lingkungan untuk kredensial Firebase:
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+Isi nilai variabel-variabel tersebut sesuai dengan konfigurasi Firebase Anda (tanpa koma dan petik dua). Nilai ini dapat ditemukan di Project settings Firebase Anda.
 </details>
 
 ---
+<details open>
+<summary><h3>🌈 Langkah 8 – Konfigurasi Firebase</h3></summary>
+<h4>1. Modifikasi firebase.ts</h4>
+
+![alt text](<Images/Langkah 8 – Konfigurasi Firebase(1. Modifikasi firebase.ts).png>)
+
+</details>
 
 <details open>
-<summary><h3>🌈 E. Tugas Praktikum</h3></summary>
+<summary><h3>Langkah 9 – Ambil Data dari Firestore</h3></summary>
 
-![alt text](<Images/E. Tugas Praktikum(1).png>)
-![alt text](<Images/E. Tugas Praktikum(2).png>)
-![alt text](<Images/E. Tugas Praktikum(3).png>)
+<h4>1. Buat file</h4>
+
+- ulits/db/servicefirebase.js
+
+![alt text](<Images/Langkah 9 – Ambil Data dari Firestore(1. Buat file).png>)
+
+- modifikasi file servicefirebase.js
+
+![alt text](<Images/Langkah 9 – Ambil Data dari Firestore(1. Buat filee).png>)
+
+**Deskripsi:**<br>
+Langkah 9 – Ambil Data dari Firestore dilakukan dengan membuat file baru bernama ulits/db/servicefirebase.js (atau servicefirebase.ts) dan memodifikasinya. Di dalam file tersebut, buat fungsi retrieveProducts yang bersifat async, yang mengambil collectionName sebagai parameter. Fungsi ini menggunakan getFirestore(app) untuk mendapatkan instance database dan getDocs(collection (db, collectionName)) untuk mengambil snapshot data dari collection yang ditentukan. Data kemudian di-map untuk menyertakan id dokumen dan data lainnya sebelum dikembalikan. Untuk mengimplementasikannya, impor getFirestore, collection, dan getDocs dari firebase/firestore, serta app dari file firebase.ts.
+</details>
+
+<details open>
+<summary><h3>Langkah 10 – API Mengambil Data Firebase</h3></summary>
+
+<h4>1. Edit pages/api/product.js:</h4>
+
+![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Edit pagesapiproduct.js).png>)
+
+<h4>2. Jalankan browser http://localhost:3000/api/produk</h4>
+
+![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Jalankan browser1).png>)
+
+<h4>3. Modifikasi index.ts pada produk sesuaikan nama typenya dan db nya</h4>
+
+![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(3. Modifikasi index.ts pada produk sesuaikan nama typenya dan db nya).png>)
+
+<h4>Jalankan</h4>
+
+![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Jalankan browser2).png>)
+
+**Deskripsi:**<br>
+Langkah 10 – API Mengambil Data Firebase dilakukan dengan mengedit file pages/api/produk.js. Modifikasi ini melibatkan pengubahan implementasi API produk untuk mengambil data dari Firestore, bukan dari data statis.
+
+Caranya adalah:
+Impor fungsi retrieveProducts dari ../utils/db/servicefirebase.
+Ubah fungsi handler menjadi async.
+Di dalam fungsi handler, panggil const data = await retrieveProducts("products"); untuk mengambil data dari collection "products" di Firebase.
+Kirim response JSON dengan data yang diterima dari Firebase: res.status(200).json({ status: true, status_code: 200, data });.
+Setelah dimodifikasi, endpoint API dapat diakses di http://localhost:3000/api/produk. Hasilnya akan menampilkan data dinamis dari Firestore.
+</details>
+
+<details open>
+<summary><h3>🌈 F. Tugas Praktikum</h3></summary>
+
+![alt text](<Images/Screenshot 2026-03-03 234045.png>)
 
 </details>
 ---
 
 ## Pertanyaan Refleksi
-1. Apa fungsi utama _document.js?<br>
-**Jawab:**<br>
-`_document.js` berfungsi untuk mengkustomisasi struktur dokumen HTML dasar yang dihasilkan Next.js, yaitu tag `<html>`, `<head>`, dan `<body>` secara global untuk seluruh aplikasi. File ini hanya dirender di sisi server (server-side only) dan dieksekusi sekali saat membangun kerangka HTML. Penggunaan umumnya adalah untuk mengubah atribut `lang` pada tag `<html>` (misalnya dari `en` ke `id`), menambahkan font eksternal, atau menyisipkan tag meta global. `_document.js` adalah lapisan terendah yang berperan sebelum `_app.js` dan komponen halaman.
 
-2. Mengapa `<title>` tidak disarankan di _document.js?<br>
-**Jawab:**<br>
-Karena `_document.js` dirender hanya sekali di server dan berlaku global untuk semua halaman, sehingga jika `<title>` diletakkan di sana, semua halaman akan memiliki judul yang sama dan tidak bisa dibedakan. Next.js menyediakan komponen `<Head>` dari `next/head` justru untuk keperluan ini — agar setiap halaman dapat mendefinisikan `<title>` dan meta tag-nya sendiri secara dinamis dan unik. Menaruh `<title>` di `_document.js` juga tidak akan dioverride dengan benar oleh `<Head>` pada halaman individual, sehingga mengakibatkan judul tidak berubah sesuai halaman yang dikunjungi.
+**1. Apa fungsi API Routes pada Next.js?**
 
-3. Apa perbedaan halaman biasa dan halaman 404.js?<br>
-**Jawab:**<br>
-Perbedaan utamanya adalah pada **cara Next.js melakukan routing**:
-- **Halaman biasa** (misal `pages/about.tsx`) — hanya tampil ketika URL-nya secara eksplisit diakses (`/about`). Jika URL tidak cocok dengan file apapun di folder `pages`, halaman ini tidak akan pernah tampil.
-- **Halaman 404.js/404.tsx** — merupakan halaman khusus yang secara otomatis ditampilkan oleh Next.js setiap kali pengguna mengakses URL yang **tidak cocok** dengan route manapun. Tidak perlu mendefinisikan route-nya secara manual karena Next.js sudah mengenali nama file `404` sebagai handler error route-not-found. Halaman ini juga mengirimkan HTTP status code `404` ke browser, berbeda dengan halaman biasa yang mengirim `200`.
+API Routes pada Next.js berfungsi sebagai backend endpoint yang dapat dibuat langsung di dalam project Next.js tanpa perlu server terpisah. File yang diletakkan di folder `pages/api/` secara otomatis menjadi endpoint HTTP yang dapat menerima request (GET, POST, PUT, DELETE) dan mengembalikan response JSON. Fungsi utamanya adalah menghubungkan frontend dengan sumber data eksternal seperti database atau layanan pihak ketiga (misalnya Firebase), sekaligus menyembunyikan kredensial sensitif agar tidak terekspos ke sisi client.
 
-4. Mengapa folder public tidak perlu di-import?<br>
-**Jawab:**<br>
-Karena Next.js secara otomatis meng-serve semua file yang ada di dalam folder `public` sebagai **static asset** melalui root URL server (`/`). Artinya, file seperti `public/gambar.png` dapat langsung diakses melalui URL `/gambar.png` tanpa perlu menggunakan `import` atau `require`. Mekanisme ini mirip dengan cara kerja server web seperti Apache atau Nginx yang langsung melayani file statis dari folder tertentu. Keuntungannya adalah tidak ada overhead bundling dari webpack/Turbopack, file langsung dikirim ke browser dengan cepat, dan URL-nya tetap bersih dan mudah untuk dirujuk di mana saja dalam kode.
+**2. Mengapa .env.local tidak boleh di-push ke repository?**
+
+File `.env.local` menyimpan informasi sensitif seperti API key, kredensial database, secret token, dan konfigurasi privat lainnya. Jika file ini di-push ke repository publik maupun privat, pihak yang tidak berwenang dapat mengakses dan menyalahgunakan kredensial tersebut — misalnya menguras kuota Firebase, mengakses database secara ilegal, atau mencuri data pengguna. Oleh karena itu, `.env.local` harus selalu ditambahkan ke `.gitignore` dan tidak pernah diunggah ke version control.
+
+**3. Apa perbedaan data statis dan data dinamis?**
+
+Data statis adalah data yang sudah ditentukan pada saat build time dan tidak berubah saat runtime — contohnya daftar produk yang di-hardcode langsung di dalam kode atau file JSON lokal. Data dinamis adalah data yang diambil secara real-time dari sumber eksternal seperti database saat halaman diakses atau tombol diklik, sehingga selalu menampilkan informasi terkini. Pada praktikum ini, data produk dari Firestore merupakan data dinamis karena diambil melalui API route setiap kali halaman dimuat atau tombol Refresh Data ditekan.
+
+**4. Mengapa Next.js disebut framework fullstack?**
+
+Next.js disebut framework fullstack karena menggabungkan kemampuan frontend dan backend dalam satu project. Di sisi frontend, Next.js menangani rendering halaman (SSR, SSG, CSR) dengan React. Di sisi backend, Next.js menyediakan API Routes yang memungkinkan pembuatan endpoint server tanpa perlu framework backend terpisah seperti Express. Dengan demikian, developer dapat membangun aplikasi web lengkap — mulai dari antarmuka pengguna hingga logika server dan akses database — hanya menggunakan satu codebase Next.js.
 
 
 <div align="center">
