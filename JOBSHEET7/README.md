@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%6006&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%7007&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # 📘 Laporan Praktikum
 
@@ -247,6 +247,153 @@ Setelah dimodifikasi, endpoint API dapat diakses di http://localhost:3000/api/pr
 <summary><h3>🌈 F. Tugas Praktikum</h3></summary>
 
 ![alt text](<Images/Screenshot 2026-03-03 234045.png>)
+
+---
+
+### 🎯 Tugas Individu
+
+---
+1. Perbedaan Client Side Rendering, Server Side Rendering, dan Static Site Generation
+
+**Client Side Rendering (CSR)** adalah pendekatan di mana proses rendering halaman terjadi di sisi browser (client). Server hanya mengirimkan file HTML kosong beserta JavaScript. Browser kemudian mengeksekusi JavaScript tersebut, mengambil data dari API, dan baru merender konten ke layar. Karena itu, pada pemuatan pertama halaman terlihat kosong sejenak — inilah alasan skeleton loading sangat berguna pada CSR. Contoh implementasi di Next.js: menggunakan `useEffect` + `fetch` atau library `useSWR` seperti yang diterapkan di praktikum ini.
+
+**Server Side Rendering (SSR)** adalah pendekatan di mana rendering terjadi di sisi server setiap kali ada request masuk. Server mengambil data, merender HTML yang sudah berisi konten, lalu mengirimkannya ke browser. Hasilnya, konten langsung terlihat tanpa perlu menunggu JavaScript dieksekusi. SSR cocok untuk halaman yang membutuhkan data selalu *fresh* dan penting untuk SEO. Contoh implementasi di Next.js: `getServerSideProps`.
+
+**Static Site Generation (SSG)** adalah pendekatan di mana halaman di-render satu kali pada saat proses build (`npm run build`), menghasilkan file HTML statis yang siap disajikan. Karena tidak ada pemrosesan di server saat request masuk, SSG sangat cepat dan ideal untuk di-cache di CDN. Cocok untuk konten yang jarang berubah seperti blog, dokumentasi, atau landing page. Contoh implementasi di Next.js: `getStaticProps` dan `getStaticPaths`.
+
+**Perbandingan:**
+
+| Aspek | CSR | SSR | SSG |
+|---|---|---|---|
+| **Render terjadi** | Di browser (runtime) | Di server (setiap request) | Saat build time |
+| **Kecepatan awal** | Lambat (JS harus diunduh dulu) | Sedang (server memproses dulu) | Sangat cepat (HTML sudah jadi) |
+| **Data** | Diambil setelah halaman dimuat | Diambil per request di server | Diambil saat build |
+| **SEO** | Kurang baik | Baik | Sangat baik |
+| **Cocok untuk** | Dashboard, real-time data | Halaman dengan data fresh | Blog, katalog, landing page |
+| **Next.js API** | `useEffect`, `useSWR` | `getServerSideProps` | `getStaticProps` |
+
+2. Halaman Produk dengan Skeleton Loading dan Animasi
+
+**Skeleton Loading** diimplementasikan di `src/pages/views/product/index.tsx` menggunakan ternary operator:
+
+```tsx
+{products.length > 0 ? (
+  <>
+    {products.map((products: ProductType) => (
+      <div key={products.id} className={styles.produk__content__item}>
+        <div className={styles.produk__content__item__image}>
+          <img src={products.image} alt={products.name} width={200} />
+        </div>
+        <h4 className={styles.produk__content__item__name}>{products.name}</h4>
+        <p className={styles.produk__content__item__category}>{products.category}</p>
+        <p className={styles.produk__content__item__price}>Rp {products.price.toLocaleString()}</p>
+      </div>
+    ))}
+  </>
+) : (
+  <div className={styles.produk__content__skeleton}>
+    <div className={styles.produk__content__skeleton__image}></div>
+    <div className={styles.produk__content__skeleton__name}></div>
+    <div className={styles.produk__content__skeleton__category}></div>
+    <div className={styles.produk__content__skeleton__price}></div>
+  </div>
+)}
+```
+
+**Animasi** diimplementasikan di `src/pages/produk/produk.module.scss` menggunakan `@keyframes`:
+
+```scss
+&__skeleton {
+  width: 200px;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: identifier 1.5s infinite ease-in-out;
+
+  &__image { width: 100%; height: 200px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 12px; }
+  &__name { width: 80%; height: 20px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
+  &__category { width: 60%; height: 10px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
+  &__price { width: 40%; height: 18px; background-color: #e0e0e0; border-radius: 4px; }
+}
+
+@keyframes identifier {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+```
+
+- Saat data **belum ada** (`products.length === 0` / sedang loading) → skeleton card abu-abu dengan animasi fade muncul sebagai placeholder
+- Saat data **sudah dimuat** → daftar produk asli ditampilkan, skeleton menghilang
+
+---
+
+3. Refactor Kode dari useEffect menjadi SWR
+
+**Sebelum — menggunakan `useEffect`:**
+
+```tsx
+import { useEffect, useState } from "react";
+
+const kategori = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/produk")
+      .then((response) => response.json())
+      .then((responsedata) => {
+        setProducts(responsedata.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching produk:", error);
+      });
+  }, []);
+
+  return (
+    <div>
+      <TampilanProduk products={products} />
+    </div>
+  );
+};
+```
+
+**Sesudah — menggunakan `useSWR`:**
+
+```tsx
+import useSWR from "swr";
+import fetcher from "../utlis/swr/fetcher";
+
+const kategori = () => {
+  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
+
+  return (
+    <div>
+      <TampilanProduk products={isLoading ? [] : data.data} />
+    </div>
+  );
+};
+```
+
+**File `utlis/swr/fetcher.ts` (dipisah agar reusable):**
+
+```ts
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export default fetcher;
+```
+
+**Keunggulan SWR dibanding useEffect:**
+
+| Aspek | useEffect | useSWR |
+|---|---|---|
+| State management | Harus buat `useState` manual | `data`, `isLoading`, `error` otomatis tersedia |
+| Caching | Tidak ada | Built-in cache — request tidak diulang jika data masih fresh |
+| Revalidasi otomatis | Tidak ada | Otomatis revalidasi saat window di-focus kembali |
+| Error handling | Harus `try/catch` manual | `error` langsung dari hook |
+| Jumlah kode | Lebih banyak (boilerplate) | Lebih ringkas dan deklaratif |
 
 </details>
 ---
