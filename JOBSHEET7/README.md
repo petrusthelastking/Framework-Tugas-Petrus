@@ -56,13 +56,11 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Memahami konsep API Routes pada Next.js.
-- ✅ Membuat API sederhana menggunakan Next.js.
-- ✅ Mengirim response JSON dengan status code.
-- ✅ Mengambil data API di sisi frontend menggunakan fetch.
-- ✅ Mengintegrasikan Firebase Firestore sebagai database.
-- ✅ Mengelola environment variable (.env.local).
-- ✅ Menampilkan data dinamis dari database ke halaman web.
+- ✅ Menjelaskan konsep Client Side Rendering (CSR).
+- ✅ Mengimplementasikan data fetching menggunakan useEffect.
+- ✅ Membuat Skeleton Loading menggunakan conditional rendering.
+- ✅ Menggunakan library SWR untuk optimasi data fetching.
+- ✅ Mengimplementasikan caching pada aplikasi berbasis framework.
 
 
 ---
@@ -77,182 +75,146 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ██████████████████████████████████████  100%
 ```
 
-🟢 **10 Langkah** | ✅ **Semua Selesai**
+🟢 **5 Langkah** | ✅ **Semua Selesai**
 
 </div>
 
 ---
 
 <details open>
-<summary><h3>🔍 Langkah 2 – Membuat API Produk</h3></summary>
-<h4>1. Buat file pad pages/api/produk.js</h4>
+<summary><h3>🔍 Bagian 1 – Setup Data Produk</h3></summary>
 
-![alt text](<Images/Langkah 2 – Membuat API Produk(Buat file pad pagesapiproduk.js).png>)
+1. Siapkan project Next.js.
+2. Buat endpoint API /api/products.
+3. Pastikan data memiliki:
+o id
+o name
+o category
+o price
+o image
+4. jalankan browser http://localhost:3000/api/produk
 
-<h4>2. Tambahkan data statis:</h4>
-
-![alt text](<Images/Langkah 2 – Membuat API Produk(Tambahkan data statis).png>)
-
-<h4>3. Akses: http://localhost:3000/api/produk</h4>
-
-![alt text](<Images/Langkah 2 – Membuat API Produk(Jalankan).png>)
-
+![alt text](<Images/Bagian 1 – Setup Data Produk(bukti).png>)
 
 **Deskripsi:**<br>
-Langkah 2 – Membuat API Produk bertujuan untuk membuat endpoint API sederhana pada Next.js dengan nama /api/produk. Prosesnya meliputi pembuatan file pages/api/produk.js atau produk.ts, penambahan data produk statis di dalamnya, dan pengiriman response JSON yang berisi data produk, status true, dan status_code 200. Endpoint ini kemudian dapat diakses melalui browser di ``http://localhost:3000/api/produk.``
+Bagian 1 - Setup Data Produk merupakan langkah awal praktikum Client-Side Rendering (CSR) yang berfokus pada penyiapan data produk dengan membuat proyek Next.js, mengakses Firebase, serta membangun endpoint API /api/products yang harus memuat data contoh produk, seperti "Sepatu Duramo SL" dan "SEPATU SAMBA OG", lengkap dengan atribut id, name, category, price, dan image, lalu memastikannya dapat diakses melalui http://localhost:3000/api/produk.
 </details>
 
 ---
 
 <details open>
-<summary><h3>📦 Langkah 3 – Fetch Data API di Frontend</h3></summary>
-<h4>1. Buka pages/product/index.ts</h4>
+<summary><h3>📦 Bagian 2 – Implementasi CSR dengan useEffect</h3></summary>
+<h4>1. Membuat file index.tsx pada folder views/products</h4>
 
-- Modifikasi kode<br>
-o Tambahkan useEffect() dan comment useEffect untuk isLogin
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(1. Membuat file index.tsx pada folder viewsproducts).png>)
 
-![alt text](<Images/Langkah 3 – Fetch Data API di Frontend(1. Buka pagesproductindex.tsx).png>)
+<h4>2. Modifikasi index.tsx</h4>
 
-<h4>2. Jalankan browser http://localhost:3000/produk</h4>
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(2. Modifikasi index.tsx).png>)
 
-![alt text](<Images/Langkah 3 – Fetch Data API di Frontend(jalankan).png>)
+<h4>3. Buka file index.tsx pada pages/produk/</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(3. Buka file index.tsx pada pagesproduk).png>)
+
+<h4>4. Modifikasi index.tsx pada pages/produk/</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(4. Modifikasi index.tsx pada pagesproduk).png>)
+
+<h4>5. Jalankan browser http://localhost:3000/produk</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(6. Pada folder produk buat file produk.modules.scss).png>)
+
+<h4>6. Pada folder produk buat file produk.modules.scss</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(6. Pada folder produk buat file produk.modules.scss).png>)
+
+<h4>7. Modifikasi produk.modules.scss</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(7. Modifikasi produk.modules.scss).png>)
+
+<h4>8. Modifikasi Pada file index.tsx pada folder pages/views/product</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(8. Modifikasi Pada file index.tsx pada folder pagesviewsproduct).png>)
+
+<h4>9. Jalankan Browser</h4>
+
+![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(jalankan2).png>)
 
 **Deskripsi:**<br>
-Langkah 3 – Fetch Data API di Frontend dilakukan dengan membuka file pages/product/index.tsx dan memodifikasi kodenya. Modifikasi tersebut meliputi penambahan useEffect() untuk mengambil data API produk menggunakan fetch("/api/produk"), yang akan mengirimkan response JSON. Data produk yang diterima kemudian disimpan menggunakan setProducts(responsedata.data) dan ditampilkan di halaman. Selanjutnya, Anda dapat menjalankan browser di http://localhost:3000/produk untuk melihat hasilnya.
+Bagian 2 - Implementasi CSR dengan useEffect adalah proses menampilkan daftar produk menggunakan pola Client-Side Rendering (CSR) dasar di Next.js, dimulai dengan membuat komponen TampilanProduk di views/products/index.tsx untuk menampilkan data produk (nama, harga, kategori, dan gambar), kemudian memodifikasi halaman pages/produk/index.tsx untuk melakukan pengambilan data (data fetching) dari endpoint /api/produk menggunakan hook useEffect dan menyimpan hasilnya ke dalam state products, yang akhirnya ditampilkan pada peramban melalui http://localhost:3000/produk, dan dilengkapi dengan styling menggunakan product.module.scss.
 </details>
 
 ---
 
 <details open>
-<summary><h3>🚀 Langkah 5 – Setup Firebase</h3></summary>
+<summary><h3>🚀 Bagian 3 – Implementasi Skeleton Loading</h3></summary>
 
-<h4>Buat project baru</h4>
+<h4>Modfikasi file index.tsx pada folder views/product/index.tsx</h4>
 
-[text](README.md) ![text](<Images/Langkah 5 – Setup Firebase(1).png>) ![text](<Images/Langkah 5 – Setup Firebase(2).png>) ![text](<Images/Langkah 5 – Setup Firebase(3).png>) ![text](<Images/Langkah 5 – Setup Firebase(4).png>) ![text](<Images/Langkah 5 – Setup Firebase(5).png>) ![text](<Images/Langkah 5 – Setup Firebase(6).png>)
+![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modfikasi file index.tsx pada folder views product index.tsx).png>)
 
-[text](README.md) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baru).png>) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baruu).png>) ![text](<Images/Langkah 5 – Setup Firebase(Buat project baruuu).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database1).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database2).png>) ![text](<Images/Langkah 5 – Setup Firebase(klik create database3).png>) ![text](<Images/Langkah 5 – Setup Firebase(Note klik add app dan pilih web).png>)
+<h4>Modifikasi file product.module.scss</h4>
 
+![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modifikasi file product.module.scss).png>)
+
+<h4>Jalankan browser maka akan muncul skeleton yang terdapat animasi berkedip</h4>
+
+![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Jalankan browser maka akan muncul skeleton yang terdapat animasi berkedip).png>)
+
+<h4>Modifikasi pada index.tsx pada folder views/product/index.tsx</h4>
+
+![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modifikasi pada index.tsx pada folder views product ndex.tsx).png>)
+
+<h4>Jalankan browser</h4>
+
+![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Jalankan).png>)
 
 **Deskripsi:**<br>
-Langkah 5 – Setup Firebase meliputi beberapa tahapan, diawali dengan membuka Firebase Go To Console (login dengan akun Google) dan membuat project baru. Dalam proses pembuatan project, Anda perlu memberikan nama, misalnya "Framework-next", dan memastikan untuk menonaktifkan Google Analytics sebelum menekan "Create project".
-
-Setelah project siap, lanjutkan dengan menambahkan aplikasi dengan memilih platform "web". Daftarkan aplikasi web dengan memberikan julukan (misalnya "Framework-next2026") dan klik "Register app". Setelah itu, klik "Continue to console".
-
-Tahap berikutnya adalah mengaktifkan Firestore Database dengan mengklik "Create database". Pilih Select edition (Standard edition atau Enterprise edition) dan tentukan Database ID & location, misalnya asia-southeast2 (Jakarta). Setelah mengklik Configure atau Next, atur security rules dengan mengubah rules menjadi allow read, write: if true; dan klik publish.
-
-Terakhir, buat collection baru dengan ID products dan tambahkan document pertama menggunakan auto-id. Tambahkan field seperti name (string, contoh: "baju polo"), price (number, contoh: 100000), dan size (string, contoh: "xl").
+Bagian 3 - Implementasi Skeleton Loading bertujuan untuk meningkatkan User Experience (UX) dengan memodifikasi komponen TampilanProduk di
+> views/product/index.tsx 
+dan menambahkan struktur HTML skeleton yang relevan untuk menggantikan tampilan kosong saat data fetching berlangsung, di mana struktur skeleton tersebut mencakup elemen untuk gambar, nama, kategori, dan harga. Selain itu, diterapkan styling khusus di
+> product.module.scss 
+untuk memberikan tampilan skeleton yang memiliki animasi berkedip, dan menggunakan conditional rendering (
+> products.length > 0 
+) sehingga skeleton hanya ditampilkan saat data belum tersedia atau sedang dimuat.
 </details>
 
 ---
 
 <details open>
-<summary><h3>🎨 Langkah 6 – Install Firebase</h3></summary>
+<summary><h3>🎨 Bagian 5 – Implementasi SWR</h3></summary>
 
-<h4>1. npm install firebase</h4>
+<h4>1. Install SWR</h4>
 
-![alt text](<Images/Langkah 6 – Install Firebase(1. npm install firebase).png>)
+![alt text](<Images/Bagian 5 – Implementasi SWR(1. Install SWR).png>)
 
-<h4>2. Buat folder dan file ts pada pages utlis/db/firebase.ts</h4>
+<h4>2. Buka dan modifkasi file index.tsx pada folder pages/product/</h4>
 
-![alt text](<Images/Langkah 6 – Install Firebase(Buat folder dan file ts pada pages utlisdbfirebase.ts.png>)
+![alt text](<Images/Bagian 5 – Implementasi SWR(2. Buka dan modifkasi file index.tsx pada folder pages product).png>)
+
+<h4>3. Agar terlihat lebih rapi</h4>
+
+- Buat folder swr pada utils dan tambahkan file dengan nama fetcher.js
+
+![alt text](<Images/Bagian 5 – Implementasi SWR(3. Agar terlihat lebih rapi)(Buat folder swr pada utils dan tambahkan file dengan nama fetcher.js).png>)
+
+- Modifikasi file fetcher.ts
+
+![alt text](<Images/Bagian 5 – Implementasi SWR(Modifikasi file fetcher.ts).png>)
+
+- Modifikasi file index.tsx pada folder pages/produk
+
+![alt text](<Images/Bagian 5 – Implementasi SWR(Modifikasi file index.tsx pada folder pages produk).png>)
 
 **Deskripsi:**<br>
-Langkah 6 – Install Firebase diawali dengan menjalankan perintah npm install firebase di terminal. Setelah instalasi berhasil, buat folder dan file firebase.ts di pages/utils/db/firebase.ts. Kemudian, salin dan tempel kode konfigurasi Firebase yang ada pada kotak merah di Project settings ke dalam file firebase.ts tersebut.
+Bagian 5 - Implementasi SWR adalah langkah untuk mengoptimalkan pengambilan data (data fetching) dengan mengganti hook useEffect manual menjadi penggunaan library SWR (Stale-While-Revalidate) yang menyediakan fitur caching dan revalidation otomatis, dengan cara menginstal SWR, lalu memodifikasi halaman produk (pages/produk/index.tsx) untuk mengimpor useSWR dan membuat fungsi fetcher untuk mengambil data dari API /api/produk, kemudian data produk ditampilkan menggunakan hasil dari useSWR dengan penanganan loading yang lebih sederhana, bahkan fungsi fetcher dapat di-refactor ke file terpisah untuk kode yang lebih rapi.
 </details>
 
 ---
 
 <details open>
-<summary><h3>Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush
-di repository</h3></summary>
+<summary><h3>🌈 D. Tugas Praktikum</h3></summary>
 
-<h4>1. Buat file: .env.local</h4>
-
-![alt text](<Images/Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush(Buat file .env.local).png>)
-
-<h4>2. Modifikasi file env</h4>
-
-![alt text](<Images/Langkah 7 – Konfigurasi Environment Variable agar credensial firebase tidak dapat dilihat saat dipush(Modifikasi file env).png>)
-
-**Deskripsi:**<br>
-Langkah 7 – Konfigurasi Environment Variable bertujuan agar kredensial Firebase tidak dapat dilihat saat di-push ke repository. Langkah-langkahnya adalah sebagai berikut:
-Buat file bernama .env.local di root directory proyek (6.praktikum-ApiRoutes\my-app).
-Modifikasi file .env.local dengan menambahkan variabel-variabel lingkungan untuk kredensial Firebase:
-FIREBASE_API_KEY=
-FIREBASE_AUTH_DOMAIN=
-FIREBASE_PROJECT_ID=
-FIREBASE_STORAGE_BUCKET=
-FIREBASE_MESSAGING_SENDER_ID=
-FIREBASE_APP_ID=
-Isi nilai variabel-variabel tersebut sesuai dengan konfigurasi Firebase Anda (tanpa koma dan petik dua). Nilai ini dapat ditemukan di Project settings Firebase Anda.
-</details>
-
----
-<details open>
-<summary><h3>🌈 Langkah 8 – Konfigurasi Firebase</h3></summary>
-<h4>1. Modifikasi firebase.ts</h4>
-
-![alt text](<Images/Langkah 8 – Konfigurasi Firebase(1. Modifikasi firebase.ts).png>)
-
-</details>
-
-<details open>
-<summary><h3>Langkah 9 – Ambil Data dari Firestore</h3></summary>
-
-<h4>1. Buat file</h4>
-
-- ulits/db/servicefirebase.js
-
-![alt text](<Images/Langkah 9 – Ambil Data dari Firestore(1. Buat file).png>)
-
-- modifikasi file servicefirebase.js
-
-![alt text](<Images/Langkah 9 – Ambil Data dari Firestore(1. Buat filee).png>)
-
-**Deskripsi:**<br>
-Langkah 9 – Ambil Data dari Firestore dilakukan dengan membuat file baru bernama ulits/db/servicefirebase.js (atau servicefirebase.ts) dan memodifikasinya. Di dalam file tersebut, buat fungsi retrieveProducts yang bersifat async, yang mengambil collectionName sebagai parameter. Fungsi ini menggunakan getFirestore(app) untuk mendapatkan instance database dan getDocs(collection (db, collectionName)) untuk mengambil snapshot data dari collection yang ditentukan. Data kemudian di-map untuk menyertakan id dokumen dan data lainnya sebelum dikembalikan. Untuk mengimplementasikannya, impor getFirestore, collection, dan getDocs dari firebase/firestore, serta app dari file firebase.ts.
-</details>
-
-<details open>
-<summary><h3>Langkah 10 – API Mengambil Data Firebase</h3></summary>
-
-<h4>1. Edit pages/api/product.js:</h4>
-
-![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Edit pagesapiproduct.js).png>)
-
-<h4>2. Jalankan browser http://localhost:3000/api/produk</h4>
-
-![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Jalankan browser1).png>)
-
-<h4>3. Modifikasi index.ts pada produk sesuaikan nama typenya dan db nya</h4>
-
-![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(3. Modifikasi index.ts pada produk sesuaikan nama typenya dan db nya).png>)
-
-<h4>Jalankan</h4>
-
-![alt text](<Images/Langkah 10 – API Mengambil Data Firebase(Jalankan browser2).png>)
-
-**Deskripsi:**<br>
-Langkah 10 – API Mengambil Data Firebase dilakukan dengan mengedit file pages/api/produk.js. Modifikasi ini melibatkan pengubahan implementasi API produk untuk mengambil data dari Firestore, bukan dari data statis.
-
-Caranya adalah:
-Impor fungsi retrieveProducts dari ../utils/db/servicefirebase.
-Ubah fungsi handler menjadi async.
-Di dalam fungsi handler, panggil const data = await retrieveProducts("products"); untuk mengambil data dari collection "products" di Firebase.
-Kirim response JSON dengan data yang diterima dari Firebase: res.status(200).json({ status: true, status_code: 200, data });.
-Setelah dimodifikasi, endpoint API dapat diakses di http://localhost:3000/api/produk. Hasilnya akan menampilkan data dinamis dari Firestore.
-</details>
-
-<details open>
-<summary><h3>🌈 F. Tugas Praktikum</h3></summary>
-
-![alt text](<Images/Screenshot 2026-03-03 234045.png>)
-
----
-
-### 🎯 Tugas Individu
-
----
 1. Perbedaan Client Side Rendering, Server Side Rendering, dan Static Site Generation
 
 **Client Side Rendering (CSR)** adalah pendekatan di mana proses rendering halaman terjadi di sisi browser (client). Server hanya mengirimkan file HTML kosong beserta JavaScript. Browser kemudian mengeksekusi JavaScript tersebut, mengambil data dari API, dan baru merender konten ke layar. Karena itu, pada pemuatan pertama halaman terlihat kosong sejenak — inilah alasan skeleton loading sangat berguna pada CSR. Contoh implementasi di Next.js: menggunakan `useEffect` + `fetch` atau library `useSWR` seperti yang diterapkan di praktikum ini.
