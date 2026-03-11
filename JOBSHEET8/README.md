@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%7007&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%8008&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # 📘 Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>📖 Praktikum</b></td>
-<td>Jobsheet 05 - Custom Document dan Custom Error Page pada Next.js</td>
+<td>Jobsheet 08 - Server Side Rendering (SSR)</td>
 </tr>
 <tr>
 <td><b>👤 Nama</b></td>
@@ -56,11 +56,11 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menjelaskan konsep Client Side Rendering (CSR).
-- ✅ Mengimplementasikan data fetching menggunakan useEffect.
-- ✅ Membuat Skeleton Loading menggunakan conditional rendering.
-- ✅ Menggunakan library SWR untuk optimasi data fetching.
-- ✅ Mengimplementasikan caching pada aplikasi berbasis framework.
+- ✅ Menjelaskan konsep Server Side Rendering (SSR).
+- ✅ Membedakan SSR dengan Client Side Rendering (CSR).
+- ✅ Mengimplementasikan getServerSideProps.
+- ✅ Mengelola data melalui props pada SSR.
+- ✅ Menganalisis perbedaan performa SSR vs CSR melalui DevTools.
 
 
 ---
@@ -75,139 +75,77 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ██████████████████████████████████████  100%
 ```
 
-🟢 **5 Langkah** | ✅ **Semua Selesai**
+🟢 **3 Langkah** | ✅ **Semua Selesai**
 
 </div>
 
 ---
 
 <details open>
-<summary><h3>🔍 Bagian 1 – Setup Data Produk</h3></summary>
+<summary><h3>🔍 Bagian 1 – Setup Halaman SSR</h3></summary>
 
-1. Siapkan project Next.js.
-2. Buat endpoint API /api/products.
-3. Pastikan data memiliki:
-o id
-o name
-o category
-o price
-o image
-4. jalankan browser http://localhost:3000/api/produk
+1. Buat file baru pada pages/products/server.tsx
 
-![alt text](<Images/Bagian 1 – Setup Data Produk(bukti).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 1 – Setup Halaman SSR)(1).png>)
+
+2. Modifikasi file server.tsx :
+
+![alt text](<Images/C. Langkah Praktikum (Bagian 1 – Setup Halaman SSR)(2).png>)
+
+3. Jalankan browser : http://localhost:3000/produk/server
+
+![alt text](<Images/C. Langkah Praktikum (Bagian 1 – Setup Halaman SSR)(3).png>)
+
 
 **Deskripsi:**<br>
-Bagian 1 - Setup Data Produk merupakan langkah awal praktikum Client-Side Rendering (CSR) yang berfokus pada penyiapan data produk dengan membuat proyek Next.js, mengakses Firebase, serta membangun endpoint API /api/products yang harus memuat data contoh produk, seperti "Sepatu Duramo SL" dan "SEPATU SAMBA OG", lengkap dengan atribut id, name, category, price, dan image, lalu memastikannya dapat diakses melalui http://localhost:3000/api/produk.
+Langkah awal dilakukan dengan membuat file baru bernama server.tsx di dalam direktori pages/products/. Selanjutnya, file tersebut dimodifikasi dengan menyusun komponen halamanProdukServer yang mengimpor TampilanProduk untuk menampilkan daftar produk. Pada tahap inisialisasi ini, data produk yang dikirimkan ke komponen melalui props masih berupa array kosong. Terakhir, proses verifikasi dilakukan dengan mengakses URL http://localhost:3000/produk/server pada browser untuk memastikan halaman dengan judul "Halaman Produk Server" berhasil dirender
 </details>
 
 ---
 
 <details open>
-<summary><h3>📦 Bagian 2 – Implementasi CSR dengan useEffect</h3></summary>
-<h4>1. Membuat file index.tsx pada folder views/products</h4>
+<summary><h3>📦 Bagian 2 – Implementasi getServerSideProps pada server.tsx</h3></summary>
 
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(1. Membuat file index.tsx pada folder viewsproducts).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 2 – Implementasi getServerSideProps pada server.tsx)(1).png>)
 
-<h4>2. Modifikasi index.tsx</h4>
+- Jalankan browser http://localhost:3000/produk/server
 
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(2. Modifikasi index.tsx).png>)
-
-<h4>3. Buka file index.tsx pada pages/produk/</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(3. Buka file index.tsx pada pagesproduk).png>)
-
-<h4>4. Modifikasi index.tsx pada pages/produk/</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(4. Modifikasi index.tsx pada pagesproduk).png>)
-
-<h4>5. Jalankan browser http://localhost:3000/produk</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(6. Pada folder produk buat file produk.modules.scss).png>)
-
-<h4>6. Pada folder produk buat file produk.modules.scss</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(6. Pada folder produk buat file produk.modules.scss).png>)
-
-<h4>7. Modifikasi produk.modules.scss</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(7. Modifikasi produk.modules.scss).png>)
-
-<h4>8. Modifikasi Pada file index.tsx pada folder pages/views/product</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(8. Modifikasi Pada file index.tsx pada folder pagesviewsproduct).png>)
-
-<h4>9. Jalankan Browser</h4>
-
-![alt text](<Images/Bagian 2 – Implementasi CSR dengan useEffect(jalankan2).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 2 – Implementasi getServerSideProps pada server.tsx)(2).png>)
 
 **Deskripsi:**<br>
-Bagian 2 - Implementasi CSR dengan useEffect adalah proses menampilkan daftar produk menggunakan pola Client-Side Rendering (CSR) dasar di Next.js, dimulai dengan membuat komponen TampilanProduk di views/products/index.tsx untuk menampilkan data produk (nama, harga, kategori, dan gambar), kemudian memodifikasi halaman pages/produk/index.tsx untuk melakukan pengambilan data (data fetching) dari endpoint /api/produk menggunakan hook useEffect dan menyimpan hasilnya ke dalam state products, yang akhirnya ditampilkan pada peramban melalui http://localhost:3000/produk, dan dilengkapi dengan styling menggunakan product.module.scss.
+Fungsi getServerSideProps pada server.tsx digunakan untuk mengambil data produk dari API di sisi server sebelum halaman dirender. Data tersebut kemudian dikirim ke komponen sebagai props, sehingga HTML yang diterima browser sudah lengkap berisi data tanpa perlu skeleton.
 </details>
 
 ---
 
 <details open>
-<summary><h3>🚀 Bagian 3 – Implementasi Skeleton Loading</h3></summary>
+<summary><h3>🚀 Bagian 3 – Refactor Type ( produk type )</h3></summary>
 
-<h4>Modfikasi file index.tsx pada folder views/product/index.tsx</h4>
+1. Buat folder types pada folder pages dan buat file Product.type.ts
 
-![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modfikasi file index.tsx pada folder views product index.tsx).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 3 – Refactor Type ( produk type ))(1).png>)
 
-<h4>Modifikasi file product.module.scss</h4>
+2. Modifikasi Product.type.ts
 
-![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modifikasi file product.module.scss).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 3 – Refactor Type ( produk type ))(2).png>)
 
-<h4>Jalankan browser maka akan muncul skeleton yang terdapat animasi berkedip</h4>
+3. Setelah membuat file Product.type.ts maka modifikasi pada file server.tsx menjadi
 
-![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Jalankan browser maka akan muncul skeleton yang terdapat animasi berkedip).png>)
-
-<h4>Modifikasi pada index.tsx pada folder views/product/index.tsx</h4>
-
-![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Modifikasi pada index.tsx pada folder views product ndex.tsx).png>)
-
-<h4>Jalankan browser</h4>
-
-![alt text](<Images/Bagian 3 – Implementasi Skeleton Loading(Jalankan).png>)
+![alt text](<Images/C. Langkah Praktikum (Bagian 3 – Refactor Type ( produk type ))(3).png>)
 
 **Deskripsi:**<br>
-Bagian 3 - Implementasi Skeleton Loading bertujuan untuk meningkatkan User Experience (UX) dengan memodifikasi komponen TampilanProduk di
-> views/product/index.tsx 
-dan menambahkan struktur HTML skeleton yang relevan untuk menggantikan tampilan kosong saat data fetching berlangsung, di mana struktur skeleton tersebut mencakup elemen untuk gambar, nama, kategori, dan harga. Selain itu, diterapkan styling khusus di
-> product.module.scss 
-untuk memberikan tampilan skeleton yang memiliki animasi berkedip, dan menggunakan conditional rendering (
-> products.length > 0 
-) sehingga skeleton hanya ditampilkan saat data belum tersedia atau sedang dimuat.
+Proses refaktor dimulai dengan membuat folder baru bernama types di dalam direktori pages yang berisi file Product.type.ts. Di dalam file tersebut, dilakukan pendefinisian ProductType yang mencakup atribut seperti id, name, price, image, dan category untuk memastikan struktur data produk yang konsisten. Setelah tipe data dibuat, file server.tsx dimodifikasi dengan mengimpor ProductType dari folder types tersebut. Terakhir, tipe data ini diterapkan pada properti komponen halamanProdukServer untuk menggantikan definisi tipe lokal sebelumnya, sehingga kode menjadi lebih rapi dan terorganisir.
 </details>
 
 ---
 
 <details open>
-<summary><h3>🎨 Bagian 5 – Implementasi SWR</h3></summary>
+<summary><h3>🎨 Bagian 4 – Uji Perbedaan SSR vs CSR</h3></summary>
 
-<h4>1. Install SWR</h4>
-
-![alt text](<Images/Bagian 5 – Implementasi SWR(1. Install SWR).png>)
-
-<h4>2. Buka dan modifkasi file index.tsx pada folder pages/product/</h4>
-
-![alt text](<Images/Bagian 5 – Implementasi SWR(2. Buka dan modifkasi file index.tsx pada folder pages product).png>)
-
-<h4>3. Agar terlihat lebih rapi</h4>
-
-- Buat folder swr pada utils dan tambahkan file dengan nama fetcher.js
-
-![alt text](<Images/Bagian 5 – Implementasi SWR(3. Agar terlihat lebih rapi)(Buat folder swr pada utils dan tambahkan file dengan nama fetcher.js).png>)
-
-- Modifikasi file fetcher.ts
-
-![alt text](<Images/Bagian 5 – Implementasi SWR(Modifikasi file fetcher.ts).png>)
-
-- Modifikasi file index.tsx pada folder pages/produk
-
-![alt text](<Images/Bagian 5 – Implementasi SWR(Modifikasi file index.tsx pada folder pages produk).png>)
+![alt text](<Images/uji coba.png>)
 
 **Deskripsi:**<br>
-Bagian 5 - Implementasi SWR adalah langkah untuk mengoptimalkan pengambilan data (data fetching) dengan mengganti hook useEffect manual menjadi penggunaan library SWR (Stale-While-Revalidate) yang menyediakan fitur caching dan revalidation otomatis, dengan cara menginstal SWR, lalu memodifikasi halaman produk (pages/produk/index.tsx) untuk mengimpor useSWR dan membuat fungsi fetcher untuk mengambil data dari API /api/produk, kemudian data produk ditampilkan menggunakan hasil dari useSWR dengan penanganan loading yang lebih sederhana, bahkan fungsi fetcher dapat di-refactor ke file terpisah untuk kode yang lebih rapi.
+Pengujian dilakukan untuk membandingkan karakteristik Server Side Rendering (SSR) dan Client Side Rendering (CSR) melalui tiga indikator utama. Pertama, pada uji skeleton, halaman CSR akan menampilkan skeleton saat di-refresh, sedangkan halaman SSR tidak menampilkannya karena data langsung tersedia. Kedua, melalui Network Tab di DevTools, permintaan API (XHR) akan terlihat pada halaman CSR, namun tidak akan tampak pada halaman SSR karena pengambilan data terjadi di server. Ketiga, pada aspek respon HTML, halaman CSR memberikan HTML awal yang kosong atau hanya berisi skeleton, sementara halaman SSR mengirimkan HTML yang sudah berisi data produk lengkap.
 </details>
 
 ---
@@ -215,7 +153,197 @@ Bagian 5 - Implementasi SWR adalah langkah untuk mengoptimalkan pengambilan data
 <details open>
 <summary><h3>🌈 D. Tugas Praktikum</h3></summary>
 
-1. Perbedaan Client Side Rendering, Server Side Rendering, dan Static Site Generation
+### 🎯 Tugas Individu
+
+---
+
+## 1. Dua Halaman: CSR dan SSR
+
+### Halaman `/produk` — Client Side Rendering (CSR)
+
+File: `src/pages/produk/index.tsx`
+
+```tsx
+import TampilanProduk from "../views/product";
+import useSWR from "swr";
+import fetcher from "../utlis/swr/fetcher";
+
+const kategori = () => {
+  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
+
+  return (
+    <div>
+      <TampilanProduk products={isLoading ? [] : data.data} />
+    </div>
+  );
+};
+
+export default kategori;
+```
+
+- Data diambil di sisi **browser** menggunakan `useSWR` setelah halaman dimuat
+- Saat loading, ditampilkan **skeleton loading** dengan animasi fade
+- Tidak ada `getServerSideProps` — rendering murni di client
+
+---
+
+### Halaman `/produk/server` — Server Side Rendering (SSR)
+
+File: `src/pages/produk/server.tsx`
+
+```tsx
+import TampilanProduk from "../views/product";
+import { produkType } from "../type/Product.type";
+
+const HalamanProdukServer = (props: { products: produkType[] }) => {
+  const { products } = props;
+  return (
+    <div>
+      <h1>Halaman Produk Server</h1>
+      <TampilanProduk products={products} />
+    </div>
+  );
+};
+
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/produk");
+  const data = await res.json();
+
+  return {
+    props: {
+      products: data.data,
+    },
+  };
+}
+
+export default HalamanProdukServer;
+```
+
+- Data diambil di sisi **server** menggunakan `getServerSideProps` sebelum halaman dikirim ke browser
+- HTML yang diterima browser sudah berisi data produk lengkap
+- Tidak ada skeleton loading karena data sudah tersedia saat halaman pertama kali dirender
+
+---
+
+## 2. Dokumentasi
+
+### Screenshot CSR (`/produk`)
+
+> *Screenshot halaman `/produk` — saat loading tampil skeleton, setelah data dimuat tampil daftar produk*
+
+![alt text](<Images/Screenshot CSR.png>)
+
+### Screenshot SSR (`/produk/server`)
+
+> *Screenshot halaman `/produk/server` — konten produk langsung tampil tanpa skeleton karena data disiapkan di server*
+
+![alt text](<Images/Screenshot SSR.png>)
+
+---
+
+### Perbedaan Network Tab
+
+| Aspek | CSR (`/produk`) | SSR (`/produk/server`) |
+|---|---|---|
+| **Request pertama** | HTML kosong/minimal diterima | HTML lengkap berisi data produk diterima |
+| **Request tambahan** | Ada request XHR ke `/api/produk` setelah halaman dimuat | Tidak ada request XHR tambahan ke API dari browser |
+| **Jumlah request** | Lebih banyak (halaman + API call) | Lebih sedikit (hanya halaman) |
+| **Waktu hingga konten tampil** | Lebih lama (perlu tunggu API response) | Lebih cepat (data sudah ada di HTML) |
+| **Waterfall** | Ada dua tahap: load page → fetch API | Satu tahap: load page (sudah berisi data) |
+
+**Penjelasan:**
+Pada CSR, di Network Tab akan terlihat dua request terpisah — pertama request halaman HTML, kemudian request XHR/Fetch ke `/api/produk`. Pada SSR, hanya ada satu request halaman karena server sudah menyelesaikan fetch data sebelum mengirim HTML ke browser.
+
+---
+
+### Perbedaan View Source
+
+| Aspek | CSR (`/produk`) | SSR (`/produk/server`) |
+|---|---|---|
+| **Konten HTML awal** | `<div id="__next"></div>` kosong | HTML sudah berisi nama produk, harga, kategori |
+| **Data produk** | Tidak ada di source (diisi JS setelah load) | Terlihat jelas di source HTML |
+| **SEO** | Crawler tidak bisa membaca konten produk | Crawler langsung membaca konten produk |
+| **`<script>` tag** | Banyak — JS yang mengambil dan merender data | Lebih sedikit — data sudah di HTML |
+
+**Penjelasan:**
+Jika klik kanan → "View Page Source" pada halaman CSR, bagian konten produk tidak terlihat karena konten baru dirender oleh JavaScript setelah halaman dimuat. Sebaliknya pada SSR, seluruh nama produk, harga, dan kategori sudah terlihat langsung di source HTML yang diterima browser.
+
+---
+
+## 3. Laporan Analisis: Perbandingan CSR vs SSR di Next.js
+
+### Pendahuluan
+
+Dalam pengembangan aplikasi web modern menggunakan Next.js, terdapat beberapa strategi rendering yang dapat dipilih sesuai kebutuhan. Dua strategi utama yang dibandingkan dalam praktikum ini adalah **Client Side Rendering (CSR)** dan **Server Side Rendering (SSR)**. Pemilihan strategi rendering yang tepat berdampak signifikan pada performa, pengalaman pengguna, dan kemampuan SEO sebuah aplikasi web.
+
+Praktikum ini mengimplementasikan dua halaman produk — `/produk` menggunakan CSR dengan library SWR, dan `/produk/server` menggunakan SSR dengan `getServerSideProps` — untuk membandingkan secara langsung perbedaan perilaku, performa, dan karakteristik masing-masing pendekatan.
+
+---
+
+### Implementasi
+
+**CSR dengan SWR (`/produk`):**
+
+Pada halaman CSR, data produk diambil setelah browser selesai memuat halaman. Library SWR digunakan sebagai pengganti `useEffect` manual karena menawarkan fitur caching otomatis, revalidasi saat window di-focus, dan state management (`isLoading`, `error`, `data`) yang lebih ringkas. Selama proses fetch berlangsung, komponen `TampilanProduk` menerima array kosong dan merender **skeleton loading** — placeholder animasi berbentuk kotak abu-abu dengan efek fade menggunakan `@keyframes identifier`.
+
+```
+Browser request halaman → Server kirim HTML kosong + JS
+→ Browser eksekusi JS → SWR fetch /api/produk
+→ API ambil data Firestore → Response JSON diterima
+→ React re-render dengan data produk → Tampil di layar
+```
+
+**SSR dengan getServerSideProps (`/produk/server`):**
+
+Pada halaman SSR, siklus berbeda terjadi. Ketika browser meminta halaman `/produk/server`, Next.js di server menjalankan fungsi `getServerSideProps` terlebih dahulu. Di dalam fungsi ini, server melakukan fetch ke `/api/produk` dan mendapatkan data dari Firestore. Data tersebut dikirim sebagai `props` ke komponen React, yang kemudian di-render menjadi HTML lengkap di server. HTML final yang terisi data produk inilah yang dikirim ke browser.
+
+```
+Browser request halaman → Next.js server jalankan getServerSideProps
+→ Server fetch /api/produk → Data Firestore diterima server
+→ Server render React component dengan data → HTML lengkap dikirim ke browser
+→ Browser tampilkan halaman (sudah berisi produk)
+```
+
+---
+
+### Analisis Perbandingan
+
+**1. Performa Initial Load**
+
+CSR memiliki kelemahan pada initial load karena browser harus menunggu dua tahap: pertama memuat halaman kosong, kemudian melakukan request API tambahan. Pada koneksi lambat, pengguna akan melihat skeleton loading cukup lama. SSR mengirimkan HTML yang sudah berisi data sehingga konten tampil lebih cepat meski server membutuhkan waktu pemrosesan lebih.
+
+**2. Beban Server**
+
+CSR meringankan beban server karena pemrosesan data dilakukan di browser masing-masing pengguna. SSR meningkatkan beban server karena setiap request memerlukan fetch data dan rendering di server. Untuk aplikasi dengan traffic tinggi, SSR perlu infrastruktur server yang lebih kuat.
+
+**3. User Experience**
+
+CSR dengan skeleton loading memberikan feedback visual yang baik — pengguna tahu bahwa konten sedang dimuat. Namun ada jeda antara halaman muncul dan data tersedia. SSR memberikan pengalaman "langsung jadi" — konten tersedia sejak pertama kali halaman dimuat, tanpa jeda loading.
+
+**4. SEO (Search Engine Optimization)**
+
+CSR sangat tidak ramah SEO karena web crawler seperti Googlebot mendapatkan HTML kosong dan konten produk tidak terindeks. SSR sangat baik untuk SEO karena crawler langsung mendapatkan konten lengkap dalam HTML.
+
+**5. Penggunaan SWR vs getServerSideProps**
+
+SWR (pada CSR) unggul dalam hal: caching otomatis, revalidasi data saat window refocus, dan kode yang ringkas. `getServerSideProps` (pada SSR) unggul dalam hal: data fresh setiap request, tidak ada request API tambahan dari browser, dan konten langsung tersedia.
+
+---
+
+### Kesimpulan
+
+| Kriteria | CSR (`useSWR`) | SSR (`getServerSideProps`) |
+|---|---|---|
+| **Initial load** | Lebih lambat | Lebih cepat |
+| **Beban server** | Ringan | Lebih berat |
+| **SEO** | Buruk | Baik |
+| **UX loading state** | Skeleton loading | Langsung tampil |
+| **Data freshness** | Bisa stale (ada cache) | Selalu fresh |
+| **Cocok untuk** | Dashboard, user-specific data | Halaman publik, produk, berita |
+
+Berdasarkan analisis ini, untuk halaman produk yang bersifat publik dan perlu diindeks oleh mesin pencari, **SSR adalah pilihan yang lebih tepat**. Namun untuk halaman dashboard atau data yang spesifik per pengguna dan tidak memerlukan SEO, **CSR dengan SWR lebih efisien** karena meringankan beban server dan memberikan pengalaman interaktif yang baik dengan skeleton loading.
+
+</details>
 
 **Client Side Rendering (CSR)** adalah pendekatan di mana proses rendering halaman terjadi di sisi browser (client). Server hanya mengirimkan file HTML kosong beserta JavaScript. Browser kemudian mengeksekusi JavaScript tersebut, mengambil data dari API, dan baru merender konten ke layar. Karena itu, pada pemuatan pertama halaman terlihat kosong sejenak — inilah alasan skeleton loading sangat berguna pada CSR. Contoh implementasi di Next.js: menggunakan `useEffect` + `fetch` atau library `useSWR` seperti yang diterapkan di praktikum ini.
 
