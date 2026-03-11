@@ -1,0 +1,23 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
+import { retrieveProducts } from "../utlis/db/servicefirebase";
+
+type Data = {
+  status: boolean;
+  status_code: number;
+  data: any;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>,
+) {
+  try {
+    console.log("PROJECT_ID:", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
+    const data = await retrieveProducts("products");
+    res.status(200).json({ status: true, status_code: 200, data });
+  } catch (error: any) {
+    console.error("Firebase error:", error.message);
+    res.status(500).json({ status: false, status_code: 500, data: error.message });
+  }
+}
