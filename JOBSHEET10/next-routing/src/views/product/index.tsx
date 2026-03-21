@@ -9,15 +9,17 @@ type ProductType = {
   category: string;
 };
 
-const TampilanProduk = ({ products }: { products: ProductType[] }) => {
+const TampilanProduk = ({ products = [] }: { products?: ProductType[] }) => {
+  const safeProducts = Array.isArray(products) ? products : [];
+
   return (
     <div className={styles.produk}>
       <h1 className={styles.produk__title}>Daftar Produk</h1>
       <div className={styles.produk__content}>
-        {products.length > 0 ? (
+        {safeProducts.length > 0 ? (
           <>
-            {products.map((products: ProductType) => (
-             <Link href={`/product/${products.id}`} key={products.id} className={styles.produk__content__item}>
+            {safeProducts.map((products: ProductType) => (
+             <Link href={`/produk/${products.id}`} key={products.id} className={styles.produk__content__item}>
                 <div className={styles.produk__content__item__image}>
                   <img src={products.image} alt={products.name} width={200} />
                 </div>
