@@ -7,14 +7,14 @@ const TampilanDetailProduk = ({ product }: { product: produkType }) => {
             <h1 className={styles.title}>Detail Produk</h1>
             <div className={styles.produkdetail}>
                 <div className={styles.produkdetail__image}>
-                    <img src={product.image} alt={product.name} width={300} />
+                    <img src={product.image || ""} alt={product.name} width={400} />
                 </div>
 
                 <div className={styles.produkdetail__info}>
                     <h1 className={styles.produkdetail__name}>{product.name}</h1>
                     <p className={styles.produkdetail__category}>{product.category}</p>
                     <p className={styles.produkdetail__price}>
-                        Rp {product.price?.toLocaleString("id-ID")}
+                        Rp {product.price?.toLocaleString("id-ID")} 
                     </p>
                 </div>
             </div>
