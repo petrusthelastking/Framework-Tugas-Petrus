@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet%9009&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 10&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # 📘 Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>📖 Praktikum</b></td>
-<td>Jobsheet 09 - Perbandingan CSR vs SSR vs SSG</td>
+<td>Jobsheet 10 - Dynamic Routing & Static Generation</td>
 </tr>
 <tr>
 <td><b>👤 Nama</b></td>
@@ -56,11 +56,14 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menjelaskan konsep Static Site Generation (SSG).
-- ✅ Membedakan SSG dengan SSR dan CSR.
-- ✅ Mengimplementasikan getStaticProps.
-- ✅ Melakukan build dan start production mode.
-- ✅ Menganalisis perilaku data dinamis pada SSG.
+- ✅ Membuat halaman detail produk menggunakan Dynamic Routing.
+- ✅ Mengambil parameter URL pada Next.js.
+- ✅ Mengimplementasikan detail produk dengan:<br>
+  - Client Side Rendering (CSR)
+  - Server Side Rendering (SSR)
+  - Static Site Generation (SSG)
+- ✅ Menggunakan getStaticPaths pada dynamic SSG.
+- ✅ Menganalisis perbedaan performa ketiga metode rendering.
 
 
 ---
@@ -82,465 +85,121 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>🔍 Bagian 1 – Setup Halaman Static</h3></summary>
+<summary><h3>🔍 Bagian 1 – Membuat Dynamic Route</h3></summary>
 
-1. Buat file baru pada pages/products/static.tsx
+1. Buka file pages/products/[product].tsx dan modfikasi sbb ( line 20 )
 
-![alt text](<Images/Bagian 1 – Setup Halaman Static(1. Buat file baru pada pages products static.tsx).png>)
+![alt text](<Images/Bagian 1 – Membuat Dynamic Route(Buka file pages products [product].tsx dan modfikasi sbb ( line 20 )).png>)
 
-2. Modifikasi file server.tsx :
+2. Jalankan browser http://localhost:3000/produk
 
-![alt text](<Images/Bagian 1 – Setup Halaman Static(2. Modifikasi file static.tsx).png>)
+![alt text](<Images/Bagian 1 – Membuat Dynamic Route (Jalankan).png>)
 
-
-**Deskripsi:**<br>
-Bagian 1 fokus pada pembuatan halaman statis di Next.js dengan membuat file static.tsx di folder pages/products/. Di sini, fungsi getStaticProps diimplementasikan untuk mengambil data produk dari API saat proses build. Data tersebut kemudian dikirim sebagai props ke komponen halamanProdukStatic untuk menampilkan daftar produk secara statis.
 </details>
 
 ---
 
 <details open>
-<summary><h3>📦 Bagian 3 – Build Production Mode</h3></summary>
+<summary><h3>📦 Bagian 2 – Implementasi CSR (Client Rendering)</h3></summary>
 
-1. Pindah beberapa folder diluar pages antara lain<br>
-- Untuk menghindari error maka folder Views, utils, stylesdipindah di luar folder src sehingga susunan folder pada src sebagai berikut
+1. Modifikasi pada file [produk].tsx pada folder src/pages/produk/
 
-![alt text](<Images/Bagian 3 – Build Production Mode(1. Pindah beberapa folder diluar pages antara lain).png>)
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi pada file [produk].tsx pada folder src pages produk).png>)
 
-2. Jalankan: npm run build
-- Jalankan npm run dev dan pastikan ini jalan ( jangan distop saat ngebuild ), jadi
-buka dua terminal
-o Terminal 1 : jalankan aplikasi npm run dev
-o Terminal 2 : build aplikasi
-- Hal ini dikarenakan aplikasi berjalan di local http://localhost:3000/api/produk (
-jika berhasil maka akan muncul pesan route(pages))
+2. Pada file produk.ts pada folder pages/api di rename menjadi [[...product]].ts menjadi:
 
-![alt text](<Images/Bagian 3 – Build Production Mode(2. Jalankan npm run build).png>)
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi pada file [produk].tsx).png>)
 
 3. Akses: http://localhost:3000/products/static
 
 ![alt text](<Images/Bagian 3 – Build Production Mode(3. Akses httplocalhost3000productsstatic).png>)
 
-**Deskripsi:**<br>
-Bagian 3 berfokus pada persiapan aplikasi untuk mode produksi. Langkahnya meliputi pemindahan folder Views, utils, dan styles ke luar folder src untuk menghindari eror. Selanjutnya, jalankan perintah npm run build sambil tetap menjalankan npm run dev untuk mengambil data API lokal. Terakhir, gunakan npm run start untuk menjalankan aplikasi dalam mode produksi.
+4. Modifikasi file servicefirebase.ts
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi pada file [produk].tsx pada folder src pages produk)).png>)
+
+5. Modifikasi file [[...produk]].ts
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi file [[...produk]].ts).png>)
+
+6. Jalankan alamat url http://localhost:3000/api/produk/123
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Jalankan produk).png>)
+
+7. Buat file dengan nama index.tsx pada folder views/DetailProduct selain itu buat juga
+file dengan nama detailProduct.module.scss
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Buat File views DetailProduct).png>)
+
+8. Modifikasi detailProduct.module.scss
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi detailProduct.module.scss).png>)
+
+9. Modifikasi index.tsx pada folder DetailProduct
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi index.tsx pada folder DetailProduct).png>)
+
+10. Modifikasi file [product].tsx
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi file [product].tsx).png>)
+
+11. Modifikasi index.tsx pada folder views/detailProduct line 16
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Modifikasi index.tsx pada folder views detailProduct line 16).png>)
+
+12. Jalankan browser http://localhost:3000/produk/ saat produk diklik maka akan muncul
+detailProduk http://localhost:3000/produk/pAWIT99SWmVbVrNm49ml
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Jalankan 2).png>)
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(Jalankan 1).png>)
+
+13. Agar tulisan detail produk ditengah maka modifikasi file detailProduct.module.scss line
+103-108 dan file index.tsx tambahkan code pada line 7,8 dan 22 menjadi
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(file index.tsx tambahkan code pada line 7,8 dan 22 menjadi).png>)
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(modifikasi file detailProduct.module.scss line).png>)
+
+14. Sehingga hasilnya seperti berikut
+
+![alt text](<Images/Bagian 2 – Implementasi CSR (Client Rendering)(jalankan 3).png>)
 </details>
 
 ---
 
 <details open>
-<summary><h3>🚀 Bagian 4 – Pengujian Perubahan Data</h3></summary>
+<summary><h3>🚀 Bagian 3 – Implementasi SSR</h3></summary>
+1. Modifikasi [produk].tsx pada folder src/pages/produk dan comment line 9 sampai 20 dikarena kita akan menggunakan metode SSR. Tambahkan beberapa kode untuk SSR
 
-Uji 1 – Tambah Data di Database
-1. Buka database firebasenya
-- Tambahkan produk baru di database.
+![alt text](<Images/Bagian 3 – Implementasi SSR(Modifikasi [produk].tsx).png>)
 
-![alt text](<Images/Bagian 4 – Pengujian Perubahan Data(Uji 1 – Tambah Data di Database)(1. Buka database firebasenya).png>)
+2. Jalankan browser http://localhost:3000/produk/server
 
-2. Buka halaman:<br>
-• /products (CSR) → Data bertambah
+![alt text](<Images/Bagian 3 – Implementasi SSR(Jalankan 1).png>)
 
-![alt text](<Images/Bagian 4 – Pengujian Perubahan Data(Uji 1 – Tambah Data di Database)(2. Buka halaman products (CSR) → Data bertambah).png>)
+![alt text](<Images/Bagian 3 – Implementasi SSR(Jalankan 2).png>)
 
-• /products/server (SSR) → Data bertambah<br>
-
-![alt text](<Images/Bagian 4 – Pengujian Perubahan Data(Uji 1 – Tambah Data di Database)(2. Buka halaman productsserver (SSR) → Data bertambah).png>)
-
-• /products/static (SSG) → Data tidak berubah<br>
-
-![alt text](<Images/Bagian 4 – Pengujian Perubahan Data(Uji 1 – Tambah Data di Database)(2. Buka halaman productsstatic (SSG) → Data tidak berubah).png>)
-
-**Deskripsi:**<br>
-Bagian 4 menguji perilaku data pada mode SSG. Pengujian dilakukan dengan menambah data baru di Firebase. Hasilnya, data pada halaman CSR dan SSR otomatis bertambah. Namun, halaman SSG tidak berubah karena datanya statis sejak proses build. Agar data baru muncul di halaman SSG, aplikasi harus melalui proses build ulang dan dijalankan kembali.1
 </details>
 
 ---
 
 <details open>
-<summary><h3>🎨 Uji 2 – Build Ulang</h3></summary>
+<summary><h3>🚀 Bagian 4 – Implementasi Static Site Generation (Dynamic SSG)</h3></summary>
+1. Buka file [produk].tsx dan modifikasi seperti berikut
 
-1. Jalankan kembali:<br>
-• npm run build<br>
-o lakukan secara bersamaan dengan npm run dev saat melakukan npm run build<br>
+![alt text](<Images/Bagian 4 – Implementasi Static Site Generation (Dynamic SSG)(Buka file [produk].tsx dan modifikasi seperti berikut).png>)
 
-![alt text](<Images/Uji 2 – Build Ulang(1. Jalankan kembali)(npm run build).png>)
+2. Buka file index.tsx pada folder src/views/DetailProduct dan modifikasi pada line 11
 
-• npm run start<br>
-o npm run dev stop terlebih dahulu setelah itu npm run start<br>
+![alt text](<Images/Bagian 4 – Implementasi Static Site Generation (Dynamic SSG)(Buka file index.tsx pada folder src views DetailProduct.png>)
 
-![alt text](<Images/Uji 2 – Build Ulang(1. Jalankan kembali)(npm run start).png>)
-
-2. Refresh halaman static<br>
-→ Data baru muncul<br>
-
-![alt text](<Images/Uji 2 – Build Ulang(2. Refresh halaman static).png>)
-
-**Deskripsi:**<br>
-Uji 2 menjelaskan proses memperbarui data pada halaman SSG. Langkahnya dimulai dengan menjalankan npm run build bersamaan dengan npm run dev untuk mengambil data terbaru dari API. Setelah proses build selesai, matikan npm run dev dan jalankan npm run start. Saat halaman statis di-refresh, data baru dari database akhirnya akan muncul.
 </details>
 
----
+-----------
 
 <details open>
-<summary><h3>🌈 D. Tugas Praktikum</h3></summary>
-
-### 🎯 Tugas Individu
-
----
-
-## 1. Dua Halaman: CSR dan SSR
-
-### Halaman `/produk` — Client Side Rendering (CSR)
-
-File: `src/pages/produk/index.tsx`
-
-```tsx
-import TampilanProduk from "../views/product";
-import useSWR from "swr";
-import fetcher from "../utlis/swr/fetcher";
-
-const kategori = () => {
-  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
-
-  return (
-    <div>
-      <TampilanProduk products={isLoading ? [] : data.data} />
-    </div>
-  );
-};
-
-export default kategori;
-```
-
-- Data diambil di sisi **browser** menggunakan `useSWR` setelah halaman dimuat
-- Saat loading, ditampilkan **skeleton loading** dengan animasi fade
-- Tidak ada `getServerSideProps` — rendering murni di client
-
----
-
-### Halaman `/produk/server` — Server Side Rendering (SSR)
-
-File: `src/pages/produk/server.tsx`
-
-```tsx
-import TampilanProduk from "../views/product";
-import { produkType } from "../type/Product.type";
-
-const HalamanProdukServer = (props: { products: produkType[] }) => {
-  const { products } = props;
-  return (
-    <div>
-      <h1>Halaman Produk Server</h1>
-      <TampilanProduk products={products} />
-    </div>
-  );
-};
-
-export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/produk");
-  const data = await res.json();
-
-  return {
-    props: {
-      products: data.data,
-    },
-  };
-}
-
-export default HalamanProdukServer;
-```
-
-- Data diambil di sisi **server** menggunakan `getServerSideProps` sebelum halaman dikirim ke browser
-- HTML yang diterima browser sudah berisi data produk lengkap
-- Tidak ada skeleton loading karena data sudah tersedia saat halaman pertama kali dirender
-
----
-
-## 2. Dokumentasi
-
-### Screenshot CSR (`/produk`)
-
-> *Screenshot halaman `/produk` — saat loading tampil skeleton, setelah data dimuat tampil daftar produk*
-
-![alt text](<Images/Screenshot CSR.png>)
-
-### Screenshot SSR (`/produk/server`)
-
-> *Screenshot halaman `/produk/server` — konten produk langsung tampil tanpa skeleton karena data disiapkan di server*
-
-![alt text](<Images/Screenshot SSR.png>)
-
----
-
-### Perbedaan Network Tab
-
-| Aspek | CSR (`/produk`) | SSR (`/produk/server`) |
-|---|---|---|
-| **Request pertama** | HTML kosong/minimal diterima | HTML lengkap berisi data produk diterima |
-| **Request tambahan** | Ada request XHR ke `/api/produk` setelah halaman dimuat | Tidak ada request XHR tambahan ke API dari browser |
-| **Jumlah request** | Lebih banyak (halaman + API call) | Lebih sedikit (hanya halaman) |
-| **Waktu hingga konten tampil** | Lebih lama (perlu tunggu API response) | Lebih cepat (data sudah ada di HTML) |
-| **Waterfall** | Ada dua tahap: load page → fetch API | Satu tahap: load page (sudah berisi data) |
-
-**Penjelasan:**
-Pada CSR, di Network Tab akan terlihat dua request terpisah — pertama request halaman HTML, kemudian request XHR/Fetch ke `/api/produk`. Pada SSR, hanya ada satu request halaman karena server sudah menyelesaikan fetch data sebelum mengirim HTML ke browser.
-
----
-
-### Perbedaan View Source
-
-| Aspek | CSR (`/produk`) | SSR (`/produk/server`) |
-|---|---|---|
-| **Konten HTML awal** | `<div id="__next"></div>` kosong | HTML sudah berisi nama produk, harga, kategori |
-| **Data produk** | Tidak ada di source (diisi JS setelah load) | Terlihat jelas di source HTML |
-| **SEO** | Crawler tidak bisa membaca konten produk | Crawler langsung membaca konten produk |
-| **`<script>` tag** | Banyak — JS yang mengambil dan merender data | Lebih sedikit — data sudah di HTML |
-
-**Penjelasan:**
-Jika klik kanan → "View Page Source" pada halaman CSR, bagian konten produk tidak terlihat karena konten baru dirender oleh JavaScript setelah halaman dimuat. Sebaliknya pada SSR, seluruh nama produk, harga, dan kategori sudah terlihat langsung di source HTML yang diterima browser.
-
----
-
-## 3. Laporan Analisis: Perbandingan CSR vs SSR di Next.js
-
-### Pendahuluan
-
-Dalam pengembangan aplikasi web modern menggunakan Next.js, terdapat beberapa strategi rendering yang dapat dipilih sesuai kebutuhan. Dua strategi utama yang dibandingkan dalam praktikum ini adalah **Client Side Rendering (CSR)** dan **Server Side Rendering (SSR)**. Pemilihan strategi rendering yang tepat berdampak signifikan pada performa, pengalaman pengguna, dan kemampuan SEO sebuah aplikasi web.
-
-Praktikum ini mengimplementasikan dua halaman produk — `/produk` menggunakan CSR dengan library SWR, dan `/produk/server` menggunakan SSR dengan `getServerSideProps` — untuk membandingkan secara langsung perbedaan perilaku, performa, dan karakteristik masing-masing pendekatan.
-
----
-
-### Implementasi
-
-**CSR dengan SWR (`/produk`):**
-
-Pada halaman CSR, data produk diambil setelah browser selesai memuat halaman. Library SWR digunakan sebagai pengganti `useEffect` manual karena menawarkan fitur caching otomatis, revalidasi saat window di-focus, dan state management (`isLoading`, `error`, `data`) yang lebih ringkas. Selama proses fetch berlangsung, komponen `TampilanProduk` menerima array kosong dan merender **skeleton loading** — placeholder animasi berbentuk kotak abu-abu dengan efek fade menggunakan `@keyframes identifier`.
-
-```
-Browser request halaman → Server kirim HTML kosong + JS
-→ Browser eksekusi JS → SWR fetch /api/produk
-→ API ambil data Firestore → Response JSON diterima
-→ React re-render dengan data produk → Tampil di layar
-```
-
-**SSR dengan getServerSideProps (`/produk/server`):**
-
-Pada halaman SSR, siklus berbeda terjadi. Ketika browser meminta halaman `/produk/server`, Next.js di server menjalankan fungsi `getServerSideProps` terlebih dahulu. Di dalam fungsi ini, server melakukan fetch ke `/api/produk` dan mendapatkan data dari Firestore. Data tersebut dikirim sebagai `props` ke komponen React, yang kemudian di-render menjadi HTML lengkap di server. HTML final yang terisi data produk inilah yang dikirim ke browser.
-
-```
-Browser request halaman → Next.js server jalankan getServerSideProps
-→ Server fetch /api/produk → Data Firestore diterima server
-→ Server render React component dengan data → HTML lengkap dikirim ke browser
-→ Browser tampilkan halaman (sudah berisi produk)
-```
-
----
-
-### Analisis Perbandingan
-
-**1. Performa Initial Load**
-
-CSR memiliki kelemahan pada initial load karena browser harus menunggu dua tahap: pertama memuat halaman kosong, kemudian melakukan request API tambahan. Pada koneksi lambat, pengguna akan melihat skeleton loading cukup lama. SSR mengirimkan HTML yang sudah berisi data sehingga konten tampil lebih cepat meski server membutuhkan waktu pemrosesan lebih.
-
-**2. Beban Server**
-
-CSR meringankan beban server karena pemrosesan data dilakukan di browser masing-masing pengguna. SSR meningkatkan beban server karena setiap request memerlukan fetch data dan rendering di server. Untuk aplikasi dengan traffic tinggi, SSR perlu infrastruktur server yang lebih kuat.
-
-**3. User Experience**
-
-CSR dengan skeleton loading memberikan feedback visual yang baik — pengguna tahu bahwa konten sedang dimuat. Namun ada jeda antara halaman muncul dan data tersedia. SSR memberikan pengalaman "langsung jadi" — konten tersedia sejak pertama kali halaman dimuat, tanpa jeda loading.
-
-**4. SEO (Search Engine Optimization)**
-
-CSR sangat tidak ramah SEO karena web crawler seperti Googlebot mendapatkan HTML kosong dan konten produk tidak terindeks. SSR sangat baik untuk SEO karena crawler langsung mendapatkan konten lengkap dalam HTML.
-
-**5. Penggunaan SWR vs getServerSideProps**
-
-SWR (pada CSR) unggul dalam hal: caching otomatis, revalidasi data saat window refocus, dan kode yang ringkas. `getServerSideProps` (pada SSR) unggul dalam hal: data fresh setiap request, tidak ada request API tambahan dari browser, dan konten langsung tersedia.
-
----
-
-### Kesimpulan
-
-| Kriteria | CSR (`useSWR`) | SSR (`getServerSideProps`) |
-|---|---|---|
-| **Initial load** | Lebih lambat | Lebih cepat |
-| **Beban server** | Ringan | Lebih berat |
-| **SEO** | Buruk | Baik |
-| **UX loading state** | Skeleton loading | Langsung tampil |
-| **Data freshness** | Bisa stale (ada cache) | Selalu fresh |
-| **Cocok untuk** | Dashboard, user-specific data | Halaman publik, produk, berita |
-
-Berdasarkan analisis ini, untuk halaman produk yang bersifat publik dan perlu diindeks oleh mesin pencari, **SSR adalah pilihan yang lebih tepat**. Namun untuk halaman dashboard atau data yang spesifik per pengguna dan tidak memerlukan SEO, **CSR dengan SWR lebih efisien** karena meringankan beban server dan memberikan pengalaman interaktif yang baik dengan skeleton loading.
-
-</details>
-
-**Client Side Rendering (CSR)** adalah pendekatan di mana proses rendering halaman terjadi di sisi browser (client). Server hanya mengirimkan file HTML kosong beserta JavaScript. Browser kemudian mengeksekusi JavaScript tersebut, mengambil data dari API, dan baru merender konten ke layar. Karena itu, pada pemuatan pertama halaman terlihat kosong sejenak — inilah alasan skeleton loading sangat berguna pada CSR. Contoh implementasi di Next.js: menggunakan `useEffect` + `fetch` atau library `useSWR` seperti yang diterapkan di praktikum ini.
-
-**Server Side Rendering (SSR)** adalah pendekatan di mana rendering terjadi di sisi server setiap kali ada request masuk. Server mengambil data, merender HTML yang sudah berisi konten, lalu mengirimkannya ke browser. Hasilnya, konten langsung terlihat tanpa perlu menunggu JavaScript dieksekusi. SSR cocok untuk halaman yang membutuhkan data selalu *fresh* dan penting untuk SEO. Contoh implementasi di Next.js: `getServerSideProps`.
-
-**Static Site Generation (SSG)** adalah pendekatan di mana halaman di-render satu kali pada saat proses build (`npm run build`), menghasilkan file HTML statis yang siap disajikan. Karena tidak ada pemrosesan di server saat request masuk, SSG sangat cepat dan ideal untuk di-cache di CDN. Cocok untuk konten yang jarang berubah seperti blog, dokumentasi, atau landing page. Contoh implementasi di Next.js: `getStaticProps` dan `getStaticPaths`.
-
-**Perbandingan:**
-
-| Aspek | CSR | SSR | SSG |
-|---|---|---|---|
-| **Render terjadi** | Di browser (runtime) | Di server (setiap request) | Saat build time |
-| **Kecepatan awal** | Lambat (JS harus diunduh dulu) | Sedang (server memproses dulu) | Sangat cepat (HTML sudah jadi) |
-| **Data** | Diambil setelah halaman dimuat | Diambil per request di server | Diambil saat build |
-| **SEO** | Kurang baik | Baik | Sangat baik |
-| **Cocok untuk** | Dashboard, real-time data | Halaman dengan data fresh | Blog, katalog, landing page |
-| **Next.js API** | `useEffect`, `useSWR` | `getServerSideProps` | `getStaticProps` |
-
-2. Halaman Produk dengan Skeleton Loading dan Animasi
-
-**Skeleton Loading** diimplementasikan di `src/pages/views/product/index.tsx` menggunakan ternary operator:
-
-```tsx
-{products.length > 0 ? (
-  <>
-    {products.map((products: ProductType) => (
-      <div key={products.id} className={styles.produk__content__item}>
-        <div className={styles.produk__content__item__image}>
-          <img src={products.image} alt={products.name} width={200} />
-        </div>
-        <h4 className={styles.produk__content__item__name}>{products.name}</h4>
-        <p className={styles.produk__content__item__category}>{products.category}</p>
-        <p className={styles.produk__content__item__price}>Rp {products.price.toLocaleString()}</p>
-      </div>
-    ))}
-  </>
-) : (
-  <div className={styles.produk__content__skeleton}>
-    <div className={styles.produk__content__skeleton__image}></div>
-    <div className={styles.produk__content__skeleton__name}></div>
-    <div className={styles.produk__content__skeleton__category}></div>
-    <div className={styles.produk__content__skeleton__price}></div>
-  </div>
-)}
-```
-
-**Animasi** diimplementasikan di `src/pages/produk/produk.module.scss` menggunakan `@keyframes`:
-
-```scss
-&__skeleton {
-  width: 200px;
-  padding: 16px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: identifier 1.5s infinite ease-in-out;
-
-  &__image { width: 100%; height: 200px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 12px; }
-  &__name { width: 80%; height: 20px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
-  &__category { width: 60%; height: 10px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
-  &__price { width: 40%; height: 18px; background-color: #e0e0e0; border-radius: 4px; }
-}
-
-@keyframes identifier {
-  0%   { opacity: 1; }
-  50%  { opacity: 0; }
-  100% { opacity: 1; }
-}
-```
-
-- Saat data **belum ada** (`products.length === 0` / sedang loading) → skeleton card abu-abu dengan animasi fade muncul sebagai placeholder
-- Saat data **sudah dimuat** → daftar produk asli ditampilkan, skeleton menghilang
-
----
-
-3. Refactor Kode dari useEffect menjadi SWR
-
-**Sebelum — menggunakan `useEffect`:**
-
-```tsx
-import { useEffect, useState } from "react";
-
-const kategori = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch("/api/produk")
-      .then((response) => response.json())
-      .then((responsedata) => {
-        setProducts(responsedata.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching produk:", error);
-      });
-  }, []);
-
-  return (
-    <div>
-      <TampilanProduk products={products} />
-    </div>
-  );
-};
-```
-
-**Sesudah — menggunakan `useSWR`:**
-
-```tsx
-import useSWR from "swr";
-import fetcher from "../utlis/swr/fetcher";
-
-const kategori = () => {
-  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
-
-  return (
-    <div>
-      <TampilanProduk products={isLoading ? [] : data.data} />
-    </div>
-  );
-};
-```
-
-**File `utlis/swr/fetcher.ts` (dipisah agar reusable):**
-
-```ts
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-export default fetcher;
-```
-
-**Keunggulan SWR dibanding useEffect:**
-
-| Aspek | useEffect | useSWR |
-|---|---|---|
-| State management | Harus buat `useState` manual | `data`, `isLoading`, `error` otomatis tersedia |
-| Caching | Tidak ada | Built-in cache — request tidak diulang jika data masih fresh |
-| Revalidasi otomatis | Tidak ada | Otomatis revalidasi saat window di-focus kembali |
-| Error handling | Harus `try/catch` manual | `error` langsung dari hook |
-| Jumlah kode | Lebih banyak (boilerplate) | Lebih ringkas dan deklaratif |
-
-</details>
----
-
-## Pertanyaan Refleksi
-
-**1. Apa fungsi API Routes pada Next.js?**
-
-API Routes pada Next.js berfungsi sebagai backend endpoint yang dapat dibuat langsung di dalam project Next.js tanpa perlu server terpisah. File yang diletakkan di folder `pages/api/` secara otomatis menjadi endpoint HTTP yang dapat menerima request (GET, POST, PUT, DELETE) dan mengembalikan response JSON. Fungsi utamanya adalah menghubungkan frontend dengan sumber data eksternal seperti database atau layanan pihak ketiga (misalnya Firebase), sekaligus menyembunyikan kredensial sensitif agar tidak terekspos ke sisi client.
-
-**2. Mengapa .env.local tidak boleh di-push ke repository?**
-
-File `.env.local` menyimpan informasi sensitif seperti API key, kredensial database, secret token, dan konfigurasi privat lainnya. Jika file ini di-push ke repository publik maupun privat, pihak yang tidak berwenang dapat mengakses dan menyalahgunakan kredensial tersebut — misalnya menguras kuota Firebase, mengakses database secara ilegal, atau mencuri data pengguna. Oleh karena itu, `.env.local` harus selalu ditambahkan ke `.gitignore` dan tidak pernah diunggah ke version control.
-
-**3. Apa perbedaan data statis dan data dinamis?**
-
-Data statis adalah data yang sudah ditentukan pada saat build time dan tidak berubah saat runtime — contohnya daftar produk yang di-hardcode langsung di dalam kode atau file JSON lokal. Data dinamis adalah data yang diambil secara real-time dari sumber eksternal seperti database saat halaman diakses atau tombol diklik, sehingga selalu menampilkan informasi terkini. Pada praktikum ini, data produk dari Firestore merupakan data dinamis karena diambil melalui API route setiap kali halaman dimuat atau tombol Refresh Data ditekan.
-
-**4. Mengapa Next.js disebut framework fullstack?**
-
-Next.js disebut framework fullstack karena menggabungkan kemampuan frontend dan backend dalam satu project. Di sisi frontend, Next.js menangani rendering halaman (SSR, SSG, CSR) dengan React. Di sisi backend, Next.js menyediakan API Routes yang memungkinkan pembuatan endpoint server tanpa perlu framework backend terpisah seperti Express. Dengan demikian, developer dapat membangun aplikasi web lengkap — mulai dari antarmuka pengguna hingga logika server dan akses database — hanya menggunakan satu codebase Next.js.
-
-
----
-
-<details open>
-<summary><h3>🧑‍💻 D. Tugas Praktikum – Jobsheet 09</h3></summary>
+<summary><h3>🧑‍💻 D. Tugas Praktikum </h3></summary>
 
 ## 🎯 Tugas Individu
 
@@ -1128,6 +787,54 @@ Perbedaan inilah yang menjadi dasar mengapa pengujian SSG harus dilakukan di **p
 - [Web Fundamentals – Rendering on the Web (Google)](https://web.dev/rendering-on-the-web/)
 
 </details>
+
+---
+
+## E. Tugas Praktikum (Sesuai Instruksi)
+
+### 🎯 Tugas Individu
+
+#### 1) Implementasikan halaman detail dengan:
+
+- **CSR** (Client Side Rendering)
+  - Detail data diambil di browser setelah halaman `/produk/[id]` terbuka.
+  - Cocok untuk interaksi cepat, namun ada loading state.
+
+- **SSR** (Server Side Rendering)
+  - Detail data diambil oleh server pada setiap request ke `/produk/[id]`.
+  - HTML awal sudah berisi data produk (lebih baik untuk SEO).
+
+- **SSG** (Static Site Generation)
+  - Detail data dibuat saat proses build menggunakan `getStaticPaths` + `getStaticProps`.
+  - Perubahan data baru terlihat setelah build ulang (atau ISR jika ditambahkan `revalidate`).
+
+---
+
+#### 2) Tabel Perbandingan
+
+| Aspek | CSR | SSR | SSG |
+|---|---|---|---|
+| **Loading** | Ada loading/skeleton di awal | Nyaris tanpa loading di awal (data sudah dari server) | Paling cepat (HTML statis) |
+| **Build Required** | Tidak | Tidak | Ya, wajib build untuk generate halaman |
+| **SEO** | Kurang optimal | Baik | Sangat baik |
+| **Perubahan Data** | Cepat terlihat setelah fetch ulang | Selalu fresh per request | Tidak langsung berubah (perlu rebuild/ISR) |
+
+---
+
+#### 3) Dokumentasikan
+
+- **Screenshot**
+  - Hasil halaman detail mode CSR, SSR, dan SSG.
+  - Simpan di folder `Images/` lalu cantumkan di README.
+
+- **Network Tab**
+  - Bandingkan request pada CSR vs SSR vs SSG.
+  - Tunjukkan bahwa CSR melakukan request data dari browser setelah page load.
+
+- **Build Result**
+  - Jalankan `npm run build` dan lampirkan hasil sukses build.
+  - Opsional: jalankan `npm run start` untuk validasi hasil produksi.
+
 
 ---
 
