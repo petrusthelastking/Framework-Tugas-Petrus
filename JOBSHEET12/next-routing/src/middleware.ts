@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   // return NextResponse.next();
   // return NextResponse.redirect(new URL("/", request.url));
   
-  const isLogin = true;
+  const isLogin = false;
   if (isLogin) {
     return NextResponse.next();
   } else {
@@ -14,5 +14,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/produk", "/about"],
+  matcher: ["/products", "/about"],
 };

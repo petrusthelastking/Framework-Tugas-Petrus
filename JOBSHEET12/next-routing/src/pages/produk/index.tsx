@@ -1,22 +1,19 @@
 import TampilanProduk from "../../views/product";
 import useSWR from "swr";
 import fetcher from "../../utils/swr/fetcher";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const Kategori = () => {
-  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
-  const products = isLoading
-    ? []
-    : Array.isArray(data?.data)
-      ? data.data
-      : [];
+  const { push } = useRouter();
+  const [products, setProducts] = useState([]);
 
-  if (error) {
-    return <p style={{ padding: 16 }}>Gagal mengambil data produk.</p>;
-  }
+  const { data, error, isLoading } = useSWR("/api/produk", fetcher);
+
 
   return (
     <div>
-      <TampilanProduk products={products} />
+      < TampilanProduk products={isLoading ? [] : data} />
     </div>
   );
 };
