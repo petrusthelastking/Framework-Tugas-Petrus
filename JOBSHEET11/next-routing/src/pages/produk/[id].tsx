@@ -1,5 +1,6 @@
 import DetailProduk from "../../views/DetailProduct";
 import { produkType } from "@/types/Product.type";
+import { retrieveDataById, retrieveProducts } from "@/utils/db/servicefirebase";
 
 const HalamanProduk = ({ product }: { product: produkType }) => {
   // digunakan client-side rendering
@@ -33,10 +34,9 @@ export default HalamanProduk;
 
 // digunakan static-site generation
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:3000/api/produk`);
-  const response: { data: produkType[] } = await res.json();
+  const products = (await retrieveProducts("products")) as produkType[];
 
-  const paths = response.data.map((product) => ({
+  const paths = products.map((product) => ({
     params: { id: product.id },
   }));
 
@@ -47,12 +47,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
-  const res = await fetch(`http://localhost:3000/api/produk/${params.id}`);
-  const response: { data: produkType } = await res.json();
+  const product = await retrieveDataById("products", params.id);
+
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      product: response.data,
+      product: {
+        id: params.id,
+        ...product,
+      },
     },
   };
 }
