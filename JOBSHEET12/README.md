@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 11&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 12&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 11 - Incremental Static Regeneration (ISR)</td>
+<td>Jobsheet 12 - Middleware & Route Protection</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -56,11 +56,11 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menjelaskan konsep Incremental Static Regeneration (ISR).
-- ✅ Mengimplementasikan revalidate pada getStaticProps.
-- ✅ Menguji pembaruan halaman tanpa build ulang.
-- ✅ Membuat endpoint On-Demand Revalidation.
-- ✅ Mengamankan endpoint revalidation dengan token.
+- ✅ Menjelaskan konsep Middleware pada Next.js.
+- ✅ Membedakan redirect menggunakan useEffect dan Middleware.
+- ✅ Membuat file middleware.ts.
+- ✅ Mengatur proteksi route tertentu.
+- ✅ Mengimplementasikan sistem login sederhana menggunakan Middleware.
 
 ---
 ## 📝 Langkah-Langkah Praktikum
@@ -81,11 +81,15 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>Bagian 1 – Tambahkan revalidate</h3></summary>
+<summary><h3>Bagian 1 – Membuat Middleware</h3></summary>
 
 1. Buka halaman static.tsx pada folder src/pages/produk
 
-![alt text](<Images/C. Implementasi ISR Otomatis (Bagian 1 – Tambahkan revalidate)(Buka halaman static.tsx pada folder src pages produk).png>)
+![alt text](<Images/Bagian 1 – Membuat Middleware(1).png>)
+
+2. Buat file: src/middleware.ts Sejajar dengan folder pages.
+
+![alt text](<Images/Bagian 1 – Membuat Middleware(2).png>)
 
 </details>
 
@@ -94,36 +98,31 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 <details open>
 <summary><h3>Bagian 2 – Pengujian ISR</h3></summary>
 
-1. Jalankan: ( lakukan hal sama seperti JS sebelumnya untuk ngebuild SSG)
+1. Modifikasi file index.tsx pada folder src/pages/produk
 
-![alt text](<Images/C. Implementasi ISR Otomatis (Bagian 2 – Pengujian ISR)(Jalankan ( lakukan hal sama seperti JS sebelumnya untuk ngebuild).png>)
-
-2. Tambahkan data baru di database pada firebase
-
-![alt text](<Images/C. Implementasi ISR Otomatis (Bagian 2 – Pengujian ISR)(Jalankan ( Tambahkan data baru di database pada firebase ).png>)
-
-![alt text](<Images/C. Implementasi ISR Otomatis (Bagian 2 – Pengujian ISR)(Jalankan ( Tambahkan data baru di database pada firebase) 1.png>)
-
-3. Refresh setelah 10 detik → Data baru muncul.
-
-![alt text](<Images/C. Implementasi ISR Otomatis (Bagian 2 – Pengujian ISR)(Jalankan (Refresh setelah 10 detik → Data baru muncul.).png>)
+![alt text](<Images/Bagian 2 – Struktur Dasar Middleware(2).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 1 – Buat API Revalidate</h3></summary>
-1. Buat file revalidate.ts pada folder pages/api/ dan modifikasi
+<summary><h3>Bagian 3 – Redirect Sederhana</h3></summary>
 
-![alt text](<Images/D. On-Demand Revalidation(Bagian 1 – Buat API Revalidate)(Buat file revalidate.ts pada folder pages api dan modifikasi).png>)
+1. Redirect Sederhana
+
+![alt text](<Images/Bagian 3 – Redirect Sederhana(1).png>)
+
+2. Semua halaman akan redirect ke home dan error dikarenakan terus menerus loading
+
+![alt text](<Images/Bagian 3 – Redirect Sederhana(2).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 2 – Tambahkan Parameter Data</h3></summary>
+<summary><h3>Bagian 2 – Struktur Dasar Middleware</h3></summary>
 1. Modifikasi file revalidate.ts
 
 ![alt text](<Images/D. On-Demand Revalidation(Bagian 2 – Tambahkan Parameter Data)(Modifikasi file revalidate.ts).png>)
@@ -142,24 +141,84 @@ http://localhost:3000/api/revalidate?data=produk
 -----------
 
 <details open>
-<summary><h3>Bagian 3 – Tambahkan Token Security</h3></summary>
+<summary><h3>Bagian 4 – Batasi Route Tertentu</h3></summary>
 
-1. Modifikasi file revalidate.ts tambahkan kondisi pada line 13 - 17
+1. Untuk mengatasi pada bagian 3 maka perlu pembatasan route
 
-![alt text](<Images/D. On-Demand Revalidation(Bagian 3 – Tambahkan Token Security)(Modifikasi file revalidate.ts tambahkan kondisi pada line 13 - 17).png>)
+![alt text](<Images/Bagian 4 – Batasi Route Tertentu(1).png>)
+
+2. hasil
+
+![alt text](<Images/Bagian 4 – Batasi Route Tertentu(2).png>)
+
+</details>
+
+-----------
+
+
+<details open>
+<summary><h3>Bagian 5 – Simulasi Sistem Login</h3></summary>
+
+1. Modifikasi file middleware.ts
+
+![alt text](<Images/Bagian 5 – Simulasi Sistem Login(1).png>)
+
+2. Jika user langsung mengakses ke alamat http://localhost:3000/produk tidak akan bisa user akan diarahkan ke halaman login
+
+![alt text](<Images/Bagian 5 – Simulasi Sistem Login(2).png>)
 
 </details>
 
 -----------
 
 <details open>
-<summary><h3>E. Pengujian Manual Revalidation</h3></summary>
+<summary><h3>D. Pengujian</h3></summary>
 
+Uji 1 – isLogin = false<br>
 Akses:<br>
-http://localhost:3000/api/revalidate?data=products&token=12345678<br>
-Jika benar:
+/products<br>
+Hasil:<br>
+Redirect ke /login<br>
 
-![alt text](<Images/E. Pengujian Manual Revalidation(Akses).png>)
+![alt text](<Images/Bagian 5 – Simulasi Sistem Login(1).png>)
+
+Hasil
+
+![alt text](<Images/Bagian 5 – Simulasi Sistem Login(2).png>)
+
+Uji 2 – isLogin = true<br>
+Ubah:<br>
+const isLogin = true<br>
+
+![alt text](<Images/Uji 2 – isLogin = true(1).png>)
+
+Hasil
+
+![alt text](<Images/Uji 2 – isLogin = true(2).png>)
+
+Uji 3 – Tambahkan Multiple Route<br>
+<!-- export const config = {
+matcher: ['/products', '/about']
+} -->
+
+Sekarang:<br>
+• /products dan /about butuh login<br>
+• Halaman lain bebas<br>
+
+False:
+![alt text](<Images/Uji 3 – Tambahkan Multiple Route(false1).png>)
+
+Hasil:
+
+![alt text](<Images/Uji 3 – Tambahkan Multiple Route(false2).png>)
+
+True:
+
+![alt text](<Images/Uji 3 – Tambahkan Multiple Route(true1).png>)
+
+Hasil:
+
+![alt text](<Images/Uji 3 – Tambahkan Multiple Route(true2).png>)
 
 </details>
 
@@ -168,159 +227,132 @@ Jika benar:
 
 ## 🎯 Tugas Individu
 
-Sesuai gambar instruksi, tugas yang dikerjakan:
+Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Tambahkan lagi produk pada Firebase.
-2. Implementasikan ISR dengan `revalidate: 10`.
-3. Tambahkan endpoint On-Demand Revalidation.
-4. Tambahkan validasi token.
-5. Uji dengan token benar, token salah, dan tanpa token.
-
----
-
-## 1) Tambahkan Produk pada Firebase
-
-Penambahan produk dilakukan melalui API:
-
-- `POST /api/produk/produk`
-
-Contoh body:
-
-```json
-{
-  "name": "Produk Baru",
-  "price": 150000,
-  "category": "Aksesoris",
-  "image": "https://example.com/image.jpg"
-}
-```
-
-Implementasi terkait:
-- `src/pages/api/[[...produk]].ts` (method `POST`)
-- `src/utils/db/servicefirebase.ts` (`addProduct`)
+1. Membuat halaman `/products`, `/about`, dan `/login`.
+2. Menambahkan Middleware:
+   - Redirect ke `/login` jika belum login.
+   - Izinkan akses jika login `true`.
+3. Menambahkan proteksi hanya untuk route tertentu.
+4. Mendokumentasikan hasil pengujian (sebelum/sesudah redirect) dan perbandingan dengan `useEffect`.
 
 ---
 
-## 2) Implementasi ISR (`revalidate: 10`)
+## 1) Pembuatan Halaman
 
-ISR diterapkan pada halaman:
+Halaman yang digunakan pada tugas ini:
 
-- `src/pages/produk/static.tsx`
+- `/products` → `src/pages/products/index.tsx`
+- `/about` → `src/pages/about/index.tsx`
+- `/login` → `src/pages/login.tsx`
 
-Bagian `getStaticProps`:
+Implementasi `/login` menggunakan simulasi cookie:
+
+- Tombol **Login** menyimpan cookie `isLogin=true`.
+- Tombol **Logout** menghapus cookie `isLogin`.
+
+---
+
+## 2) Implementasi Middleware
+
+File middleware:
+
+- `src/middleware.ts`
+
+Logika middleware:
 
 ```ts
-return {
-  props: {
-    products: response,
-  },
-  revalidate: 10,
+const isLogin = request.cookies.get("isLogin")?.value === "true";
+
+if (isLogin) {
+  return NextResponse.next();
+}
+
+return NextResponse.redirect(new URL("/login", request.url));
+```
+
+Artinya:
+
+- Jika cookie `isLogin=true` → user boleh akses route yang diproteksi.
+- Jika tidak ada / bukan `true` → user diarahkan ke `/login`.
+
+---
+
+## 3) Proteksi Hanya Route Tertentu
+
+Konfigurasi matcher:
+
+```ts
+export const config = {
+  matcher: ["/products", "/about"],
 };
 ```
 
-Dokumentasi:
+Dampak matcher:
 
-![ISR 1](<Images/C. Implementasi ISR Otomatis (Bagian 1 – Tambahkan revalidate)(Buka halaman static.tsx pada folder src pages produk).png>)
-
-![ISR 2](<Images/C. Implementasi ISR Otomatis (Bagian 2 – Pengujian ISR)(Jalankan (Refresh setelah 10 detik → Data baru muncul.).png>)
-
----
-
-## 3) Endpoint On-Demand Revalidation
-
-Endpoint dibuat di:
-
-- `src/pages/api/revalidate.ts`
-
-Trigger revalidate:
-
-```ts
-await res.revalidate("/produk/static");
-```
-
-Dokumentasi:
-
-![On-demand 1](<Images/D. On-Demand Revalidation(Bagian 1 – Buat API Revalidate)(Buat file revalidate.ts pada folder pages api dan modifikasi).png>)
-
-![On-demand 2](<Images/D. On-Demand Revalidation(Bagian 2 – Tambahkan Parameter Data)(Modifikasi file revalidate.ts).png>)
+- `/products` dan `/about` **wajib login**.
+- Route lain tetap bebas diakses (tidak diproses middleware ini).
 
 ---
 
-## 4) Validasi Token
+## 4) Dokumentasi Pengujian Redirect
 
-Validasi token pada endpoint `revalidate`:
+### a. Sebelum login (cookie belum ada)
 
-```ts
-if (req.query.token !== process.env.REVALIDATE_TOKEN) {
-  return res
-    .status(401)
-    .json({ revalidated: false, message: "Insert correct token" });
-}
-```
+Uji akses:
 
-Konfigurasi token:
+- `http://localhost:3000/products`
+- `http://localhost:3000/about`
 
-```env
-REVALIDATE_TOKEN=12345678
-```
+Hasil:
 
-Dokumentasi:
+- Otomatis redirect ke `http://localhost:3000/login`
 
-![Token security](<Images/D. On-Demand Revalidation(Bagian 3 – Tambahkan Token Security)(Modifikasi file revalidate.ts tambahkan kondisi pada line 13 - 17).png>)
+Screenshot:
+
+![alt text](<Images/Screenshot 2026-03-22 232749.png>)
+
+### b. Sesudah login (cookie `isLogin=true`)
+
+Langkah:
+
+- Buka `/login`
+- Klik tombol **Login**
+- Akses ulang `/products` atau `/about`
+
+Hasil:
+
+- Halaman dapat diakses (tidak redirect ke `/login`)
+
+Screenshot:
+
+![alt text](<Images/Screenshot 2026-03-22 232849.png>)
 
 ---
 
-## 5) Pengujian Endpoint
+## 5) Perbandingan Middleware vs useEffect
 
-### a. Token benar
+| Aspek | Middleware | useEffect |
+|---|---|---|
+| Lokasi eksekusi | Sebelum halaman dirender (edge/server) | Setelah komponen dirender di browser |
+| UX redirect | Lebih cepat, minim flicker | Bisa muncul flicker/flash halaman |
+| Keamanan akses route | Lebih baik untuk proteksi route | Lebih cocok untuk kontrol UI di client |
+| Kasus penggunaan | Auth guard route (`/products`, `/about`) | Side effect client (fetch, sync state, dll) |
 
-URL:
+Kesimpulan:
 
-`http://localhost:3000/api/revalidate?data=produk&token=12345678`
-
-Hasil:
-
-```json
-{"revalidated":true}
-```
-
-### b. Token salah
-
-URL:
-
-`http://localhost:3000/api/revalidate?data=produk&token=salah`
-
-Hasil:
-
-```json
-{"revalidated":false,"message":"Insert correct token"}
-```
-
-### c. Tanpa token
-
-URL:
-
-`http://localhost:3000/api/revalidate?data=produk`
-
-Hasil:
-
-```json
-{"revalidated":false,"message":"Insert correct token"}
-```
-
-Dokumentasi:
-
-![Revalidate akses](<Images/E. Pengujian Manual Revalidation(Akses).png>)
+- Untuk **proteksi route**, middleware lebih tepat.
+- `useEffect` tetap berguna untuk logika client-side, bukan sebagai proteksi utama route.
 
 ---
 
 ## Ringkasan
 
-- ✅ Tambah produk pada Firebase
-- ✅ ISR `revalidate: 10`
-- ✅ Endpoint On-Demand Revalidation
-- ✅ Validasi token
-- ✅ Uji token benar, token salah, dan tanpa token
+- ✅ Halaman `/products`, `/about`, `/login` tersedia
+- ✅ Middleware redirect ke `/login` saat belum login
+- ✅ Akses diizinkan saat cookie login bernilai `true`
+- ✅ Proteksi hanya aktif pada route tertentu (`/products`, `/about`)
+- ✅ Dokumentasi pengujian dan perbandingan `useEffect` sudah ditulis
 
 </details>
 

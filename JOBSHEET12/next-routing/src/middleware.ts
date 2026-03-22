@@ -2,14 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // return NextResponse.next();
-  // return NextResponse.redirect(new URL("/", request.url));
-  
-  const isLogin = false;
+  const isLogin = request.cookies.get("isLogin")?.value === "true";
+
   if (isLogin) {
     return NextResponse.next();
   } else {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
