@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 12&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 14&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 12 - Middleware & Route Protection</td>
+<td>Jobsheet 14 - Sistem Autentikasi & Proteksi Route</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -56,11 +56,11 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menjelaskan konsep Middleware pada Next.js.
-- ✅ Membedakan redirect menggunakan useEffect dan Middleware.
-- ✅ Membuat file middleware.ts.
-- ✅ Mengatur proteksi route tertentu.
-- ✅ Mengimplementasikan sistem login sederhana menggunakan Middleware.
+- ✅ Menjelaskan konsep autentikasi dan otorisasi.
+- ✅ Mengimplementasikan login menggunakan NextAuth.
+- ✅ Menggunakan Credentials Provider.
+- ✅ Mengakses data session di frontend.
+- ✅ Melindungi halaman menggunakan middleware.
 
 ---
 ## 📝 Langkah-Langkah Praktikum
@@ -81,75 +81,105 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>Bagian 1 – Membuat Middleware</h3></summary>
+<summary><h3>Bagian 1 – Install NextAuth</h3></summary>
 
-1. Buka halaman static.tsx pada folder src/pages/produk
+1. npm install next-auth –force
 
-![alt text](<Images/Bagian 1 – Membuat Middleware(1).png>)
-
-2. Buat file: src/middleware.ts Sejajar dengan folder pages.
-
-![alt text](<Images/Bagian 1 – Membuat Middleware(2).png>)
+![alt text](<Images/Bagian 1 – Install NextAuth(1).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 2 – Pengujian ISR</h3></summary>
+<summary><h3>Bagian 2 – Konfigurasi API Auth</h3></summary>
 
-1. Modifikasi file index.tsx pada folder src/pages/produk
+1. Buat file dan folder pada folder pages/api/auth/``[...nextauth].ts
 
-![alt text](<Images/Bagian 2 – Struktur Dasar Middleware(2).png>)
+![alt text](<Images/Bagian 2 – Konfigurasi API Auth(1).png>)
 
-</details>
+2. Modifikasi file [...nextauth].ts:
 
----
-
-<details open>
-<summary><h3>Bagian 3 – Redirect Sederhana</h3></summary>
-
-1. Redirect Sederhana
-
-![alt text](<Images/Bagian 3 – Redirect Sederhana(1).png>)
-
-2. Semua halaman akan redirect ke home dan error dikarenakan terus menerus loading
-
-![alt text](<Images/Bagian 3 – Redirect Sederhana(2).png>)
+![alt text](<Images/Bagian 2 – Konfigurasi API Auth(2).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 2 – Struktur Dasar Middleware</h3></summary>
-1. Modifikasi file revalidate.ts
+<summary><h3>Bagian 4 – Tambahkan SessionProvider</h3></summary>
 
-![alt text](<Images/D. On-Demand Revalidation(Bagian 2 – Tambahkan Parameter Data)(Modifikasi file revalidate.ts).png>)
+1. Buka file _app.tsx dan modifikasi:
 
-2. Uji coba menambahkan parameter dan value pada url
-http://localhost:3000/api/revalidate?data=produk
+![alt text](<Images/Bagian 4 – Tambahkan SessionProvider(1).png>)
 
-![alt text](<Images/E. Pengujian Manual Revalidation(Akses).png>)
+</details>
 
-3. Uji coba dengan url http://localhost:3000/api/revalidate?data=
+---
 
-![alt text](<Images/D. On-Demand Revalidation(Bagian 2 – Tambahkan Parameter Data)(Uji coba dengan url httplocalhost3000apirevalidatedata=).png>)
+<details open>
+<summary><h3>Bagian 5 – Tambahkan Tombol Login & Logout</h3></summary>
+1. Buka index.tsx pada folder component/navbar:
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(1).png>)
+
+2. Modifikasi file index.tsx pada line 10 dan 2
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(2).png>)
+
+3. Buka file file navbar.module.scss tambahkan code pada line 9
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(3).png>)
+
+4. Jalankan http://localhost:3000/
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(4).png>)
+
+5. Jika di klik sign in maka akan muncul dan isikan textbox masing. Setelah itu klik
+button sign in dan setelah diklik maka akan kembali ke halaman localhost
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(5).png>)
+
+6. Untuk dapat menangkap data pada session maka tambahkan code sebagai berikut :
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(6).png>)
+
+7. Uji coba sign in dan sign out<br>
+o Jalankan Kembali npm run dev<br>
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(7).png>)
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(8).png>)
+
+![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(9).png>)
 
 </details>
 
 -----------
 
 <details open>
-<summary><h3>Bagian 4 – Batasi Route Tertentu</h3></summary>
+<summary><h3>D. Menambahkan Data Tambahan (Full Name)</h3></summary>
 
-1. Untuk mengatasi pada bagian 3 maka perlu pembatasan route
+1. Buka file [...nextauth].js dan tambahkan code pada line 22
 
-![alt text](<Images/Bagian 4 – Batasi Route Tertentu(1).png>)
+![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(1).png>)
 
-2. hasil
+2. Pada callbacks modifikasi codenya menjadi berikut :
 
-![alt text](<Images/Bagian 4 – Batasi Route Tertentu(2).png>)
+![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(2).png>)
+
+3. Modifikasi navbar.module.scss
+
+![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(3).png>)
+
+4. Modifikasi index.tsx pada folder components/layouts/navbar
+
+![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(4).png>)
+
+5. Jalankan browser pada localhost
+
+![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(5).png>)
+
 
 </details>
 
@@ -157,68 +187,59 @@ http://localhost:3000/api/revalidate?data=produk
 
 
 <details open>
-<summary><h3>Bagian 5 – Simulasi Sistem Login</h3></summary>
+<summary><h3>E. Proteksi Halaman Profile</h3></summary>
 
-1. Modifikasi file middleware.ts
+1. Buat Halaman Profile<br>
+o pages/profile/index.tsx dan modifikasi file index.tsx
 
-![alt text](<Images/Bagian 5 – Simulasi Sistem Login(1).png>)
+![alt text](<Images/E. Proteksi Halaman Profile(Buat Halaman Profile)(1).png>)
 
-2. Jika user langsung mengakses ke alamat http://localhost:3000/produk tidak akan bisa user akan diarahkan ke halaman login
+jalankan browser<br>
 
-![alt text](<Images/Bagian 5 – Simulasi Sistem Login(2).png>)
+![alt text](<Images/E. Proteksi Halaman Profile(Buat Halaman Profile)(2).png>)
+
+2. Buat Middleware Authorization<br>
+o Buat file withAuth.ts dan folder dengan nama middleware di src
+
+![alt text](<Images/Buat Middleware Authorization(1).png>)
+
+o Modifikasi withAuth.ts<br>
+
+![alt text](<Images/Buat Middleware Authorization(2).png>)
+
+o Modifikasi file middleware.ts<br>
+
+![alt text](<Images/Buat Middleware Authorization(3).png>)
 
 </details>
 
 -----------
 
-<details open>
-<summary><h3>D. Pengujian</h3></summary>
 
-Uji 1 – isLogin = false<br>
+<details open>
+<summary><h3>F. Pengujian</h3></summary>
+
+Uji 1 – Belum Login<br>
 Akses:<br>
-/products<br>
+/profile<br>
 Hasil:<br>
-Redirect ke /login<br>
+Redirect ke home<br>
 
-![alt text](<Images/Bagian 5 – Simulasi Sistem Login(1).png>)
-
-Hasil
-
-![alt text](<Images/Bagian 5 – Simulasi Sistem Login(2).png>)
+![alt text](<Images/F. Pengujian(Uji 1 – Belum Login).png>)
 
 Uji 2 – isLogin = true<br>
-Ubah:<br>
-const isLogin = true<br>
+Login terlebih dahulu → Akses /profile<br>
+Hasil:<br>
+Bisa masuk<br>
 
-![alt text](<Images/Uji 2 – isLogin = true(1).png>)
+![alt text](<Images/F. Pengujian(Uji 2 – Sudah Login).png>)
 
-Hasil
+Klik Sign Out → Akses /profile<br>
 
-![alt text](<Images/Uji 2 – isLogin = true(2).png>)
+Hasil:<br>
+Tidak bisa masuk<br>
 
-Uji 3 – Tambahkan Multiple Route<br>
-<!-- export const config = {
-matcher: ['/products', '/about']
-} -->
-
-Sekarang:<br>
-• /products dan /about butuh login<br>
-• Halaman lain bebas<br>
-
-False:
-![alt text](<Images/Uji 3 – Tambahkan Multiple Route(false1).png>)
-
-Hasil:
-
-![alt text](<Images/Uji 3 – Tambahkan Multiple Route(false2).png>)
-
-True:
-
-![alt text](<Images/Uji 3 – Tambahkan Multiple Route(true1).png>)
-
-Hasil:
-
-![alt text](<Images/Uji 3 – Tambahkan Multiple Route(true2).png>)
+![alt text](<Images/F. Pengujian(Uji 3 – Logout).png>)
 
 </details>
 
@@ -278,7 +299,7 @@ Field `fullname` ditambahkan pada:
 
 Screenshot form login:
 
-![Login Form](<Images/H. Tugas Praktikum(Login Form).png>)
+![alt text](<Images/h. Tugas Praktikum(Screenshot login).png>)
 
 ---
 
@@ -304,11 +325,11 @@ const {data}:any = useSession();
 
 Screenshot session (setelah login — full name tampil di navbar):
 
-![Session Navbar](<Images/H. Tugas Praktikum(Session Navbar).png>)
+![alt text](<Images/h. Tugas Praktikum(Screenshot login)(3).png>)
 
 Screenshot halaman profile:
 
-![Profile Page](<Images/H. Tugas Praktikum(Profile Page).png>)
+![alt text](<Images/h. Tugas Praktikum(Screenshot login)(2).png>)
 
 ---
 
@@ -377,7 +398,7 @@ Efek:
 
 Screenshot redirect saat belum login:
 
-![Redirect Middleware](<Images/H. Tugas Praktikum(Redirect Middleware).png>)
+![alt text](<Images/h. Tugas Praktikum(Screenshot login).png>)
 
 ---
 
