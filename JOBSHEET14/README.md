@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 14&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 15&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 14 - Sistem Autentikasi & Proteksi Route</td>
+<td>Jobsheet 15 - Implementasi Sistem Registrasi (Database Integration)</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -56,11 +56,13 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menjelaskan konsep autentikasi dan otorisasi.
-- ✅ Mengimplementasikan login menggunakan NextAuth.
-- ✅ Menggunakan Credentials Provider.
-- ✅ Mengakses data session di frontend.
-- ✅ Melindungi halaman menggunakan middleware.
+- ✅ Membuat form registrasi.
+- ✅ Mengirim data menggunakan metode POST.
+- ✅ Membuat API Route untuk register.
+- ✅ Melakukan validasi email unik.
+- ✅ Meng-hash password menggunakan bcrypt.
+- ✅ Menyimpan user ke database.
+- ✅ Menampilkan loading dan error handling di frontend.
 
 ---
 ## 📝 Langkah-Langkah Praktikum
@@ -81,165 +83,172 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>Bagian 1 – Install NextAuth</h3></summary>
+<summary><h3>Bagian 1 – Membuat Register View</h3></summary>
 
-1. npm install next-auth –force
+1. Buat folder pada views dengan nama register dan tambahkan 2 file yaitu index.tsx
+dan register.module.scss
 
-![alt text](<Images/Bagian 1 – Install NextAuth(1).png>)
+![alt text](<Images/Bagian 1 – Membuat Register View(1).png>)
+
+2. Modifikasi file index.tsx ( pada folder views/auth/register/index.tsx)
+
+![alt text](<Images/Bagian 1 – Membuat Register View(2).png>)
+
+3. Buka file register.tsx pada folder auth/register.tsx
+
+![alt text](<Images/Bagian 1 – Membuat Register View(3).png>)
+
+4. Modifikasi file register.tsx ( pada folder pages/auth/register.tsx )
+
+![alt text](<Images/Bagian 1 – Membuat Register View(4).png>)
+
+5. Modifikasi register.module.scss
+
+![alt text](<Images/Bagian 1 – Membuat Register View(5).png>)
+
+6. Tambahkan form inputan pada file index.tsx ( pada folder views/auth/register/index.tsx) Form berisi:<br>
+• Email<br>
+
+![alt text](<Images/Bagian 1 – Membuat Register View(6).png>)
+
+• Full Name <br>
+
+![alt text](<Images/Bagian 1 – Membuat Register View(7).png>)
+
+• Password<br>
+
+![alt text](<Images/Bagian 1 – Membuat Register View(8).png>)
+
+• Button Register<br>
+
+![alt text](<Images/Bagian 1 – Membuat Register View(9).png>)
+
+7. Kode keseluruahannya sebagai berikut :
+
+![alt text](<Images/Bagian 1 – Membuat Register View(10).png>)
+
+8. Modifikasi register.module.scss
+
+![alt text](<Images/Bagian 1 – Membuat Register View(11).png>)
+
+9. Jalankan browsernya http://localhost:3000/auth/register sehingga tampilan sebagai
+berikut
+
+![alt text](<Images/Bagian 1 – Membuat Register View(12).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 2 – Konfigurasi API Auth</h3></summary>
+<summary><h3>Bagian 2 – Membuat API Register</h3></summary>
 
-1. Buat file dan folder pada folder pages/api/auth/``[...nextauth].ts
+1. Buka file servicefirebase.ts pada folder src/utils/db dan modifikasi
 
-![alt text](<Images/Bagian 2 – Konfigurasi API Auth(1).png>)
+![alt text](<Images/Bagian 2 – Membuat API Register(1).png>)
 
-2. Modifikasi file [...nextauth].ts:
+2. Buat file register.ts pada folder api
 
-![alt text](<Images/Bagian 2 – Konfigurasi API Auth(2).png>)
+![alt text](<Images/Bagian 2 – Membuat API Register(2).png>)
+
+3. Modifikasi file register.ts
+
+![alt text](<Images/Bagian 2 – Membuat API Register(3).png>)
+
+4. Modifikasi index.tsx pada folder register ( tambahkan beberapa code)
+
+![alt text](<Images/Bagian 2 – Membuat API Register(4).png>)
+
+5. Buka browser http://localhost:3000/auth/register isikan data dan klik register. Jika berhasil maka akan masuk ke menu login
+
+![alt text](<Images/Bagian 2 – Membuat API Register(5).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 4 – Tambahkan SessionProvider</h3></summary>
+<summary><h3>Bagian 3 – Install bcrypt</h3></summary>
 
-1. Buka file _app.tsx dan modifikasi:
+1. npm install bcrypt --force & npm install --save-dev @types/bcrypt –force
 
-![alt text](<Images/Bagian 4 – Tambahkan SessionProvider(1).png>)
+![alt text](<Images/Bagian 3 – Install bcrypt(1-2).png>)
+
+2. Buka file servicefirebase.ts pada folder src/utils/db dan modifikasi
+
+![alt text](<Images/Bagian 3 – Install bcrypt(3).png>)
+
+3. Jalankan browser http://localhost:3000/auth/register dan input data setelah itu klik register
+
+![alt text](<Images/Bagian 3 – Install bcrypt(4).png>)
+
+4. Buka pada firebase jika berhasil maka data register akan masuk
+
+![alt text](<Images/Bagian 3 – Install bcrypt(5).png>)
+
+5. Jika user memasukkan data yang sama sistem tidak akan memproses tetapi
+permasalahannya user memasukkan data yang sama tidak ada pemberitahuan pada
+layar maka dari itu perlu ada perubahan pada code index.tsx pada folder
+views/auth/register
+
+![alt text](<Images/Bagian 3 – Install bcrypt(6).png>)
+
+o Line 34 rubah menjadi email<br>
+
+![alt text](<Images/Bagian 3 – Install bcrypt(7).png>)
+
+6. Modifikasi juga pada register.module.scss
+
+![alt text](<Images/Bagian 3 – Install bcrypt(8).png>)
+
+7. Jika berhasil maka hasilnya seperti berikut
+
+![alt text](<Images/Bagian 3 – Install bcrypt(9).png>)
 
 </details>
 
 ---
 
-<details open>
-<summary><h3>Bagian 5 – Tambahkan Tombol Login & Logout</h3></summary>
-1. Buka index.tsx pada folder component/navbar:
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(1).png>)
-
-2. Modifikasi file index.tsx pada line 10 dan 2
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(2).png>)
-
-3. Buka file file navbar.module.scss tambahkan code pada line 9
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(3).png>)
-
-4. Jalankan http://localhost:3000/
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(4).png>)
-
-5. Jika di klik sign in maka akan muncul dan isikan textbox masing. Setelah itu klik
-button sign in dan setelah diklik maka akan kembali ke halaman localhost
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(5).png>)
-
-6. Untuk dapat menangkap data pada session maka tambahkan code sebagai berikut :
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(6).png>)
-
-7. Uji coba sign in dan sign out<br>
-o Jalankan Kembali npm run dev<br>
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(7).png>)
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(8).png>)
-
-![alt text](<Images/Bagian 5 – Tambahkan Tombol Login & Logout(9).png>)
-
-</details>
-
------------
 
 <details open>
-<summary><h3>D. Menambahkan Data Tambahan (Full Name)</h3></summary>
+<summary><h3>D. Pengujian</h3></summary>
 
-1. Buka file [...nextauth].js dan tambahkan code pada line 22
+Uji 1 – Register Baru<br>
+Input:<br>
+• Email baru<br>
 
-![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(1).png>)
+![alt text](<Images/Uji 1 – Register Baru(1).png>)
 
-2. Pada callbacks modifikasi codenya menjadi berikut :
+Hasil:<br>
+• Data tersimpan di Firestore<br>
 
-![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(2).png>)
+![alt text](<Images/Uji 1 – Register Baru(2).png>)
 
-3. Modifikasi navbar.module.scss
+• Password ter-hash<br>
 
-![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(3).png>)
+![alt text](<Images/Uji 1 – Register Baru(1).png>)
 
-4. Modifikasi index.tsx pada folder components/layouts/navbar
+• Redirect ke login<br>
 
-![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(4).png>)
+![alt text](<Images/Uji 1 – Register Baru(3).png>)
 
-5. Jalankan browser pada localhost
+Uji 2 – Email Sudah Ada<br>
+Input:<br>
+• Email yang sama<br>
+Hasil:<br>
+• Error 400<br>
+• Message: Email already exists<br>
 
-![alt text](<Images/D. Menambahkan Data Tambahan (Full Name)(5).png>)
+![alt text](<Images/Uji 2 – Email Sudah Ada.png>)
 
-
-</details>
-
------------
-
-
-<details open>
-<summary><h3>E. Proteksi Halaman Profile</h3></summary>
-
-1. Buat Halaman Profile<br>
-o pages/profile/index.tsx dan modifikasi file index.tsx
-
-![alt text](<Images/E. Proteksi Halaman Profile(Buat Halaman Profile)(1).png>)
-
-jalankan browser<br>
-
-![alt text](<Images/E. Proteksi Halaman Profile(Buat Halaman Profile)(2).png>)
-
-2. Buat Middleware Authorization<br>
-o Buat file withAuth.ts dan folder dengan nama middleware di src
-
-![alt text](<Images/Buat Middleware Authorization(1).png>)
-
-o Modifikasi withAuth.ts<br>
-
-![alt text](<Images/Buat Middleware Authorization(2).png>)
-
-o Modifikasi file middleware.ts<br>
-
-![alt text](<Images/Buat Middleware Authorization(3).png>)
-
-</details>
-
------------
-
-
-<details open>
-<summary><h3>F. Pengujian</h3></summary>
-
-Uji 1 – Belum Login<br>
+Uji 3 – Method GET<br>
 Akses:<br>
-/profile<br>
-Hasil:<br>
-Redirect ke home<br>
-
-![alt text](<Images/F. Pengujian(Uji 1 – Belum Login).png>)
-
-Uji 2 – isLogin = true<br>
-Login terlebih dahulu → Akses /profile<br>
-Hasil:<br>
-Bisa masuk<br>
-
-![alt text](<Images/F. Pengujian(Uji 2 – Sudah Login).png>)
-
-Klik Sign Out → Akses /profile<br>
+/api/register<br>
 
 Hasil:<br>
-Tidak bisa masuk<br>
+• 405 Method Not Allowed<br>
 
-![alt text](<Images/F. Pengujian(Uji 3 – Logout).png>)
+![alt text](<Images/Uji 3 – Method GET.png>)
 
 </details>
 
@@ -320,11 +329,11 @@ export default async function handler(req, res) {
 
 Screenshot register sukses (redirect ke login):
 
-![alt text](<Images/G. Tugas Praktikum(Register Sukses).png>)
+![alt text](<Images/Uji 1 – Register Baru(3).png>)
 
 Screenshot database Firestore (data tersimpan):
 
-![alt text](<Images/G. Tugas Praktikum(Database Firestore).png>)
+![alt text](<Images/Uji 1 – Register Baru(2).png>)
 
 ---
 
@@ -382,7 +391,7 @@ Styling `register__error` di `register.module.scss`:
 
 Screenshot email sudah terdaftar (error "Email already exists"):
 
-![alt text](<Images/G. Tugas Praktikum(Email Sudah Ada).png>)
+![alt text](<Images/Uji 2 – Email Sudah Ada.png>)
 
 ---
 
