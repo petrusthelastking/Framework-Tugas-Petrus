@@ -39,6 +39,7 @@ const TampilanRegister = () => {
 
   return (
     <div className={style.register}>
+      {error && <p className={style.register__error}>{error}</p>}
       <h1 className={style.register__title}>Halaman Register</h1>
 
       <div className={style.register__form}>
@@ -95,8 +96,12 @@ const TampilanRegister = () => {
             <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
           )}
 
-          <button type="submit">
-            Register
+          <button
+            type="submit"
+            className={style.register__form__item__button}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Register"}
           </button>
         </form>
       </div>
