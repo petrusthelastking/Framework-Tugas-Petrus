@@ -223,136 +223,172 @@ Hasil:
 </details>
 
 <details open>
-<summary><h3>D. Tugas Praktikum </h3></summary>
+<summary><h3>H. Tugas Praktikum</h3></summary>
 
-## 🎯 Tugas Individu
+## Tugas Individu
 
 Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Membuat halaman `/products`, `/about`, dan `/login`.
-2. Menambahkan Middleware:
-   - Redirect ke `/login` jika belum login.
-   - Izinkan akses jika login `true`.
-3. Menambahkan proteksi hanya untuk route tertentu.
-4. Mendokumentasikan hasil pengujian (sebelum/sesudah redirect) dan perbandingan dengan `useEffect`.
+1. Implementasi login menggunakan Credentials Provider.
+2. Tambahkan field full name.
+3. Tampilkan full name setelah login.
+4. Buat halaman profile.
+5. Lindungi halaman profile dengan middleware.
+6. Dokumentasi: screenshot login, session, dan redirect middleware.
 
 ---
 
-## 1) Pembuatan Halaman
+## 1) Login dengan Credentials Provider
 
-Halaman yang digunakan pada tugas ini:
+Login diimplementasikan menggunakan `CredentialsProvider` dari `next-auth`.
 
-- `/products` → `src/pages/products/index.tsx`
-- `/about` → `src/pages/about/index.tsx`
-- `/login` → `src/pages/login.tsx`
-
-Implementasi `/login` menggunakan simulasi cookie:
-
-- Tombol **Login** menyimpan cookie `isLogin=true`.
-- Tombol **Logout** menghapus cookie `isLogin`.
-
----
-
-## 2) Implementasi Middleware
-
-File middleware:
-
-- `src/middleware.ts`
-
-Logika middleware:
+File: `src/pages/api/auth/[...nextauth].ts`
 
 ```ts
-const isLogin = request.cookies.get("isLogin")?.value === "true";
+CredentialsProvider({
+  name: "credentials",
+  credentials: {
+    fullname: { label: "Full Name", type: "text" },
+    email: { label: "Email", type: "email" },
+    password: { label: "Password", type: "password" },
+  },
+  async authorize(credentials) {
+    const user: any = {
+      id: "1",
+      email: credentials?.email,
+      password: credentials?.password,
+      fullname: credentials?.fullname,
+    }
+    if (user) return user
+    return null
+  },
+})
+```
 
-if (isLogin) {
-  return NextResponse.next();
+---
+
+## 2) Field Full Name
+
+Field `fullname` ditambahkan pada:
+
+- `credentials` di `CredentialsProvider`
+- Objek `user` di fungsi `authorize`
+- JWT callback: `token.fullname = user.fullname`
+- Session callback: `session.user.fullname = token.fullname`
+
+Screenshot form login:
+
+![Login Form](<Images/H. Tugas Praktikum(Login Form).png>)
+
+---
+
+## 3) Tampilkan Full Name Setelah Login
+
+Full name ditampilkan di dua tempat:
+
+**Navbar** (`src/components/layouts/navbar/index.tsx`):
+
+```tsx
+const {data}:any = useSession()
+// ...
+Welcome, {data.user?.fullname}
+```
+
+**Halaman Profile** (`src/pages/profile/index.tsx`):
+
+```tsx
+const {data}:any = useSession();
+// ...
+<h1>Selamat Datang {data?.user?.fullname}</h1>
+```
+
+Screenshot session (setelah login — full name tampil di navbar):
+
+![Session Navbar](<Images/H. Tugas Praktikum(Session Navbar).png>)
+
+Screenshot halaman profile:
+
+![Profile Page](<Images/H. Tugas Praktikum(Profile Page).png>)
+
+---
+
+## 4) Halaman Profile
+
+File: `src/pages/profile/index.tsx`
+
+```tsx
+import { useSession } from "next-auth/react";
+
+const HalamanProfile = () => {
+    const {data}:any = useSession();
+    return (
+        <div>
+            <h1>Halaman Profile</h1><br />
+            <h1>Selamat Datang {data?.user?.fullname}</h1>
+        </div>
+    )
 }
 
-return NextResponse.redirect(new URL("/login", request.url));
+export default HalamanProfile
 ```
-
-Artinya:
-
-- Jika cookie `isLogin=true` → user boleh akses route yang diproteksi.
-- Jika tidak ada / bukan `true` → user diarahkan ke `/login`.
 
 ---
 
-## 3) Proteksi Hanya Route Tertentu
+## 5) Proteksi Halaman Profile dengan Middleware
 
-Konfigurasi matcher:
+### Higher-Order Middleware (`src/Middleware/withAuth.ts`)
 
 ```ts
-export const config = {
-  matcher: ["/products", "/about"],
-};
+import { getToken } from "next-auth/jwt";
+import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
+
+export default function withAuth(
+  middleware: NextMiddleware,
+  requireAuth: string[] = [],
+) {
+  return async (req: NextRequest, next: NextFetchEvent) => {
+    const pathname = req.nextUrl.pathname;
+    if (requireAuth.includes(pathname)) {
+      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+      if (!token) {
+        const loginUrl = new URL("/", req.url);
+        return NextResponse.redirect(loginUrl);
+      }
+    }
+    return middleware(req, next);
+  }
+}
 ```
 
-Dampak matcher:
+### Middleware utama (`src/middleware.ts`)
 
-- `/products` dan `/about` **wajib login**.
-- Route lain tetap bebas diakses (tidak diproses middleware ini).
+```ts
+export const middleware = withAuth(
+  function middleware(request) { return NextResponse.next(); },
+  ["/profile"]
+);
 
----
+export const config = { matcher: ["/profile"] };
+```
 
-## 4) Dokumentasi Pengujian Redirect
+Efek:
+- Akses `/profile` **tanpa login** → redirect ke `/` (home)
+- Akses `/profile` **setelah login** → halaman tampil normal
 
-### a. Sebelum login (cookie belum ada)
+Screenshot redirect saat belum login:
 
-Uji akses:
-
-- `http://localhost:3000/products`
-- `http://localhost:3000/about`
-
-Hasil:
-
-- Otomatis redirect ke `http://localhost:3000/login`
-
-Screenshot:
-
-![alt text](<Images/Screenshot 2026-03-22 232749.png>)
-
-### b. Sesudah login (cookie `isLogin=true`)
-
-Langkah:
-
-- Buka `/login`
-- Klik tombol **Login**
-- Akses ulang `/products` atau `/about`
-
-Hasil:
-
-- Halaman dapat diakses (tidak redirect ke `/login`)
-
-Screenshot:
-
-![alt text](<Images/Screenshot 2026-03-22 232849.png>)
-
----
-
-## 5) Perbandingan Middleware vs useEffect
-
-| Aspek | Middleware | useEffect |
-|---|---|---|
-| Lokasi eksekusi | Sebelum halaman dirender (edge/server) | Setelah komponen dirender di browser |
-| UX redirect | Lebih cepat, minim flicker | Bisa muncul flicker/flash halaman |
-| Keamanan akses route | Lebih baik untuk proteksi route | Lebih cocok untuk kontrol UI di client |
-| Kasus penggunaan | Auth guard route (`/products`, `/about`) | Side effect client (fetch, sync state, dll) |
-
-Kesimpulan:
-
-- Untuk **proteksi route**, middleware lebih tepat.
-- `useEffect` tetap berguna untuk logika client-side, bukan sebagai proteksi utama route.
+![Redirect Middleware](<Images/H. Tugas Praktikum(Redirect Middleware).png>)
 
 ---
 
 ## Ringkasan
 
-- ✅ Halaman `/products`, `/about`, `/login` tersedia
-- ✅ Middleware redirect ke `/login` saat belum login
-- ✅ Akses diizinkan saat cookie login bernilai `true`
-- ✅ Proteksi hanya aktif pada route tertentu (`/products`, `/about`)
-- ✅ Dokumentasi pengujian dan perbandingan `useEffect` sudah ditulis
+- ✅ Login dengan Credentials Provider berhasil diimplementasikan
+- ✅ Field full name ditambahkan pada form dan session
+- ✅ Full name tampil di navbar dan halaman profile
+- ✅ Halaman `/profile` dibuat
+- ✅ Halaman `/profile` dilindungi middleware (`withAuth`)
+- ✅ Redirect ke `/` jika belum login
 
 </details>
 
