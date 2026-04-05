@@ -2,9 +2,12 @@ import {
     getFirestore,
     collection,
     getDocs,
+    Firestore,
     getDoc,
     doc,
+    query,
     addDoc,
+    where,
     deleteDoc,
 } from "firebase/firestore";
 import app from "./firebase";
@@ -38,4 +41,39 @@ export async function addProduct(collectionName: string, data: object) {
 
 export async function deleteProduct(collectionName: string, id: string) {
     await deleteDoc(doc(db, collectionName, id));
+}
+
+export async function signUp(
+    userData: {
+        email: string;
+        fullname: string;
+        password: string;
+    },
+    callback: Function,
+) {
+    const q = query(
+        collection(db, "users"),
+        where("email", "==", userData.email),
+    );
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+    // console.log("Query result:", data);
+
+    if (data.length > 0) {
+        // user belum ada → boleh daftar
+        // await addDoc(collection(db, "users"), userData);
+        // console.log("User registered:", data);
+        callback({
+            status: "success",
+            message: "User registered successfully",
+        });
+    } else {
+        callback({
+            status: "error",
+            message: "User already exists",
+        });
+    }
 }
