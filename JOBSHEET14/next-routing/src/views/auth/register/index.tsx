@@ -10,11 +10,24 @@ const TampilanRegister = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
+    setError("");
     const form = event.currentTarget;
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const fullname = formData.get("Fullname") as string;
     const password = formData.get("Password") as string;
+
+    if (!email) {
+      setError("Email wajib diisi");
+      setIsLoading(false);
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      setIsLoading(false);
+      return;
+    }
     const response = await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -32,7 +45,7 @@ const TampilanRegister = () => {
     } else {
       setIsLoading(false);
       setError(
-        response.status === 400 ? "User already exists" : "An error occurred",
+        response.status === 400 ? "Email already exists" : "An error occurred",
       );
     }
   };

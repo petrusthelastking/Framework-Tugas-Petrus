@@ -244,172 +244,156 @@ Tidak bisa masuk<br>
 </details>
 
 <details open>
-<summary><h3>H. Tugas Praktikum</h3></summary>
+<summary><h3>G. Tugas Praktikum</h3></summary>
 
 ## Tugas Individu
 
 Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Implementasi login menggunakan Credentials Provider.
-2. Tambahkan field full name.
-3. Tampilkan full name setelah login.
-4. Buat halaman profile.
-5. Lindungi halaman profile dengan middleware.
-6. Dokumentasi: screenshot login, session, dan redirect middleware.
+1. Implementasi register terhubung database (Firestore).
+2. Tambahkan validasi: email wajib & password minimal 6 karakter.
+3. Tambahkan role default `"member"`.
+4. Tampilkan pesan error di UI.
+5. Screenshot hasil: register sukses, email sudah ada, database Firestore.
 
 ---
 
-## 1) Login dengan Credentials Provider
+## 1) Register Terhubung Database Firestore
 
-Login diimplementasikan menggunakan `CredentialsProvider` dari `next-auth`.
+Register diimplementasikan menggunakan Firestore. Fungsi `signUp` di `src/utils/db/servicefirebase.ts` melakukan query email terlebih dahulu, jika belum ada maka simpan ke koleksi `"users"`.
 
-File: `src/pages/api/auth/[...nextauth].ts`
+File: `src/utils/db/servicefirebase.ts`
 
 ```ts
-CredentialsProvider({
-  name: "credentials",
-  credentials: {
-    fullname: { label: "Full Name", type: "text" },
-    email: { label: "Email", type: "email" },
-    password: { label: "Password", type: "password" },
-  },
-  async authorize(credentials) {
-    const user: any = {
-      id: "1",
-      email: credentials?.email,
-      password: credentials?.password,
-      fullname: credentials?.fullname,
-    }
-    if (user) return user
-    return null
-  },
-})
-```
-
----
-
-## 2) Field Full Name
-
-Field `fullname` ditambahkan pada:
-
-- `credentials` di `CredentialsProvider`
-- Objek `user` di fungsi `authorize`
-- JWT callback: `token.fullname = user.fullname`
-- Session callback: `session.user.fullname = token.fullname`
-
-Screenshot form login:
-
-![alt text](<Images/h. Tugas Praktikum(Screenshot login).png>)
-
----
-
-## 3) Tampilkan Full Name Setelah Login
-
-Full name ditampilkan di dua tempat:
-
-**Navbar** (`src/components/layouts/navbar/index.tsx`):
-
-```tsx
-const {data}:any = useSession()
-// ...
-Welcome, {data.user?.fullname}
-```
-
-**Halaman Profile** (`src/pages/profile/index.tsx`):
-
-```tsx
-const {data}:any = useSession();
-// ...
-<h1>Selamat Datang {data?.user?.fullname}</h1>
-```
-
-Screenshot session (setelah login — full name tampil di navbar):
-
-![alt text](<Images/h. Tugas Praktikum(Screenshot login)(3).png>)
-
-Screenshot halaman profile:
-
-![alt text](<Images/h. Tugas Praktikum(Screenshot login)(2).png>)
-
----
-
-## 4) Halaman Profile
-
-File: `src/pages/profile/index.tsx`
-
-```tsx
-import { useSession } from "next-auth/react";
-
-const HalamanProfile = () => {
-    const {data}:any = useSession();
-    return (
-        <div>
-            <h1>Halaman Profile</h1><br />
-            <h1>Selamat Datang {data?.user?.fullname}</h1>
-        </div>
-    )
-}
-
-export default HalamanProfile
-```
-
----
-
-## 5) Proteksi Halaman Profile dengan Middleware
-
-### Higher-Order Middleware (`src/Middleware/withAuth.ts`)
-
-```ts
-import { getToken } from "next-auth/jwt";
-import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
-
-export default function withAuth(
-  middleware: NextMiddleware,
-  requireAuth: string[] = [],
+export async function signUp(
+    userData: {
+        email: string;
+        fullname: string;
+        password: string;
+        role?: string;
+    },
+    callback: Function,
 ) {
-  return async (req: NextRequest, next: NextFetchEvent) => {
-    const pathname = req.nextUrl.pathname;
-    if (requireAuth.includes(pathname)) {
-      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-      if (!token) {
-        const loginUrl = new URL("/", req.url);
-        return NextResponse.redirect(loginUrl);
-      }
+    const q = query(
+        collection(db, "users"),
+        where("email", "==", userData.email),
+    );
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    if (data.length > 0) {
+        callback({ status: "error", message: "Email already exists" });
+    } else {
+        userData.password = await bcrypt.hash(userData.password, 10);
+        userData.role = "member";
+        await addDoc(collection(db, "users"), userData)
+            .then(() => {
+                callback({ status: "success", message: "User registered successfully" });
+            })
+            .catch((error) => {
+                callback({ status: "error", message: error.message });
+            });
     }
-    return middleware(req, next);
+}
+```
+
+File: `src/pages/api/register.ts`
+
+```ts
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    await signUp(req.body, (result) => {
+      if (result.status === "success") {
+        res.status(200).json({ name: result.message, alamat: "" });
+      } else {
+        res.status(400).json({ name: result.message, alamat: "" });
+      }
+    });
+  } else {
+    res.status(405).json({ name: "Method not allowed", alamat: "" });
   }
 }
 ```
 
-### Middleware utama (`src/middleware.ts`)
+Screenshot register sukses (redirect ke login):
 
-```ts
-export const middleware = withAuth(
-  function middleware(request) { return NextResponse.next(); },
-  ["/profile"]
-);
+![alt text](<Images/G. Tugas Praktikum(Register Sukses).png>)
 
-export const config = { matcher: ["/profile"] };
+Screenshot database Firestore (data tersimpan):
+
+![alt text](<Images/G. Tugas Praktikum(Database Firestore).png>)
+
+---
+
+## 2) Validasi Form Register
+
+Validasi dilakukan di `src/views/auth/register/index.tsx` sebelum request ke API:
+
+```tsx
+if (!email) {
+  setError("Email wajib diisi");
+  setIsLoading(false);
+  return;
+}
+if (password.length < 6) {
+  setError("Password minimal 6 karakter");
+  setIsLoading(false);
+  return;
+}
 ```
 
-Efek:
-- Akses `/profile` **tanpa login** → redirect ke `/` (home)
-- Akses `/profile` **setelah login** → halaman tampil normal
+- **Email wajib diisi** — jika kosong, muncul pesan error sebelum fetch
+- **Password minimal 6 karakter** — jika kurang dari 6, muncul pesan error sebelum fetch
 
-Screenshot redirect saat belum login:
+---
 
-![alt text](<Images/h. Tugas Praktikum(Screenshot login).png>)
+## 3) Role Default "member"
+
+Sebelum data disimpan ke Firestore, role otomatis diset ke `"member"`:
+
+```ts
+userData.role = "member";
+```
+
+---
+
+## 4) Pesan Error di UI
+
+Error ditampilkan di dua tempat:
+
+1. **Di atas judul** — menggunakan class `register__error` dari scss:
+```tsx
+{error && <p className={style.register__error}>{error}</p>}
+```
+
+2. **Di dalam form** — duplikat error juga tampil di atas button
+
+Styling `register__error` di `register.module.scss`:
+```scss
+&__error {
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+}
+```
+
+Screenshot email sudah terdaftar (error "Email already exists"):
+
+![alt text](<Images/G. Tugas Praktikum(Email Sudah Ada).png>)
 
 ---
 
 ## Ringkasan
 
-- ✅ Login dengan Credentials Provider berhasil diimplementasikan
-- ✅ Field full name ditambahkan pada form dan session
-- ✅ Full name tampil di navbar dan halaman profile
-- ✅ Halaman `/profile` dibuat
-- ✅ Halaman `/profile` dilindungi middleware (`withAuth`)
-- ✅ Redirect ke `/` jika belum login
+- ✅ Register terhubung Firestore berhasil diimplementasikan
+- ✅ Validasi email wajib dan password minimal 6 karakter
+- ✅ Role default `"member"` tersimpan di Firestore
+- ✅ Password di-hash dengan `bcrypt` sebelum disimpan
+- ✅ Pesan error tampil di UI saat validasi gagal atau email sudah ada
+- ✅ Redirect ke `/auth/login` setelah register sukses
 
 </details>
 

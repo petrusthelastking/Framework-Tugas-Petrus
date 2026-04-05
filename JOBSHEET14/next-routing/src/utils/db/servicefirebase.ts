@@ -65,16 +65,14 @@ export async function signUp(
     // console.log("Query result:", data);
 
     if (data.length > 0) {
-        // user belum ada → boleh daftar
-        // await addDoc(collection(db, "users"), userData);
-        // console.log("User registered:", data);
+        // email sudah terdaftar
         callback({
-            status: "success",
-            message: "User registered successfully",
+            status: "error",
+            message: "Email already exists",
         });
     } else {
         userData.password = await bcrypt.hash(userData.password, 10);
-        userData.role = "user";
+        userData.role = "member";
         await addDoc(collection(db, "users"), userData)
             .then(() => {
                 callback({
