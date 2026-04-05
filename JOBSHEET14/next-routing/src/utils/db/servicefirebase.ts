@@ -11,6 +11,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import app from "./firebase";
+import bcrypt from "bcrypt";
 
 const db = getFirestore(app);
 
@@ -48,6 +49,7 @@ export async function signUp(
         email: string;
         fullname: string;
         password: string;
+        role?: string;
     },
     callback: Function,
 ) {
@@ -62,18 +64,29 @@ export async function signUp(
     }));
     // console.log("Query result:", data);
 
-    if (data.length === 0) {
+    if (data.length > 0) {
         // user belum ada → boleh daftar
-        await addDoc(collection(db, "users"), userData);
+        // await addDoc(collection(db, "users"), userData);
         // console.log("User registered:", data);
         callback({
             status: "success",
             message: "User registered successfully",
         });
     } else {
-        callback({
-            status: "error",
-            message: "User already exists",
-        });
+        userData.password = await bcrypt.hash(userData.password, 10);
+        userData.role = "user";
+        await addDoc(collection(db, "users"), userData)
+            .then(() => {
+                callback({
+                    status: "success",
+                    message: "User registered successfully",
+                });
+            })
+            .catch((error) => {
+                callback({
+                    status: "error",
+                    message: error.message,
+                });
+            });
     }
 }
