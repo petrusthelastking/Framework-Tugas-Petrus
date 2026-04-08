@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 15&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 16&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 15 - Implementasi Sistem Registrasi (Database Integration)</td>
+<td>Jobsheet 16 - Implementasi Login Database & Multi-Role</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -56,13 +56,12 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Membuat form registrasi.
-- ✅ Mengirim data menggunakan metode POST.
-- ✅ Membuat API Route untuk register.
-- ✅ Melakukan validasi email unik.
-- ✅ Meng-hash password menggunakan bcrypt.
-- ✅ Menyimpan user ke database.
-- ✅ Menampilkan loading dan error handling di frontend.
+- ✅ Menghubungkan login dengan database.
+- ✅ Melakukan verifikasi password menggunakan bcrypt.
+- ✅ Membuat custom login page.
+- ✅ Mengimplementasikan callback URL redirect.
+- ✅ Menerapkan middleware authentication.
+- ✅ Menerapkan role-based access control (RBAC).
 
 ---
 ## 📝 Langkah-Langkah Praktikum
@@ -83,172 +82,187 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>Bagian 1 – Membuat Register View</h3></summary>
+<summary><h3>BAGIAN 1 – Custom Login Page</h3></summary>
 
-1. Buat folder pada views dengan nama register dan tambahkan 2 file yaitu index.tsx
-dan register.module.scss
+1. Tambahkan custom page di NextAuth line 55-57
 
-![alt text](<Images/Bagian 1 – Membuat Register View(1).png>)
+![alt text](<Images/BAGIAN 1 – Custom Login Page(1).png>)
 
-2. Modifikasi file index.tsx ( pada folder views/auth/register/index.tsx)
+![alt text](<Images/BAGIAN 1 – Custom Login Page(2).png>)
 
-![alt text](<Images/Bagian 1 – Membuat Register View(2).png>)
+2. Jalankan browser http://localhost:3000/ dan klik sign in maka akan diarahkan ke
+login
 
-3. Buka file register.tsx pada folder auth/register.tsx
-
-![alt text](<Images/Bagian 1 – Membuat Register View(3).png>)
-
-4. Modifikasi file register.tsx ( pada folder pages/auth/register.tsx )
-
-![alt text](<Images/Bagian 1 – Membuat Register View(4).png>)
-
-5. Modifikasi register.module.scss
-
-![alt text](<Images/Bagian 1 – Membuat Register View(5).png>)
-
-6. Tambahkan form inputan pada file index.tsx ( pada folder views/auth/register/index.tsx) Form berisi:<br>
-• Email<br>
-
-![alt text](<Images/Bagian 1 – Membuat Register View(6).png>)
-
-• Full Name <br>
-
-![alt text](<Images/Bagian 1 – Membuat Register View(7).png>)
-
-• Password<br>
-
-![alt text](<Images/Bagian 1 – Membuat Register View(8).png>)
-
-• Button Register<br>
-
-![alt text](<Images/Bagian 1 – Membuat Register View(9).png>)
-
-7. Kode keseluruahannya sebagai berikut :
-
-![alt text](<Images/Bagian 1 – Membuat Register View(10).png>)
-
-8. Modifikasi register.module.scss
-
-![alt text](<Images/Bagian 1 – Membuat Register View(11).png>)
-
-9. Jalankan browsernya http://localhost:3000/auth/register sehingga tampilan sebagai
-berikut
-
-![alt text](<Images/Bagian 1 – Membuat Register View(12).png>)
+![alt text](<Images/BAGIAN 1 – Custom Login Page(3).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 2 – Membuat API Register</h3></summary>
+<summary><h3>BAGIAN 2 – Handle Login di Frontend</h3></summary>
 
-1. Buka file servicefirebase.ts pada folder src/utils/db dan modifikasi
+1. Copy paste isi dari register/index.tsx ke file login/index.tsx
 
-![alt text](<Images/Bagian 2 – Membuat API Register(1).png>)
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(1).png>)
 
-2. Buat file register.ts pada folder api
+2. Copy paste isi dari register/register.module.scss ke file login/login.module.scss<br>
+• Semua text register pada file index.tsx pada folder login diubah menjadi login
 
-![alt text](<Images/Bagian 2 – Membuat API Register(2).png>)
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(2).png>)
 
-3. Modifikasi file register.ts
+3. Lakukan hal yang sama pada file login.module.scss rubah text register menjadi login
 
-![alt text](<Images/Bagian 2 – Membuat API Register(3).png>)
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(3).png>)
 
-4. Modifikasi index.tsx pada folder register ( tambahkan beberapa code)
+4. Cek pada file login.tsx pada pages/auth
 
-![alt text](<Images/Bagian 2 – Membuat API Register(4).png>)
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(4).png>)
 
-5. Buka browser http://localhost:3000/auth/register isikan data dan klik register. Jika berhasil maka akan masuk ke menu login
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(5).png>)
 
-![alt text](<Images/Bagian 2 – Membuat API Register(5).png>)
+5. Jalankan browser localhost:3000/auth/login. Tampilannya akan sama dengan register
+
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(6).png>)
+
+6. Pada tampilan login kita tidak perlu hapus fullname jadi pada folder
+views/auth/login/index.tsx hapus fullname
+
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(7).png>)
+
+7. Sehingga hasilnya seperti berikut :
+
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(8).png>)
+
+8. Buka file index.tsx pada folder views/auth/login dan modifikasi codenya seperti
+berikut ( Untuk line 64 sampai kebawah tidak ada perubahan )
+
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(9).png>)
+
+9. Buka file servicefirebase.ts dan tambahkan code di line 25-38
+
+![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(10).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Bagian 3 – Install bcrypt</h3></summary>
+<summary><h3>BAGIAN 3 – Authorize di NextAuth (Database Login)</h3></summary>
 
-1. npm install bcrypt --force & npm install --save-dev @types/bcrypt –force
+1. Buka file [...nextauth].ts modifikasi menjadi berikut ( pada bagian providers )
 
-![alt text](<Images/Bagian 3 – Install bcrypt(1-2).png>)
-
-2. Buka file servicefirebase.ts pada folder src/utils/db dan modifikasi
-
-![alt text](<Images/Bagian 3 – Install bcrypt(3).png>)
-
-3. Jalankan browser http://localhost:3000/auth/register dan input data setelah itu klik register
-
-![alt text](<Images/Bagian 3 – Install bcrypt(4).png>)
-
-4. Buka pada firebase jika berhasil maka data register akan masuk
-
-![alt text](<Images/Bagian 3 – Install bcrypt(5).png>)
-
-5. Jika user memasukkan data yang sama sistem tidak akan memproses tetapi
-permasalahannya user memasukkan data yang sama tidak ada pemberitahuan pada
-layar maka dari itu perlu ada perubahan pada code index.tsx pada folder
-views/auth/register
-
-![alt text](<Images/Bagian 3 – Install bcrypt(6).png>)
-
-o Line 34 rubah menjadi email<br>
-
-![alt text](<Images/Bagian 3 – Install bcrypt(7).png>)
-
-6. Modifikasi juga pada register.module.scss
-
-![alt text](<Images/Bagian 3 – Install bcrypt(8).png>)
-
-7. Jika berhasil maka hasilnya seperti berikut
-
-![alt text](<Images/Bagian 3 – Install bcrypt(9).png>)
+![alt text](<Images/BAGIAN 3 – Authorize di NextAuth (Database Login)(1).png>)
 
 </details>
 
 ---
 
+<details open>
+<summary><h3>BAGIAN 4 – Tambahkan Role ke Token</h3></summary>
+
+1. JWT Callback pada file [...nextauth].ts Modifikasi menjadi
+
+![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(1).png>)
+
+2. Jalankan browser http://localhost:3000/auth/login
+
+![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(2).png>)
+
+![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(3).png>)
+
+</details>
+
+---
+
+<details open>
+<summary><h3>BAGIAN 5 – Callback URL Logic</h3></summary>
+
+1. Modifikasi withAuth.ts pada folder src/middleware
+
+![alt text](<Images/BAGIAN 5 – Callback URL Logic(1).png>)
+
+</details>
+
+---
+
+<details open>
+<summary><h3>BAGIAN 6 – Membuat halaman Admin dan authoriz</h3></summary>
+
+1. Buat halaman admin
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(1).png>)
+
+2. Pada index.tsx tambahkan code berikut
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(2).png>)
+
+3. Modifikasi withAuth.ts
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(3).png>)
+
+4. Jalankan browser localhost:3000/produk dan pada status sudah login. Rubah urlnya
+menjadi http://localhost:3000/admin maka user akan diarahkan ke localhost. Pada
+intinya role selain admin tidak bisa mengakses
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(4).png>)
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(5).png>)
+
+![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(6).png>)
+
+</details>
+
+---
 
 <details open>
 <summary><h3>D. Pengujian</h3></summary>
 
-Uji 1 – Register Baru<br>
+Uji 1 – Login Valid<br>
 Input:<br>
-• Email baru<br>
-
-![alt text](<Images/Uji 1 – Register Baru(1).png>)
-
+• Email benar<br>
+• Password benar<br>
 Hasil:<br>
-• Data tersimpan di Firestore<br>
+• Login berhasil<br>
+• Redirect sesuai callbackUrl<br>
 
-![alt text](<Images/Uji 1 – Register Baru(2).png>)
+![alt text](<Images/Uji 1 – Login Valid.png>)
 
-• Password ter-hash<br>
-
-![alt text](<Images/Uji 1 – Register Baru(1).png>)
-
-• Redirect ke login<br>
-
-![alt text](<Images/Uji 1 – Register Baru(3).png>)
-
-Uji 2 – Email Sudah Ada<br>
+Uji 2 – Password Salah<br>
 Input:<br>
-• Email yang sama<br>
+• Email benar<br>
+• Password salah<br>
 Hasil:<br>
-• Error 400<br>
-• Message: Email already exists<br>
+• Error message tampil<br>
+• Tidak login<br>
 
-![alt text](<Images/Uji 2 – Email Sudah Ada.png>)
+![alt text](<Images/Uji 2 – Password Salah.png>)
 
-Uji 3 – Method GET<br>
+Uji 3 – Akses Admin sebagai User<br>
+Login sebagai:<br>
+• role: user<br>
 Akses:<br>
-/api/register<br>
-
+/admin<br>
 Hasil:<br>
-• 405 Method Not Allowed<br>
+• Redirect ke home<br>
 
-![alt text](<Images/Uji 3 – Method GET.png>)
+![alt text](<Images/Uji 3 – Akses Admin sebagai User(1).png>)
+
+![alt text](<Images/Uji 3 – Akses Admin sebagai User(2).png>)
+
+Uji 4 – Akses Admin sebagai Admin<br>
+Login sebagai:<br>
+• role: admin<br>
+Akses:<br>
+/admin<br>
+Hasil:<br>
+• Bisa masuk halaman admin<br>
+
+![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(1).png>)
+
+![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(2).png>)
+
+![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(3).png>)
 
 </details>
 
