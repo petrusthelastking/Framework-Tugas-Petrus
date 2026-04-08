@@ -1,59 +1,125 @@
 import Link from "next/link";
+import style from "./login.module.scss";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-// import styles from './login.module.css';
-import styles from './login.module.scss';
+import { signIn } from "next-auth/react";
 
 const TampilanLogin = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { push } = useRouter();
-  const [form, setForm] = useState({ fullname: "", email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError("");
+    const form = event.currentTarget;
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const fullname = formData.get("Fullname") as string;
+    const password = formData.get("Password") as string;
+
+    if (!email) {
+      setError("Email wajib diisi");
+      setIsLoading(false);
+      return;
+    }
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      setIsLoading(false);
+      return;
+    }
+
     const result = await signIn("credentials", {
-      fullname: form.fullname,
-      email: form.email,
-      password: form.password,
+      email,
+      fullname,
+      password,
       redirect: false,
     });
 
     if (result?.ok) {
+      form.reset();
+      setIsLoading(false);
       push("/profile");
+    } else {
+      setIsLoading(false);
+      setError("Email atau password salah");
     }
   };
 
   return (
-    <div className={styles.login}>
-      <h1 className="text-3xl font-bold text-blue-600">Halaman Login</h1>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12, width: 260 }}>
-        <input
-          placeholder="Full Name"
-          value={form.fullname}
-          onChange={(e) => setForm({ ...form, fullname: e.target.value })}
-          style={{ padding: "8px 10px", borderRadius: 4, border: "1px solid #ccc" }}
-        />
-        <input
-          placeholder="Email"
-          type="email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          style={{ padding: "8px 10px", borderRadius: 4, border: "1px solid #ccc" }}
-        />
-        <input
-          placeholder="Password"
-          type="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          style={{ padding: "8px 10px", borderRadius: 4, border: "1px solid #ccc" }}
-        />
-        <button onClick={handleLogin} style={{ padding: "8px", background: "#3b82f6", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}>
-          Login
-        </button>
+    <div className={style.login}>
+      {error && <p className={style.login__error}>{error}</p>}
+      <h1 className={style.login__title}>Halaman Login</h1>
+
+      <div className={style.login__form}>
+        <form onSubmit={handleSubmit}>
+          <div className={style.login__form__item}>
+            <label
+              htmlFor="email"
+              className={style.login__form__item__label}
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              className={style.login__form__item__input}
+            />
+          </div>
+
+          <div className={style.login__form__item}>
+            <label
+              htmlFor="Fullname"
+              className={style.login__form__item__label}
+            >
+              Fullname
+            </label>
+            <input
+              type="text"
+              id="Fullname"
+              name="Fullname"
+              placeholder="Fullname"
+              className={style.login__form__item__input}
+            />
+          </div>
+
+          <div className={style.login__form__item}>
+            <label
+              htmlFor="Password"
+              className={style.login__form__item__label}
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="Password"
+              name="Password"
+              placeholder="Password"
+              className={style.login__form__item__input}
+            />
+          </div>
+
+          {error && (
+            <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
+          )}
+
+          <button
+            type="submit"
+            className={style.login__form__item__button}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Login"}
+          </button>
+        </form>
       </div>
-      <h1 style={{ color: "red", border: "1px solid red", borderRadius: "5px", padding: "5px", marginTop: 12 }}>
-        belum punya akun
-      </h1>
-      <Link href="/auth/register">Ke Halaman Register</Link>
+
+      <br />
+      <p className={style.login__form__item__text}>
+        tidak punya {"\'"} akun? <Link href="/auth/register">Ke Halaman Register</Link>
+      </p>
     </div>
   );
 };
