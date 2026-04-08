@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 17&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 18&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,8 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 17 - Implementasi Login Google Provider dengan NextAuth.js + Firebase</td>
+<td>Jobsheet 18 - Optimasi Performa Aplikasi Menggunakan Fitur Next.js
+\</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -82,76 +83,61 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>B. Konfigurasi Google OAuth</h3></summary>
+<summary><h3>A. Optimasi Gambar Lokal (Public Folder)</h3></summary>
 
-1. Langkah 1 – Masuk ke Google Cloud Console Buka:
+1. LStudi Kasus:<br>
+o Mengganti tag <img> pada halaman 404 dengan next/image. Langkah:<br>
+o Buka file src/pages/404.tsx<br>
 
-![alt text](<Images/B. Konfigurasi Google OAuth(1).png>)
+![alt text](<Image/A. Optimasi Gambar Lokal (Public Folder)(1).png>)
 
-2. Langkah 2 – Buat Project Baru
+2. Modifikasi line 7 menjadi line 8-11
 
-![alt text](<Images/B. Konfigurasi Google OAuth(2).png>)
-
-![alt text](<Images/B. Konfigurasi Google OAuth(3).png>)
-
-3. Langkah 3 – Konfigurasi OAuth Consent Screen
-
-![alt text](<Images/B. Konfigurasi Google OAuth(4).png>)
-
-![alt text](<Images/B. Konfigurasi Google OAuth(5).png>)
-
-![alt text](<Images/B. Konfigurasi Google OAuth(6).png>)
-
-![alt text](<Images/B. Konfigurasi Google OAuth(7).png>)
-
-4. Langkah 4 – Buat OAuth Credentials
-
-![alt text](<Images/B. Konfigurasi Google OAuth(8).png>)
+![alt text](<Image/A. Optimasi Gambar Lokal (Public Folder)(2).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session</h3></summary>
+<summary><h3>B. Optimasi Gambar Remote (External URL)</h3></summary>
 
-1. Buka file [...nextauth].ts pada folder api/auth dan modifikasi menjadi berikut
+1. Buka file views/product/index.tsx
 
-![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(1).png>)
+![alt text](<Image/B. Optimasi Gambar Remote (External URL)(1).png>)
 
-![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(2).png>)
+2. Modifikasi file index.tsx
 
-![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(3).png>)
+![alt text](<Image/B. Optimasi Gambar Remote (External URL)(2).png>)
 
-![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(4).png>)
+3. Buka file next.config.js
+
+![alt text](<Image/B. Optimasi Gambar Remote (External URL)(3).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>E. Tambahkan Button Login Google</h3></summary>
+<summary><h3>A. Menggunakan next/font</h3></summary>
 
-1. Modifikasi file index.tsx pada folder views/auth/login
+1. Buka file index.tsx pada folder Appshell/index.tsx dan modifkasi
 
-![alt text](<Images/E. Tambahkan Button Login Google(1).png>)
+![alt text](<Image/A. Menggunakan next font(1).png>)
 
-2. Jalankan browser localhost:3000/auth/login masuk melalui sign in with google.Jika berhasil maka akan terhubung dengan akun google.
+2. Jalankan browser localhost:3000/produk maka font akan berubah menjadi roboto
+untuk mengecek fontnya bisa menggunakan extension FontFinder
 
-![alt text](<Images/E. Tambahkan Button Login Google(2).png>)
+![alt text](<Image/A. Menggunakan next font(2).png>)
 
-3. Menampilkan image dari google<br>
-o Buka file index.tsx dan tambahkan code berikut<br>
+</details>
 
-![alt text](<Images/E. Tambahkan Button Login Google(3).png>)
+---
 
-4. Buka file navbar.module.css dan tambahkan code berikut
+<details open>
+<summary><h3>B. Menggunakan next/script</h3></summary>
 
-![alt text](<Images/E. Tambahkan Button Login Google(4).png>)
-
-5. Jika berhasil maka tampillannya akan seperti berikut
-
-![alt text](<Images/E. Tambahkan Button Login Google(5).png>)
+1. Buka file index.tsx pada folder layouts/Navbar dan modifikasi
 
 
 </details>
@@ -159,16 +145,15 @@ o Buka file index.tsx dan tambahkan code berikut<br>
 ---
 
 <details open>
-<summary><h3>G. Simpan Data Google ke Database</h3></summary>
+<summary><h3>Optimasi Avatar dengan next/image</h3></summary>
 
-1. Buka file servicefirebase.ts pada folder src/utils/db/ dan tambahkan beberapa kode berikut
+1. Buka file index.tsx pada folder layouts/navbar dan modifikasi :
 
-![alt text](<Images/G. Simpan Data Google ke Database(1).png>)
+![alt text](<Image/Optimasi Avatar dengan next image(1).png>)
 
-2. Jalankan browser dan login menggunakan akun google setelah cek di firebase, jika
-data akun googlenya masuk ke database maka anda telah berhasil
+2. Tambahkan hostname Google:
 
-![alt text](<Images/G. Simpan Data Google ke Database(2).png>)
+![alt text](<Image/Optimasi Avatar dengan next image(2).png>)
 
 </details>
 
