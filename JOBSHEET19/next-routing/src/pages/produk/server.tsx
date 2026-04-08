@@ -12,12 +12,12 @@ const HalamanProdukServer = (props:{products: produkType[]}) => {
 };
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/produk");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk`);
   const data = await res.json();
-
+  // console.log("Data produk yang diambil dari API:", data);
   return {
     props: {
-      products: data.data,
+      products: data.data, // Pastikan untuk memberikan nilai default jika data tidak tersedia
     },
   };
 }
