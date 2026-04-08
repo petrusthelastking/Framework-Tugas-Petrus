@@ -6,44 +6,34 @@ import { signIn } from "next-auth/react";
 
 const TampilanLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { push } = useRouter();
+  const { push, query } = useRouter();
+
+  const callbackUrl: any = query.callbackUrl || "/";
   const [error, setError] = useState("");
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setIsLoading(true);
     setError("");
-    const form = event.currentTarget;
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const fullname = formData.get("Fullname") as string;
-    const password = formData.get("Password") as string;
+    setIsLoading(true);
 
-    if (!email) {
-      setError("Email wajib diisi");
-      setIsLoading(false);
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password minimal 6 karakter");
-      setIsLoading(false);
-      return;
-    }
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: event.target.email.value,
+        password: event.target.password.value,
+        callbackUrl,
+      });
 
-    const result = await signIn("credentials", {
-      email,
-      fullname,
-      password,
-      redirect: false,
-    });
-
-    if (result?.ok) {
-      form.reset();
+      // console.log("signIn response:", res);
+      if (!res?.error) {
+        setIsLoading(false);
+        push(callbackUrl);
+      } else {
+        setIsLoading(false);
+        setError(res?.error || "Login failed");
+      }
+    } catch (error) {
       setIsLoading(false);
-      push("/profile");
-    } else {
-      setIsLoading(false);
-      setError("Email atau password salah");
+      setError("wrong email or password");
     }
   };
 
@@ -72,22 +62,6 @@ const TampilanLogin = () => {
 
           <div className={style.login__form__item}>
             <label
-              htmlFor="Fullname"
-              className={style.login__form__item__label}
-            >
-              Fullname
-            </label>
-            <input
-              type="text"
-              id="Fullname"
-              name="Fullname"
-              placeholder="Fullname"
-              className={style.login__form__item__input}
-            />
-          </div>
-
-          <div className={style.login__form__item}>
-            <label
               htmlFor="Password"
               className={style.login__form__item__label}
             >
@@ -95,9 +69,9 @@ const TampilanLogin = () => {
             </label>
             <input
               type="password"
-              id="Password"
-              name="Password"
-              placeholder="Password"
+              id="password"
+              name="password"
+              placeholder="password"
               className={style.login__form__item__input}
             />
           </div>
