@@ -259,11 +259,259 @@ Hasil:<br>
 
 Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Implementasi register terhubung database (Firestore).
-2. Tambahkan validasi: email wajib & password minimal 6 karakter.
-3. Tambahkan role default `"member"`.
-4. Tampilkan pesan error di UI.
-5. Screenshot hasil: register sukses, email sudah ada, database Firestore.
+1. Implementasikan login database.
+2. Tambahkan role pada user.
+3. Buat halaman `/profile` dan `/admin`.
+4. Proteksi `/admin` hanya untuk admin.
+5. Implementasikan callback URL.
+
+---
+
+## 1) Implementasi Login Database
+
+Login diimplementasikan dengan menghubungkan NextAuth `CredentialsProvider` ke Firestore melalui fungsi `signIn` di `servicefirebase.ts`.
+
+File: `src/utils/db/servicefirebase.ts`
+
+```ts
+export async function signIn(email: string) {
+    const q = query(collection(db, "users"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+    if (data) {
+        return data[0];
+    } else {
+        return null;
+    }
+}
+```
+
+File: `src/pages/api/auth/[...nextauth].ts` — bagian `authorize`:
+
+```ts
+async authorize(credentials) {
+  if (!credentials?.email || !credentials?.password) return null;
+
+  const user: any = await signIn(credentials.email);
+
+  if (user) {
+    const isPasswordValid = await bcrypt.compare(
+      credentials.password,
+      user.password,
+    );
+    if (isPasswordValid) {
+      return {
+        id: user.id,
+        email: user.email,
+        fullname: user.fullname,
+        role: user.role,
+      };
+    }
+  }
+  return null;
+},
+```
+
+Screenshot halaman login:
+
+![Login Page](Images/login-page.png)
+
+Screenshot login berhasil redirect ke profile:
+
+![Login Success](Images/login-success.png)
+
+---
+
+## 2) Tambahkan Role pada User
+
+Role disimpan di Firestore saat register (`role: "member"` atau `role: "admin"`). Saat login, role dibawa ke JWT token dan session melalui callbacks.
+
+File: `src/pages/api/auth/[...nextauth].ts`
+
+```ts
+callbacks: {
+  async jwt({ token, account, profile, user }: any) {
+    if (account?.provider === "credentials" && user) {
+      token.email = user.email;
+      token.fullname = user.fullname;
+      token.role = user.role;
+    }
+    return token;
+  },
+  async session({ session, token }: any) {
+    if (token.email) session.user.email = token.email;
+    if (token.fullname) session.user.fullname = token.fullname;
+    if (token.role) session.user.role = token.role;
+    return session;
+  },
+},
+```
+
+Screenshot data user di Firestore (dengan field role):
+
+![Firestore Role](Images/firestore-role.png)
+
+---
+
+## 3) Halaman /profile dan /admin
+
+### Halaman Profile (`src/pages/profile/index.tsx`)
+
+```tsx
+import { useSession } from "next-auth/react";
+
+const HalamanProfile = () => {
+    const { data }: any = useSession();
+    return (
+        <div>
+            <h1>Halaman Profile</h1>
+            <h1>Selamat Datang {data?.user?.fullname}</h1>
+        </div>
+    );
+};
+
+export default HalamanProfile;
+```
+
+Screenshot halaman profile:
+
+![Profile Page](Images/profile-page.png)
+
+### Halaman Admin (`src/pages/admin/index.tsx`)
+
+```tsx
+const HalamanAdmin = () => {
+  return (
+    <div>
+      <div className="admin">
+        <h1>Halaman Admin</h1>
+        <p>
+          Selamat datang di halaman admin! Anda memiliki akses penuh ke semua
+          fitur dan data di aplikasi ini. Di sini, Anda dapat mengelola
+          pengguna, melihat laporan, dan melakukan tugas administratif lainnya.
+          Pastikan untuk menggunakan hak akses Anda dengan bijak dan menjaga
+          keamanan data pengguna.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default HalamanAdmin;
+```
+
+Screenshot halaman admin (diakses role admin):
+
+![Admin Page](Images/admin-page.png)
+
+---
+
+## 4) Proteksi /admin Hanya untuk Admin
+
+Proteksi dilakukan di dua tempat:
+
+### `src/Middleware/withAuth.ts`
+
+```ts
+const hanyaAdmin = ["/admin"];
+
+export default function withAuth(middleware, requireAuth = []) {
+  return async (req, next) => {
+    const pathname = req.nextUrl.pathname;
+
+    if (requireAuth.includes(pathname)) {
+      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+      if (!token) {
+        const Url = new URL("/auth/login", req.url);
+        Url.searchParams.set("callbackUrl", encodeURI(req.url));
+        return NextResponse.redirect(Url);
+      }
+
+      if (token.role !== "admin" && hanyaAdmin.includes(pathname)) {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+    }
+
+    return middleware(req, next);
+  };
+}
+```
+
+### `src/middleware.ts`
+
+```ts
+export const middleware = withAuth(
+  function middleware(request) {
+    return NextResponse.next();
+  },
+  ["/profile", "/admin"]
+);
+
+export const config = {
+  matcher: ["/profile", "/admin"],
+};
+```
+
+Screenshot akses `/admin` dengan role bukan admin → redirect ke `/`:
+
+![Admin Redirect](Images/admin-redirect.png)
+
+Screenshot akses `/admin` dengan role admin → berhasil masuk:
+
+![Admin Access](Images/admin-access.png)
+
+---
+
+## 5) Implementasi Callback URL
+
+Callback URL diimplementasikan agar setelah login, user diarahkan ke halaman yang sebelumnya ingin diakses.
+
+### Di `withAuth.ts` — set callbackUrl saat redirect ke login:
+
+```ts
+const Url = new URL("/auth/login", req.url);
+Url.searchParams.set("callbackUrl", encodeURI(req.url));
+return NextResponse.redirect(Url);
+```
+
+### Di `views/auth/login/index.tsx` — baca callbackUrl dari query dan gunakan setelah login:
+
+```tsx
+const { push, query } = useRouter();
+const callbackUrl: any = query.callbackUrl || "/";
+
+const res = await signIn("credentials", {
+  redirect: false,
+  email: event.target.email.value,
+  password: event.target.password.value,
+  callbackUrl,
+});
+
+if (!res?.error) {
+  push(callbackUrl);
+}
+```
+
+Screenshot: akses `/profile` tanpa login → redirect ke `/auth/login?callbackUrl=...` → login → kembali ke `/profile`:
+
+![Callback URL](Images/callback-url.png)
+
+---
+
+## Ringkasan
+
+- ✅ Login terhubung Firestore dengan validasi password `bcrypt`
+- ✅ Role tersimpan di Firestore dan dibawa ke JWT token & session
+- ✅ Halaman `/profile` menampilkan nama user dari session
+- ✅ Halaman `/admin` hanya bisa diakses role `"admin"`
+- ✅ User non-admin yang akses `/admin` di-redirect ke `/`
+- ✅ Callback URL berfungsi — setelah login user kembali ke halaman tujuan semula
+
+</details>
 
 ---
 
