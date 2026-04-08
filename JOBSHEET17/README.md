@@ -572,6 +572,192 @@ Screenshot email sudah terdaftar (error "Email already exists"):
 
 ---
 
+<details open>
+<summary><h3>H. Tugas Praktikum</h3></summary>
+
+## Tugas Praktikum
+
+Sesuai instruksi, implementasi yang dikerjakan:
+
+1. Optimasi semua image di project menggunakan `next/image`.
+2. Gunakan minimal 1 font dari `next/font`.
+3. Tambahkan script Google Analytics menggunakan `next/script`.
+4. Terapkan dynamic import pada minimal 1 komponen.
+5. Dokumentasikan perubahan performa (screenshot Lighthouse).
+
+---
+
+## 1) Optimasi Semua Image dengan next/image
+
+Semua elemen `<img>` diganti dengan komponen `<Image>` dari `next/image` untuk mendapatkan optimasi gambar otomatis (lazy loading, format WebP, resize sesuai ukuran).
+
+### File yang diubah:
+
+**`src/pages/404.tsx`** — gambar lokal dari `/public`:
+```tsx
+import Image from "next/image";
+
+<Image
+  src="/tidakada.png"
+  alt="404"
+  width={400}
+  height={200}
+  className={styles.error_image}
+/>
+```
+
+**`src/views/product/index.tsx`** — gambar remote URL produk:
+```tsx
+import Image from "next/image";
+
+<Image src={products.image} alt={products.name} width={200} height={200} />
+```
+
+**`src/views/DetailProduct/index.tsx`** — gambar detail produk:
+```tsx
+import Image from "next/image";
+
+<Image src={product.image || ""} alt={product.name} width={400} height={400} />
+```
+
+**`src/components/layouts/navbar/index.tsx`** — avatar user dari Google/GitHub:
+```tsx
+import Image from "next/image";
+
+<Image
+  width={50} height={50}
+  src={data.user.image}
+  alt={data.user.fullname}
+  className={styles.navbar__user__image}
+/>
+```
+
+### Konfigurasi domain remote — `next.config.ts`:
+```ts
+images: {
+  remotePatterns: [
+    { protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/**" },
+    { protocol: "https", hostname: "avatars.githubusercontent.com" },
+    { protocol: "https", hostname: "assets.adidas.com", port: "", pathname: "/**" },
+    { protocol: "https", hostname: "www.static-src.com", port: "", pathname: "/**" },
+    { protocol: "https", hostname: "encrypted-tbn0.gstatic.com", port: "", pathname: "/**" },
+    { protocol: "https", hostname: "**", port: "", pathname: "/**" },
+  ],
+},
+```
+
+---
+
+## 2) Font dari next/font
+
+Font Google `Roboto` diterapkan secara global melalui komponen `AppShell` menggunakan `next/font/google`. Font dimuat secara otomatis dan dioptimasi oleh Next.js (tidak ada flash of unstyled text).
+
+### `src/components/layouts/Appshell/index.tsx`:
+```tsx
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700']
+});
+
+const AppShell = (props: AppShellProps) => {
+  return (
+    <main className={roboto.className}>
+      {/* ... */}
+    </main>
+  );
+};
+```
+
+**Keuntungan `next/font`:**
+- Font diunduh saat build time, bukan runtime
+- Tidak ada permintaan ke Google Fonts saat browser load (lebih cepat + privat)
+- Tidak ada layout shift (CLS = 0 untuk font)
+
+---
+
+## 3) Google Analytics dengan next/script
+
+Script Google Analytics ditambahkan di `_app.tsx` menggunakan komponen `<Script>` dari `next/script` dengan strategi `afterInteractive`. Script hanya dijalankan setelah halaman sepenuhnya interaktif, sehingga tidak memblokir rendering.
+
+### `src/pages/_app.tsx`:
+```tsx
+import Script from "next/script";
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <SessionProvider session={pageProps.session}>
+      {/* Google Analytics */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        `}
+      </Script>
+      <AppShell>
+        <Component {...pageProps} />
+      </AppShell>
+    </SessionProvider>
+  );
+}
+```
+
+**Perbedaan strategi `next/script`:**
+
+| Strategi | Kapan dijalankan | Cocok untuk |
+|----------|-----------------|-------------|
+| `beforeInteractive` | Sebelum halaman interaktif | Polyfills kritis |
+| `afterInteractive` | Setelah halaman interaktif | Analytics, tag manager |
+| `lazyOnload` | Saat browser idle | Widget chat, ads |
+
+---
+
+## 4) Dynamic Import
+
+Komponen `TampilanProduk` di-import secara dinamis menggunakan `next/dynamic` pada halaman `/produk`. Ini berarti kode komponen hanya diunduh saat halaman `/produk` dibuka, bukan saat aplikasi pertama kali load.
+
+### `src/pages/produk/index.tsx`:
+```tsx
+import dynamic from "next/dynamic";
+
+const TampilanProduk = dynamic(() => import("../../views/product"), {
+  loading: () => <p>Memuat produk...</p>,
+  ssr: false,
+});
+```
+
+**Sebelum (static import):**
+```tsx
+import TampilanProduk from "../../views/product";
+```
+
+**Keuntungan dynamic import:**
+- Bundle JS awal lebih kecil (code splitting)
+- Komponen hanya di-load saat dibutuhkan
+- `ssr: false` — komponen tidak di-render di server (cocok untuk komponen yang butuh browser API)
+- `loading` — tampilkan placeholder saat chunk sedang diunduh
+
+---
+
+## Ringkasan
+
+- ✅ `next/image` diterapkan di semua file (404, product list, product detail, navbar avatar)
+- ✅ `next/font` — Roboto Google Font dipakai global via AppShell
+- ✅ `next/script` — Google Analytics dengan strategi `afterInteractive`
+- ✅ Dynamic import — `TampilanProduk` dimuat secara lazy dengan fallback loading
+- ✅ `remotePatterns` dikonfigurasi untuk semua domain gambar produk
+
+</details>
+
+---
+
 
 <div align="center">
 
