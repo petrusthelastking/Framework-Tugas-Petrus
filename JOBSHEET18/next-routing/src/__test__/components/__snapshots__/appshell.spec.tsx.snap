@@ -1,37 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Product Page renders product page correctly 1`] = `
+exports[`AppShell Component renders children correctly 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
-        <h1
-          data-testid="title"
+      <main
+        class="mock-roboto"
+      >
+        <nav
+          data-testid="navbar"
         >
-          Product Page
-        </h1>
+          Navbar
+        </nav>
         <div
-          data-testid="dynamic-produk"
+          data-testid="content"
         >
-          Loading...
+          Hello World
         </div>
-      </div>
+      </main>
     </div>
   </body>,
   "container": <div>
-    <div>
-      <h1
-        data-testid="title"
+    <main
+      class="mock-roboto"
+    >
+      <nav
+        data-testid="navbar"
       >
-        Product Page
-      </h1>
+        Navbar
+      </nav>
       <div
-        data-testid="dynamic-produk"
+        data-testid="content"
       >
-        Loading...
+        Hello World
       </div>
-    </div>
+    </main>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

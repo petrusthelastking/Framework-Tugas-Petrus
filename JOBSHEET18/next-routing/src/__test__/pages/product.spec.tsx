@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import TampilanProduk from "@/views/product";
+import Kategori from "@/pages/produk";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -18,10 +18,17 @@ jest.mock("next/router", () => ({
   },
 }))
 
+jest.mock("swr", () => ({
+  __esModule: true,
+  default: jest.fn(() => ({ data: null, error: null, isLoading: true })),
+}))
+
+jest.mock("next/dynamic", () => () => () => <div data-testid="dynamic-produk">Loading...</div>)
+
 describe("Product Page", () => {
   it("renders product page correctly", () => {
-    const page = render(<TampilanProduk />);
-    // expect(screen.getByTestId("title").textContent).toBe("Product Page");
+    const page = render(<Kategori />);
+    expect(screen.getByTestId("title").textContent).toBe("Product Page");
     expect(page).toMatchSnapshot()
   })
 })

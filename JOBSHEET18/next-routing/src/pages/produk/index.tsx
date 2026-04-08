@@ -18,7 +18,8 @@ const Kategori = () => {
 
   return (
     <div>
-      < TampilanProduk products={isLoading ? [] : data?.data} />
+      <h1 data-testid="title">Product Page</h1>
+      <TampilanProduk products={isLoading ? [] : data?.data} />
     </div>
   );
 };

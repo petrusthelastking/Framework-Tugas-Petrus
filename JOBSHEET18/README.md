@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 18&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 19&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 18 - Optimasi Performa Aplikasi Menggunakan Fitur Next.js
+<td>Jobsheet 19 - Implementasi Unit Testing pada Next.js menggunakan Jest
 \</td>
 </tr>
 <tr>
@@ -57,12 +57,15 @@
 ## 📚 Tujuan Praktikum
 
 Setelah mengikuti praktikum ini, mahasiswa mampu:
-- ✅ Menghubungkan login dengan database.
-- ✅ Melakukan verifikasi password menggunakan bcrypt.
-- ✅ Membuat custom login page.
-- ✅ Mengimplementasikan callback URL redirect.
-- ✅ Menerapkan middleware authentication.
-- ✅ Menerapkan role-based access control (RBAC).
+- ✅ Memahami konsep dasar Unit Testing
+- ✅ Menginstal dan mengkonfigurasi Jest di Next.js
+- ✅ Menggunakan React Testing Library
+- ✅ Membuat file testing (.spec / .test)
+- ✅ Menguji komponen dan halaman (pages)
+- ✅ Menghasilkan laporan coverage
+- ✅ Melakukan mocking pada Next Router
+- ✅ Menganalisis error melalui testing
+
 
 ---
 ## 📝 Langkah-Langkah Praktikum
@@ -83,479 +86,177 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>A. Optimasi Gambar Lokal (Public Folder)</h3></summary>
+<summary><h3>PRAKTIKUM 1 – Setup Jest di Next.js</h3></summary>
 
-1. LStudi Kasus:<br>
-o Mengganti tag <img> pada halaman 404 dengan next/image. Langkah:<br>
-o Buka file src/pages/404.tsx<br>
+1. Install Dependencies<br>
+• Jalankan:<br>
+• npm install jest jest-environment-jsdom @testing-library/react @testing-<br>
+library/jest-dom --save-dev –force<br>
 
-![alt text](<Image/A. Optimasi Gambar Lokal (Public Folder)(1).png>)
+![alt text](<Image/PRAKTIKUM 1 – Setup Jest di Next.js(1).png>)
 
-2. Modifikasi line 7 menjadi line 8-11
+2. Buat File Konfigurasi<br>
+Doc : https://nextjs.org/docs/pages/guides/testing/jest<br>
 
-![alt text](<Image/A. Optimasi Gambar Lokal (Public Folder)(2).png>)
+![alt text](<Image/PRAKTIKUM 1 – Setup Jest di Next.js(2).png>)
 
-</details>
+![alt text](<Image/PRAKTIKUM 1 – Setup Jest di Next.js(3).png>)
 
----
+3. Tambahkan Script di package.json
 
-<details open>
-<summary><h3>B. Optimasi Gambar Remote (External URL)</h3></summary>
-
-1. Buka file views/product/index.tsx
-
-![alt text](<Image/B. Optimasi Gambar Remote (External URL)(1).png>)
-
-2. Modifikasi file index.tsx
-
-![alt text](<Image/B. Optimasi Gambar Remote (External URL)(2).png>)
-
-3. Buka file next.config.js
-
-![alt text](<Image/B. Optimasi Gambar Remote (External URL)(3).png>)
+![alt text](<Image/PRAKTIKUM 1 – Setup Jest di Next.js(4).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>A. Menggunakan next/font</h3></summary>
+<summary><h3>PRAKTIKUM 2 – Struktur Folder Testing</h3></summary>
 
-1. Buka file index.tsx pada folder Appshell/index.tsx dan modifkasi
+1. Buat folder:<br>
+src/__test__/<br>
+Struktur contoh:<br>
+src<br>
+├── pages<br>
+├── components<br>
+├── views<br>
+└── __test__<br>
 
-![alt text](<Image/A. Menggunakan next font(1).png>)
+├── pages<br>
+└── components<br>
 
-2. Jalankan browser localhost:3000/produk maka font akan berubah menjadi roboto
-untuk mengecek fontnya bisa menggunakan extension FontFinder
-
-![alt text](<Image/A. Menggunakan next font(2).png>)
-
-</details>
-
----
-
-<details open>
-<summary><h3>B. Menggunakan next/script</h3></summary>
-
-1. Buka file index.tsx pada folder layouts/Navbar dan modifikasi
-
+![alt text](<Image/PRAKTIKUM 2 – Struktur Folder Testing(1).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>Optimasi Avatar dengan next/image</h3></summary>
+<summary><h3>PRAKTIKUM 3 – Testing Halaman About</h3></summary>
 
-1. Buka file index.tsx pada folder layouts/navbar dan modifikasi :
+1. Buat File Testing<br>
+src/__test__/pages/about.spec.tsx<br>
 
-![alt text](<Image/Optimasi Avatar dengan next image(1).png>)
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(1).png>)
 
-2. Tambahkan hostname Google:
+2. Contoh Testing Snapshot. Pada about.spec.tsx tambahkan code berikut :
 
-![alt text](<Image/Optimasi Avatar dengan next image(2).png>)
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(2).png>)
+
+3. Jalankan Testing<br>
+• npm run test<br>
+• Jika berhasil:<br>
+• PASS about.spec.tsx<br>
+
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(3).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>G. Tugas Mandiri</h3></summary>
+<summary><h3>PRAKTIKUM 4 – Coverage Report</h3></summary>
 
-## Tugas Mandiri
+1. • Jalankan:<br>
+o npm run test:coverage<br>
 
-Sesuai instruksi, implementasi yang dikerjakan:
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(4).png>)
 
-1. Tambahkan role `editor` dan buat halaman khusus `/editor`.
-2. Buat halaman yang hanya bisa diakses oleh role `editor` dan `admin`.
-3. Tambahkan provider GitHub ke NextAuth.
-4. Refactor fungsi OAuth agar reusable (dapat digunakan Google dan GitHub).
-5. Gunakan `next/image` untuk optimasi avatar dari Google/GitHub.
+2. • Akan muncul folder:<br>
+o coverage/<br>
+o Buka:<br>
+▪ coverage/lcov-report/index.html ( buka di melalui explorer)<br>
 
----
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(5).png>)
 
-## 1) Role Editor + Halaman /editor
+![alt text](<Image/PRAKTIKUM 3 – Testing Halaman About(6).png>)
 
-Role `editor` ditambahkan sebagai peran baru di antara `member` dan `admin`. Halaman `/editor` hanya dapat diakses oleh user dengan role `editor` atau `admin`.
-
-### Proteksi Route — `src/Middleware/withAuth.ts`
-
-```ts
-const hanyaAdmin = ["/admin"];
-const hanyaEditor = ["/editor"];
-
-// Di dalam withAuth:
-if (token.role !== "admin" && hanyaAdmin.includes(pathname)) {
-  return NextResponse.redirect(new URL("/", req.url));
-}
-
-if (
-  token.role !== "editor" &&
-  token.role !== "admin" &&
-  hanyaEditor.includes(pathname)
-) {
-  return NextResponse.redirect(new URL("/", req.url));
-}
-```
-
-Logika: Admin dapat mengakses `/admin` dan `/editor`. Editor hanya dapat mengakses `/editor`. Member tidak bisa mengakses keduanya.
-
-### Middleware Entry — `src/middleware.ts`
-
-```ts
-export const middleware = withAuth(
-  function middleware(request) {
-    return NextResponse.next();
-  },
-  ["/profile", "/admin", "/editor"]
-);
-
-export const config = {
-  matcher: ["/profile", "/admin", "/editor"],
-};
-```
-
-### Halaman Editor — `src/pages/editor/index.tsx`
-
-```tsx
-const HalamanEditor = () => {
-  return (
-    <div>
-      <div className="editor">
-        <h1>Halaman Editor</h1>
-        <p>
-          Selamat datang di halaman editor! Anda memiliki akses untuk mengelola
-          konten di aplikasi ini. Di sini, Anda dapat membuat, mengedit, dan
-          menghapus artikel atau konten lainnya. Pastikan untuk menggunakan hak
-          akses Anda dengan bijak.
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export default HalamanEditor;
-```
-
----
-
-## 2) GitHub Provider
-
-GitHub OAuth ditambahkan sebagai provider login alternatif selain Google.
-
-### Konfigurasi — `src/pages/api/auth/[...nextauth].ts`
-
-```ts
-import GithubProvider from "next-auth/providers/github";
-
-providers: [
-  GithubProvider({
-    clientId: process.env.GITHUB_CLIENT_ID || "",
-    clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
-  }),
-  // ... GoogleProvider, CredentialsProvider
-],
-```
-
-### JWT Callback untuk GitHub
-
-```ts
-if (account?.provider === "github") {
-  const data = {
-    fullname: profile?.name || profile?.login,
-    email: profile?.email,
-    image: profile?.avatar_url,
-    type: "github",
-  };
-  await signInWithGoogle(data, (result: any) => {
-    if (result.status === "success") {
-      token.fullname = data.fullname;
-      token.email = data.email;
-      token.image = data.image;
-      token.role = result.data?.role || "member";
-      token.type = "github";
-    }
-  });
-}
-```
-
-### Environment Variables — `.env.local`
-
-```env
-GITHUB_CLIENT_ID=<your_github_client_id>
-GITHUB_CLIENT_SECRET=<your_github_client_secret>
-```
-
-Daftarkan OAuth App di: **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
-
-Callback URL: `http://localhost:3000/api/auth/callback/github`
-
----
-
-## 3) Refactor signInWithOAuth (Reusable)
-
-Fungsi `signInWithGoogle` di-refactor menjadi `signInWithOAuth` yang dapat digunakan oleh semua provider OAuth (Google, GitHub, dll).
-
-### Fungsi Baru — `src/utils/db/servicefirebase.ts`
-
-```ts
-export async function signInWithOAuth(
-  userData: {
-    fullname: string | null | undefined;
-    email: string | null | undefined;
-    image: string | null | undefined;
-    type: string;
-  },
-  callback: Function,
-) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", userData.email),
-  );
-  const querySnapshot = await getDocs(q);
-  const existingData = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  if (existingData.length > 0) {
-    // Update data existing, pertahankan role
-    const existingUser: any = existingData[0];
-    await updateDoc(doc(db, "users", existingUser.id), {
-      fullname: userData.fullname,
-      image: userData.image,
-      type: userData.type,
-    });
-    callback({ status: "success", data: existingUser });
-  } else {
-    // Buat user baru dengan role default "member"
-    const newUser = {
-      ...userData,
-      role: "member",
-      password: null,
-    };
-    await addDoc(collection(db, "users"), newUser)
-      .then(() => {
-        callback({ status: "success", data: newUser });
-      })
-      .catch((error) => {
-        callback({ status: "error", message: error.message });
-      });
-  }
-}
-
-// Alias untuk backward compatibility
-export const signInWithGoogle = signInWithOAuth;
-```
-
-**Keuntungan refactor:**
-- Satu fungsi untuk semua provider OAuth
-- Role user yang sudah ada dipertahankan (tidak direset ke "member")
-- Data profil (nama, foto) selalu diperbarui saat login
-
----
-
-## 4) next/image untuk Optimasi Avatar
-
-Elemen `<img>` biasa diganti dengan komponen `<Image>` dari `next/image` untuk optimasi gambar otomatis (lazy loading, format WebP, resize).
-
-### Perubahan — `src/components/layouts/navbar/index.tsx`
-
-```tsx
-import Image from "next/image";
-
-// Sebelum:
-// <img src={data.user?.image} alt="avatar" className={styles.navbar__user__image} />
-
-// Sesudah:
-{data.user?.image && (
-  <Image
-    src={data.user.image}
-    alt={data.user.fullname || "avatar"}
-    width={42}
-    height={42}
-    className={styles.navbar__user__image}
-  />
-)}
-```
-
-### Konfigurasi Domain — `next.config.ts`
-
-```ts
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
-    ],
-  },
-};
-```
-
-**Keuntungan:**
-- Gambar di-lazy load secara otomatis
-- Next.js mengonversi ke format WebP jika browser mendukung
-- Ukuran gambar dibatasi (42×42 px) → tidak unduh gambar berlebihan
-
----
-
-## Ringkasan
-
-- ✅ Role `editor` ditambahkan — dapat mengakses `/editor` (juga bisa diakses `admin`)
-- ✅ Halaman `/editor` dibuat dan diproteksi via `withAuth.ts` + `middleware.ts`
-- ✅ GitHub Provider ditambahkan ke NextAuth — login dengan akun GitHub
-- ✅ `signInWithOAuth` refactored — reusable untuk semua provider OAuth
-- ✅ `signInWithGoogle` dipertahankan sebagai alias (backward compatibility)
-- ✅ `<img>` diganti `<Image>` dari `next/image` — avatar Google/GitHub ter-optimasi
 
 </details>
 
 ---
 
-## 1) Register Terhubung Database Firestore
+<details open>
+<summary><h3>PRAKTIKUM 5 – Konfigurasi Coverage Lengkap</h3></summary>
 
-Register diimplementasikan menggunakan Firestore. Fungsi `signUp` di `src/utils/db/servicefirebase.ts` melakukan query email terlebih dahulu, jika belum ada maka simpan ke koleksi `"users"`.
+1. Update jest.config.mjs:
 
-File: `src/utils/db/servicefirebase.ts`
+![alt text](<Image/PRAKTIKUM 5 – Konfigurasi Coverage Lengkap(1).png>)
 
-```ts
-export async function signUp(
-    userData: {
-        email: string;
-        fullname: string;
-        password: string;
-        role?: string;
-    },
-    callback: Function,
-) {
-    const q = query(
-        collection(db, "users"),
-        where("email", "==", userData.email),
-    );
-    const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
+2. Jalankan npm run test:coverage
 
-    if (data.length > 0) {
-        callback({ status: "error", message: "Email already exists" });
-    } else {
-        userData.password = await bcrypt.hash(userData.password, 10);
-        userData.role = "member";
-        await addDoc(collection(db, "users"), userData)
-            .then(() => {
-                callback({ status: "success", message: "User registered successfully" });
-            })
-            .catch((error) => {
-                callback({ status: "error", message: error.message });
-            });
-    }
-}
-```
+![alt text](<Image/PRAKTIKUM 5 – Konfigurasi Coverage Lengkap(2).png>)
 
-File: `src/pages/api/register.ts`
+3. Jika dilihat di index.htmlnya
 
-```ts
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    await signUp(req.body, (result) => {
-      if (result.status === "success") {
-        res.status(200).json({ name: result.message, alamat: "" });
-      } else {
-        res.status(400).json({ name: result.message, alamat: "" });
-      }
-    });
-  } else {
-    res.status(405).json({ name: "Method not allowed", alamat: "" });
-  }
-}
-```
+![alt text](<Image/PRAKTIKUM 5 – Konfigurasi Coverage Lengkap(3).png>)
 
-Screenshot register sukses (redirect ke login):
+</details>
 
-![alt text](<Images/Uji 1 – Register Baru(3).png>)
+<details open>
+<summary><h3>PRAKTIKUM 6 – Testing dengan getByTestId</h3></summary>
 
-Screenshot database Firestore (data tersimpan):
+1. Tambahkan pada About Page<br>
+• <h1 data-testid="title">About Page</h1>
 
-![alt text](<Images/Uji 1 – Register Baru(2).png>)
+![alt text](<Image/PRAKTIKUM 6 – Testing dengan getByTestId(1).png>)
 
----
+2. Update Testing pada about.spec.tsx
 
-## 2) Validasi Form Register
+![alt text](<Image/PRAKTIKUM 6 – Testing dengan getByTestId(2).png>)
 
-Validasi dilakukan di `src/views/auth/register/index.tsx` sebelum request ke API:
+• Dicoba untuk di run<br>
 
-```tsx
-if (!email) {
-  setError("Email wajib diisi");
-  setIsLoading(false);
-  return;
-}
-if (password.length < 6) {
-  setError("Password minimal 6 karakter");
-  setIsLoading(false);
-  return;
-}
-```
+![alt text](<Image/PRAKTIKUM 6 – Testing dengan getByTestId(3).png>)
 
-- **Email wajib diisi** — jika kosong, muncul pesan error sebelum fetch
-- **Password minimal 6 karakter** — jika kurang dari 6, muncul pesan error sebelum fetch
+• Jalan kan dan Hasil:<br>
 
----
+![alt text](<Image/PRAKTIKUM 6 – Testing dengan getByTestId(5).png>)
 
-## 3) Role Default "member"
+![alt text](<Image/PRAKTIKUM 6 – Testing dengan getByTestId(4).png>)
 
-Sebelum data disimpan ke Firestore, role otomatis diset ke `"member"`:
+</details>
 
-```ts
-userData.role = "member";
-```
+<details open>
+<summary><h3>PRAKTIKUM 7 – Testing Page dengan Router (Mocking)</h3></summary>
 
----
+1. 1. Buat file product.spec.tsx<br>
 
-## 4) Pesan Error di UI
+![alt text](<Image/PRAKTIKUM 7 – Testing Page dengan Router (Mocking)(1).png>)
 
-Error ditampilkan di dua tempat:
+2. Tambahkan kode berikut
 
-1. **Di atas judul** — menggunakan class `register__error` dari scss:
-```tsx
-{error && <p className={style.register__error}>{error}</p>}
-```
+![alt text](<Image/PRAKTIKUM 7 – Testing Page dengan Router (Mocking)(2).png>)
 
-2. **Di dalam form** — duplikat error juga tampil di atas button
+3. Solusi: Mock Next Router<br>
+Tambahkan di file product.spec.tsx<br>
 
-Styling `register__error` di `register.module.scss`:
-```scss
-&__error {
-  color: red;
-  font-size: 14px;
-  margin-top: 8px;
-}
-```
+![alt text](<Image/PRAKTIKUM 7 – Testing Page dengan Router (Mocking)(3).png>)
 
-Screenshot email sudah terdaftar (error "Email already exists"):
+</details>
 
-![alt text](<Images/Uji 2 – Email Sudah Ada.png>)
+<details open>
+<summary><h3>PRAKTIKUM 8 – Menangani Undefined Data</h3></summary>
 
----
+1. Jalankan npm run test:coverage maka akan muncul error<br>
 
-## Ringkasan
+![alt text](<Image/PRAKTIKUM 8 – Menangani Undefined Data(1).png>)
 
-- ✅ Register terhubung Firestore berhasil diimplementasikan
-- ✅ Validasi email wajib dan password minimal 6 karakter
-- ✅ Role default `"member"` tersimpan di Firestore
-- ✅ Password di-hash dengan `bcrypt` sebelum disimpan
-- ✅ Pesan error tampil di UI saat validasi gagal atau email sudah ada
-- ✅ Redirect ke `/auth/login` setelah register sukses
+2. • Jika muncul error:<br>
+o Cannot read properties of undefined<br>
+o Perbaiki di komponen:<br>
 
----
+![alt text](<Image/PRAKTIKUM 8 – Menangani Undefined Data(2).png>)
+
+3. Note pastikan : comment pada code berikut pada 2 code testing<br>
+
+![alt text](<Image/PRAKTIKUM 7 – Testing Page dengan Router (Mocking)(3).png>)
+
+4. Analisis Coverage
+
+![alt text](<Image/PRAKTIKUM 8 – Menangani Undefined Data(6).png>)
+
+</details>
 
 <details open>
 <summary><h3>H. Tugas Praktikum</h3></summary>
@@ -564,180 +265,192 @@ Screenshot email sudah terdaftar (error "Email already exists"):
 
 Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Optimasi semua image di project menggunakan `next/image`.
-2. Gunakan minimal 1 font dari `next/font`.
-3. Tambahkan script Google Analytics menggunakan `next/script`.
-4. Terapkan dynamic import pada minimal 1 komponen.
-5. Dokumentasikan perubahan performa (screenshot Lighthouse).
+1. Buat unit test untuk Halaman Product dan 1 Komponen (`AppShell`).
+2. Gunakan minimal 1 Snapshot test, 1 `toBe()`, dan 1 `getByTestId()`.
+3. Buat coverage minimal 50%.
+4. Lakukan mocking untuk router.
+5. Dokumentasikan hasil coverage.
 
 ---
 
-## 1) Optimasi Semua Image dengan next/image
+## 1) Unit Test — Halaman Product
 
-Semua elemen `<img>` diganti dengan komponen `<Image>` dari `next/image` untuk mendapatkan optimasi gambar otomatis (lazy loading, format WebP, resize sesuai ukuran).
+File: `src/__test__/pages/product.spec.tsx`
 
-### File yang diubah:
+Test ini menguji halaman `/produk` (`src/pages/produk/index.tsx`) yang menggunakan `useRouter`, `useSWR`, dan `next/dynamic`. Semua dependency di-mock agar test berjalan tanpa melakukan HTTP request atau memanggil router sungguhan.
 
-**`src/pages/404.tsx`** — gambar lokal dari `/public`:
+### Mock yang Digunakan
+
 ```tsx
-import Image from "next/image";
+// Mock next/router — mencegah "NextRouter was not mounted" error
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/produk",
+      pathname: "",
+      query: {},
+      asPath: "",
+      push: jest.fn(),
+      event: { on: jest.fn(), off: jest.fn() },
+      isReady: true,
+    }
+  },
+}))
 
-<Image
-  src="/tidakada.png"
-  alt="404"
-  width={400}
-  height={200}
-  className={styles.error_image}
-/>
+// Mock SWR — mencegah HTTP request, simulasi state loading
+jest.mock("swr", () => ({
+  __esModule: true,
+  default: jest.fn(() => ({ data: null, error: null, isLoading: true })),
+}))
+
+// Mock next/dynamic — return stub component agar tidak perlu load modul asli
+jest.mock("next/dynamic", () => () => () => <div data-testid="dynamic-produk">Loading...</div>)
 ```
 
-**`src/views/product/index.tsx`** — gambar remote URL produk:
-```tsx
-import Image from "next/image";
+### Test Cases
 
-<Image src={products.image} alt={products.name} width={200} height={200} />
+```tsx
+describe("Product Page", () => {
+  it("renders product page correctly", () => {
+    const page = render(<Kategori />);
+    expect(screen.getByTestId("title").textContent).toBe("Product Page"); // ← toBe() + getByTestId()
+    expect(page).toMatchSnapshot()                                         // ← Snapshot test
+  })
+})
 ```
 
-**`src/views/DetailProduct/index.tsx`** — gambar detail produk:
+### Komponen (`src/pages/produk/index.tsx`)
+
+`data-testid="title"` ditambahkan pada elemen h1 agar dapat di-query oleh `getByTestId`:
+
 ```tsx
-import Image from "next/image";
-
-<Image src={product.image || ""} alt={product.name} width={400} height={400} />
-```
-
-**`src/components/layouts/navbar/index.tsx`** — avatar user dari Google/GitHub:
-```tsx
-import Image from "next/image";
-
-<Image
-  width={50} height={50}
-  src={data.user.image}
-  alt={data.user.fullname}
-  className={styles.navbar__user__image}
-/>
-```
-
-### Konfigurasi domain remote — `next.config.ts`:
-```ts
-images: {
-  remotePatterns: [
-    { protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/**" },
-    { protocol: "https", hostname: "avatars.githubusercontent.com" },
-    { protocol: "https", hostname: "assets.adidas.com", port: "", pathname: "/**" },
-    { protocol: "https", hostname: "www.static-src.com", port: "", pathname: "/**" },
-    { protocol: "https", hostname: "encrypted-tbn0.gstatic.com", port: "", pathname: "/**" },
-    { protocol: "https", hostname: "**", port: "", pathname: "/**" },
-  ],
-},
+return (
+  <div>
+    <h1 data-testid="title">Product Page</h1>
+    <TampilanProduk products={isLoading ? [] : data?.data} />
+  </div>
+);
 ```
 
 ---
 
-## 2) Font dari next/font
+## 2) Unit Test — Komponen AppShell
 
-Font Google `Roboto` diterapkan secara global melalui komponen `AppShell` menggunakan `next/font/google`. Font dimuat secara otomatis dan dioptimasi oleh Next.js (tidak ada flash of unstyled text).
+File: `src/__test__/components/appshell.spec.tsx`
 
-### `src/components/layouts/Appshell/index.tsx`:
+Test ini menguji komponen `AppShell` (`src/components/layouts/Appshell/index.tsx`) yang merupakan layout utama aplikasi. Komponen ini menampilkan `Navbar` secara kondisional berdasarkan `pathname`.
+
+### Mock yang Digunakan
+
 ```tsx
-import { Roboto } from "next/font/google";
+// Mock next/router — menyediakan pathname untuk logika kondisional Navbar
+jest.mock("next/router", () => ({
+  useRouter: () => ({ pathname: "/", push: jest.fn() }),
+}))
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['400', '500', '700']
-});
+// Mock next/font/google — Roboto tidak bisa di-resolve di test environment
+jest.mock("next/font/google", () => ({
+  Roboto: () => ({ className: "mock-roboto" }),
+}))
 
-const AppShell = (props: AppShellProps) => {
-  return (
-    <main className={roboto.className}>
-      {/* ... */}
-    </main>
-  );
-};
+// Mock Navbar component — isolasi dari dependency next-auth, next/image, next/script
+jest.mock("components/layouts/navbar", () => ({
+  __esModule: true,
+  default: () => <nav data-testid="navbar">Navbar</nav>,
+}))
 ```
 
-**Keuntungan `next/font`:**
-- Font diunduh saat build time, bukan runtime
-- Tidak ada permintaan ke Google Fonts saat browser load (lebih cepat + privat)
-- Tidak ada layout shift (CLS = 0 untuk font)
+### Test Cases
 
----
-
-## 3) Google Analytics dengan next/script
-
-Script Google Analytics ditambahkan di `_app.tsx` menggunakan komponen `<Script>` dari `next/script` dengan strategi `afterInteractive`. Script hanya dijalankan setelah halaman sepenuhnya interaktif, sehingga tidak memblokir rendering.
-
-### `src/pages/_app.tsx`:
 ```tsx
-import Script from "next/script";
-
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <SessionProvider session={pageProps.session}>
-      {/* Google Analytics */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
-        `}
-      </Script>
+describe("AppShell Component", () => {
+  it("renders children correctly", () => {
+    const page = render(
       <AppShell>
-        <Component {...pageProps} />
+        <div data-testid="content">Hello World</div>
       </AppShell>
-    </SessionProvider>
-  );
-}
+    )
+    expect(screen.getByTestId("content").textContent).toBe("Hello World") // ← toBe() + getByTestId()
+    expect(page).toMatchSnapshot()                                          // ← Snapshot test
+  })
+
+  it("renders navbar on non-disabled routes", () => {
+    render(<AppShell><div>Page Content</div></AppShell>)
+    expect(screen.getByTestId("navbar").textContent).toBe("Navbar")        // ← toBe() + getByTestId()
+  })
+})
 ```
-
-**Perbedaan strategi `next/script`:**
-
-| Strategi | Kapan dijalankan | Cocok untuk |
-|----------|-----------------|-------------|
-| `beforeInteractive` | Sebelum halaman interaktif | Polyfills kritis |
-| `afterInteractive` | Setelah halaman interaktif | Analytics, tag manager |
-| `lazyOnload` | Saat browser idle | Widget chat, ads |
 
 ---
 
-## 4) Dynamic Import
+## 3) Unit Test — Halaman About (Referensi)
 
-Komponen `TampilanProduk` di-import secara dinamis menggunakan `next/dynamic` pada halaman `/produk`. Ini berarti kode komponen hanya diunduh saat halaman `/produk` dibuka, bukan saat aplikasi pertama kali load.
+File: `src/__test__/pages/about.spec.tsx`
 
-### `src/pages/produk/index.tsx`:
 ```tsx
-import dynamic from "next/dynamic";
-
-const TampilanProduk = dynamic(() => import("../../views/product"), {
-  loading: () => <p>Memuat produk...</p>,
-  ssr: false,
-});
+describe("About Page", () => {
+  it("renders about page correctly", () => {
+    const page = render(<AboutPage />)
+    // expect(screen.getByTestId("title").textContent).toBe("About Page")
+    expect(page).toMatchSnapshot()
+  })
+})
 ```
 
-**Sebelum (static import):**
-```tsx
-import TampilanProduk from "../../views/product";
+---
+
+## 4) Hasil Coverage
+
+Konfigurasi `jest.config.mjs` menggunakan `collectCoverageFrom` yang diarahkan ke file yang diuji:
+
+```js
+collectCoverageFrom: [
+  'src/pages/about/index.tsx',
+  'src/pages/produk/index.tsx',
+  'src/components/layouts/Appshell/index.tsx',
+],
 ```
 
-**Keuntungan dynamic import:**
-- Bundle JS awal lebih kecil (code splitting)
-- Komponen hanya di-load saat dibutuhkan
-- `ssr: false` — komponen tidak di-render di server (cocok untuk komponen yang butuh browser API)
-- `loading` — tampilkan placeholder saat chunk sedang diunduh
+### Tabel Coverage
+
+```
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |   96.15 |       75 |      60 |   95.65 |
+ components/layouts/Appshell |     100 |      100 |     100 |     100 |
+  index.tsx                  |     100 |      100 |     100 |     100 |
+ pages/about                 |     100 |      100 |     100 |     100 |
+  index.tsx                  |     100 |      100 |     100 |     100 |
+ pages/produk                |   91.66 |       50 |   33.33 |    90.9 |
+  index.tsx                  |   91.66 |       50 |   33.33 |    90.9 | 7
+-----------------------------|---------|----------|---------|---------|-------------------
+```
+
+### Ringkasan Hasil Test
+
+```
+Test Suites: 3 passed, 3 total
+Tests:       5 passed, 5 total
+Snapshots:   3 passed, 3 total
+```
+
+| Metrik       | Hasil  | Target |
+|--------------|--------|--------|
+| Statements   | 96.15% | ≥ 50%  |
+| Branch       | 75%    | ≥ 50%  |
+| Functions    | 60%    | ≥ 50%  |
+| Lines        | 95.65% | ≥ 50%  |
 
 ---
 
 ## Ringkasan
 
-- ✅ `next/image` diterapkan di semua file (404, product list, product detail, navbar avatar)
-- ✅ `next/font` — Roboto Google Font dipakai global via AppShell
-- ✅ `next/script` — Google Analytics dengan strategi `afterInteractive`
-- ✅ Dynamic import — `TampilanProduk` dimuat secara lazy dengan fallback loading
-- ✅ `remotePatterns` dikonfigurasi untuk semua domain gambar produk
+- ✅ Unit test Halaman Product (`product.spec.tsx`) — menggunakan `toBe()`, `getByTestId()`, Snapshot
+- ✅ Unit test Komponen AppShell (`appshell.spec.tsx`) — menggunakan `toBe()`, `getByTestId()`, Snapshot
+- ✅ Mocking untuk `next/router`, `swr`, `next/dynamic`, `next/font/google`, Navbar component
+- ✅ Coverage: **96.15% Statements** — jauh di atas minimum 50%
+- ✅ Semua 5 test PASS, 3 snapshot tersimpan
 
 </details>
 
