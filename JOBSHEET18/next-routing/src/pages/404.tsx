@@ -1,0 +1,23 @@
+import Link from "next/link";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "@/styles/404.module.css";
+
+const Custom404 = () => {
+  return (
+    <div className={styles.error}>
+      <Image
+        src="/tidakada.png"
+        alt="404"
+        width={400}
+        height={200}
+        className={styles.error_image}
+      />
+      <h1>404 - Halaman Tidak Ditemukan</h1>
+      <p>Maaf, halaman yang Anda cari tidak ada</p>
+    </div>
+  );
+};
+
+
+export default Custom404;
