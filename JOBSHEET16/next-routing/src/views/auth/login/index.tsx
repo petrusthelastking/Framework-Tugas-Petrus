@@ -85,14 +85,23 @@ const TampilanLogin = () => {
             className={style.login__form__item__button}
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? "Loading..." : "login"}
+          </button>
+          <br /> <br />
+          <button
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
+            className={style.login__form__item__button}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "sign in with google"}
           </button>
         </form>
       </div>
 
       <br />
       <p className={style.login__form__item__text}>
-        tidak punya {"\'"} akun? <Link href="/auth/register">Ke Halaman Register</Link>
+        tidak punya {"\'"} akun?{" "}
+        <Link href="/auth/register">Ke Halaman Register</Link>
       </p>
     </div>
   );
