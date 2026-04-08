@@ -104,7 +104,7 @@ export async function signUp(
     }
 }
 
-export async function signInWithGoogle(userData: any, callback: any) {
+export async function signInWithOAuth(userData: any, callback: any) {
     try {
         const q = query(
             collection(db, "users"),
@@ -123,7 +123,7 @@ export async function signInWithGoogle(userData: any, callback: any) {
             await updateDoc(doc(db, "users", data[0].id), userData);
             callback({
                 status: true,
-                message: "User registered and logged in with Google",
+                message: "User registered and logged in with OAuth",
                 data: userData,
             });
         } else {
@@ -132,7 +132,7 @@ export async function signInWithGoogle(userData: any, callback: any) {
             await addDoc(collection(db, "users"), userData);
             callback({
                 status: true,
-                message: "User registered and logged in with Google",
+                message: "User registered and logged in with OAuth",
                 data: userData,
             });
         }
@@ -140,7 +140,10 @@ export async function signInWithGoogle(userData: any, callback: any) {
         // Tangani error di sini
         callback({
             status: false,
-            message: "Failed to register user with Google",
+            message: "Failed to register user with OAuth",
         });
     }
 }
+
+// Alias untuk backward compatibility
+export const signInWithGoogle = signInWithOAuth;

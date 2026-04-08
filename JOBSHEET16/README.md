@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 16&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0099ff&height=200&section=header&text=Jobsheet 17&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Setup%20Project%20Next.js&descAlignY=55&descSize=20" width="100%"/>
 
 # Laporan Praktikum
 
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td><b>Praktikum</b></td>
-<td>Jobsheet 16 - Implementasi Login Database & Multi-Role</td>
+<td>Jobsheet 17 - Implementasi Login Google Provider dengan NextAuth.js + Firebase</td>
 </tr>
 <tr>
 <td><b>Nama</b></td>
@@ -82,448 +82,352 @@ Setelah mengikuti praktikum ini, mahasiswa mampu:
 ---
 
 <details open>
-<summary><h3>BAGIAN 1 – Custom Login Page</h3></summary>
+<summary><h3>B. Konfigurasi Google OAuth</h3></summary>
 
-1. Tambahkan custom page di NextAuth line 55-57
+1. Langkah 1 – Masuk ke Google Cloud Console Buka:
 
-![alt text](<Images/BAGIAN 1 – Custom Login Page(1).png>)
+![alt text](<Images/B. Konfigurasi Google OAuth(1).png>)
 
-![alt text](<Images/BAGIAN 1 – Custom Login Page(2).png>)
+2. Langkah 2 – Buat Project Baru
 
-2. Jalankan browser http://localhost:3000/ dan klik sign in maka akan diarahkan ke
-login
+![alt text](<Images/B. Konfigurasi Google OAuth(2).png>)
 
-![alt text](<Images/BAGIAN 1 – Custom Login Page(3).png>)
+![alt text](<Images/B. Konfigurasi Google OAuth(3).png>)
 
-</details>
+3. Langkah 3 – Konfigurasi OAuth Consent Screen
 
----
+![alt text](<Images/B. Konfigurasi Google OAuth(4).png>)
 
-<details open>
-<summary><h3>BAGIAN 2 – Handle Login di Frontend</h3></summary>
+![alt text](<Images/B. Konfigurasi Google OAuth(5).png>)
 
-1. Copy paste isi dari register/index.tsx ke file login/index.tsx
+![alt text](<Images/B. Konfigurasi Google OAuth(6).png>)
 
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(1).png>)
+![alt text](<Images/B. Konfigurasi Google OAuth(7).png>)
 
-2. Copy paste isi dari register/register.module.scss ke file login/login.module.scss<br>
-• Semua text register pada file index.tsx pada folder login diubah menjadi login
+4. Langkah 4 – Buat OAuth Credentials
 
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(2).png>)
-
-3. Lakukan hal yang sama pada file login.module.scss rubah text register menjadi login
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(3).png>)
-
-4. Cek pada file login.tsx pada pages/auth
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(4).png>)
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(5).png>)
-
-5. Jalankan browser localhost:3000/auth/login. Tampilannya akan sama dengan register
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(6).png>)
-
-6. Pada tampilan login kita tidak perlu hapus fullname jadi pada folder
-views/auth/login/index.tsx hapus fullname
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(7).png>)
-
-7. Sehingga hasilnya seperti berikut :
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(8).png>)
-
-8. Buka file index.tsx pada folder views/auth/login dan modifikasi codenya seperti
-berikut ( Untuk line 64 sampai kebawah tidak ada perubahan )
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(9).png>)
-
-9. Buka file servicefirebase.ts dan tambahkan code di line 25-38
-
-![alt text](<Images/BAGIAN 2 – Handle Login di Frontend(10).png>)
+![alt text](<Images/B. Konfigurasi Google OAuth(8).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>BAGIAN 3 – Authorize di NextAuth (Database Login)</h3></summary>
+<summary><h3>D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session</h3></summary>
 
-1. Buka file [...nextauth].ts modifikasi menjadi berikut ( pada bagian providers )
+1. Buka file [...nextauth].ts pada folder api/auth dan modifikasi menjadi berikut
 
-![alt text](<Images/BAGIAN 3 – Authorize di NextAuth (Database Login)(1).png>)
+![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(1).png>)
 
-</details>
+![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(2).png>)
 
----
+![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(3).png>)
 
-<details open>
-<summary><h3>BAGIAN 4 – Tambahkan Role ke Token</h3></summary>
-
-1. JWT Callback pada file [...nextauth].ts Modifikasi menjadi
-
-![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(1).png>)
-
-2. Jalankan browser http://localhost:3000/auth/login
-
-![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(2).png>)
-
-![alt text](<Images/BAGIAN 4 – Tambahkan Role ke Token(3).png>)
+![alt text](<Images/D. Konfigurasi Google Provider di NextAuth dan Handle Callback JWT & Session(1)(4).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>BAGIAN 5 – Callback URL Logic</h3></summary>
+<summary><h3>E. Tambahkan Button Login Google</h3></summary>
 
-1. Modifikasi withAuth.ts pada folder src/middleware
+1. Modifikasi file index.tsx pada folder views/auth/login
 
-![alt text](<Images/BAGIAN 5 – Callback URL Logic(1).png>)
+![alt text](<Images/E. Tambahkan Button Login Google(1).png>)
 
-</details>
+2. Jalankan browser localhost:3000/auth/login masuk melalui sign in with google.Jika berhasil maka akan terhubung dengan akun google.
 
----
+![alt text](<Images/E. Tambahkan Button Login Google(2).png>)
 
-<details open>
-<summary><h3>BAGIAN 6 – Membuat halaman Admin dan authoriz</h3></summary>
+3. Menampilkan image dari google<br>
+o Buka file index.tsx dan tambahkan code berikut<br>
 
-1. Buat halaman admin
+![alt text](<Images/E. Tambahkan Button Login Google(3).png>)
 
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(1).png>)
+4. Buka file navbar.module.css dan tambahkan code berikut
 
-2. Pada index.tsx tambahkan code berikut
+![alt text](<Images/E. Tambahkan Button Login Google(4).png>)
 
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(2).png>)
+5. Jika berhasil maka tampillannya akan seperti berikut
 
-3. Modifikasi withAuth.ts
+![alt text](<Images/E. Tambahkan Button Login Google(5).png>)
 
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(3).png>)
-
-4. Jalankan browser localhost:3000/produk dan pada status sudah login. Rubah urlnya
-menjadi http://localhost:3000/admin maka user akan diarahkan ke localhost. Pada
-intinya role selain admin tidak bisa mengakses
-
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(4).png>)
-
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(5).png>)
-
-![alt text](<Images/BAGIAN 6 – Membuat halaman Admin dan authoriz(6).png>)
 
 </details>
 
 ---
 
 <details open>
-<summary><h3>D. Pengujian</h3></summary>
+<summary><h3>G. Simpan Data Google ke Database</h3></summary>
 
-Uji 1 – Login Valid<br>
-Input:<br>
-• Email benar<br>
-• Password benar<br>
-Hasil:<br>
-• Login berhasil<br>
-• Redirect sesuai callbackUrl<br>
+1. Buka file servicefirebase.ts pada folder src/utils/db/ dan tambahkan beberapa kode berikut
 
-![alt text](<Images/Uji 1 – Login Valid.png>)
+![alt text](<Images/G. Simpan Data Google ke Database(1).png>)
 
-Uji 2 – Password Salah<br>
-Input:<br>
-• Email benar<br>
-• Password salah<br>
-Hasil:<br>
-• Error message tampil<br>
-• Tidak login<br>
+2. Jalankan browser dan login menggunakan akun google setelah cek di firebase, jika
+data akun googlenya masuk ke database maka anda telah berhasil
 
-![alt text](<Images/Uji 2 – Password Salah.png>)
-
-Uji 3 – Akses Admin sebagai User<br>
-Login sebagai:<br>
-• role: user<br>
-Akses:<br>
-/admin<br>
-Hasil:<br>
-• Redirect ke home<br>
-
-![alt text](<Images/Uji 3 – Akses Admin sebagai User(1).png>)
-
-![alt text](<Images/Uji 3 – Akses Admin sebagai User(2).png>)
-
-Uji 4 – Akses Admin sebagai Admin<br>
-Login sebagai:<br>
-• role: admin<br>
-Akses:<br>
-/admin<br>
-Hasil:<br>
-• Bisa masuk halaman admin<br>
-
-![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(1).png>)
-
-![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(2).png>)
-
-![alt text](<Images/Uji 4 – Akses Admin sebagai Admin(3).png>)
+![alt text](<Images/G. Simpan Data Google ke Database(2).png>)
 
 </details>
 
-<details open>
-<summary><h3>G. Tugas Praktikum</h3></summary>
+---
 
-## Tugas Individu
+<details open>
+<summary><h3>G. Tugas Mandiri</h3></summary>
+
+## Tugas Mandiri
 
 Sesuai instruksi, implementasi yang dikerjakan:
 
-1. Implementasikan login database.
-2. Tambahkan role pada user.
-3. Buat halaman `/profile` dan `/admin`.
-4. Proteksi `/admin` hanya untuk admin.
-5. Implementasikan callback URL.
+1. Tambahkan role `editor` dan buat halaman khusus `/editor`.
+2. Buat halaman yang hanya bisa diakses oleh role `editor` dan `admin`.
+3. Tambahkan provider GitHub ke NextAuth.
+4. Refactor fungsi OAuth agar reusable (dapat digunakan Google dan GitHub).
+5. Gunakan `next/image` untuk optimasi avatar dari Google/GitHub.
 
 ---
 
-## 1) Implementasi Login Database
+## 1) Role Editor + Halaman /editor
 
-Login diimplementasikan dengan menghubungkan NextAuth `CredentialsProvider` ke Firestore melalui fungsi `signIn` di `servicefirebase.ts`.
+Role `editor` ditambahkan sebagai peran baru di antara `member` dan `admin`. Halaman `/editor` hanya dapat diakses oleh user dengan role `editor` atau `admin`.
 
-File: `src/utils/db/servicefirebase.ts`
-
-```ts
-export async function signIn(email: string) {
-    const q = query(collection(db, "users"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
-    if (data) {
-        return data[0];
-    } else {
-        return null;
-    }
-}
-```
-
-File: `src/pages/api/auth/[...nextauth].ts` — bagian `authorize`:
-
-```ts
-async authorize(credentials) {
-  if (!credentials?.email || !credentials?.password) return null;
-
-  const user: any = await signIn(credentials.email);
-
-  if (user) {
-    const isPasswordValid = await bcrypt.compare(
-      credentials.password,
-      user.password,
-    );
-    if (isPasswordValid) {
-      return {
-        id: user.id,
-        email: user.email,
-        fullname: user.fullname,
-        role: user.role,
-      };
-    }
-  }
-  return null;
-},
-```
-
-Screenshot halaman login:
-
-![Login Page](Images/login-page.png)
-
-Screenshot login berhasil redirect ke profile:
-
-![Login Success](Images/login-success.png)
-
----
-
-## 2) Tambahkan Role pada User
-
-Role disimpan di Firestore saat register (`role: "member"` atau `role: "admin"`). Saat login, role dibawa ke JWT token dan session melalui callbacks.
-
-File: `src/pages/api/auth/[...nextauth].ts`
-
-```ts
-callbacks: {
-  async jwt({ token, account, profile, user }: any) {
-    if (account?.provider === "credentials" && user) {
-      token.email = user.email;
-      token.fullname = user.fullname;
-      token.role = user.role;
-    }
-    return token;
-  },
-  async session({ session, token }: any) {
-    if (token.email) session.user.email = token.email;
-    if (token.fullname) session.user.fullname = token.fullname;
-    if (token.role) session.user.role = token.role;
-    return session;
-  },
-},
-```
-
-Screenshot data user di Firestore (dengan field role):
-
-![Firestore Role](Images/firestore-role.png)
-
----
-
-## 3) Halaman /profile dan /admin
-
-### Halaman Profile (`src/pages/profile/index.tsx`)
-
-```tsx
-import { useSession } from "next-auth/react";
-
-const HalamanProfile = () => {
-    const { data }: any = useSession();
-    return (
-        <div>
-            <h1>Halaman Profile</h1>
-            <h1>Selamat Datang {data?.user?.fullname}</h1>
-        </div>
-    );
-};
-
-export default HalamanProfile;
-```
-
-Screenshot halaman profile:
-
-![Profile Page](Images/profile-page.png)
-
-### Halaman Admin (`src/pages/admin/index.tsx`)
-
-```tsx
-const HalamanAdmin = () => {
-  return (
-    <div>
-      <div className="admin">
-        <h1>Halaman Admin</h1>
-        <p>
-          Selamat datang di halaman admin! Anda memiliki akses penuh ke semua
-          fitur dan data di aplikasi ini. Di sini, Anda dapat mengelola
-          pengguna, melihat laporan, dan melakukan tugas administratif lainnya.
-          Pastikan untuk menggunakan hak akses Anda dengan bijak dan menjaga
-          keamanan data pengguna.
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export default HalamanAdmin;
-```
-
-Screenshot halaman admin (diakses role admin):
-
-![Admin Page](Images/admin-page.png)
-
----
-
-## 4) Proteksi /admin Hanya untuk Admin
-
-Proteksi dilakukan di dua tempat:
-
-### `src/Middleware/withAuth.ts`
+### Proteksi Route — `src/Middleware/withAuth.ts`
 
 ```ts
 const hanyaAdmin = ["/admin"];
+const hanyaEditor = ["/editor"];
 
-export default function withAuth(middleware, requireAuth = []) {
-  return async (req, next) => {
-    const pathname = req.nextUrl.pathname;
+// Di dalam withAuth:
+if (token.role !== "admin" && hanyaAdmin.includes(pathname)) {
+  return NextResponse.redirect(new URL("/", req.url));
+}
 
-    if (requireAuth.includes(pathname)) {
-      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-
-      if (!token) {
-        const Url = new URL("/auth/login", req.url);
-        Url.searchParams.set("callbackUrl", encodeURI(req.url));
-        return NextResponse.redirect(Url);
-      }
-
-      if (token.role !== "admin" && hanyaAdmin.includes(pathname)) {
-        return NextResponse.redirect(new URL("/", req.url));
-      }
-    }
-
-    return middleware(req, next);
-  };
+if (
+  token.role !== "editor" &&
+  token.role !== "admin" &&
+  hanyaEditor.includes(pathname)
+) {
+  return NextResponse.redirect(new URL("/", req.url));
 }
 ```
 
-### `src/middleware.ts`
+Logika: Admin dapat mengakses `/admin` dan `/editor`. Editor hanya dapat mengakses `/editor`. Member tidak bisa mengakses keduanya.
+
+### Middleware Entry — `src/middleware.ts`
 
 ```ts
 export const middleware = withAuth(
   function middleware(request) {
     return NextResponse.next();
   },
-  ["/profile", "/admin"]
+  ["/profile", "/admin", "/editor"]
 );
 
 export const config = {
-  matcher: ["/profile", "/admin"],
+  matcher: ["/profile", "/admin", "/editor"],
 };
 ```
 
-Screenshot akses `/admin` dengan role bukan admin → redirect ke `/`:
+### Halaman Editor — `src/pages/editor/index.tsx`
 
-![Admin Redirect](Images/admin-redirect.png)
+```tsx
+const HalamanEditor = () => {
+  return (
+    <div>
+      <div className="editor">
+        <h1>Halaman Editor</h1>
+        <p>
+          Selamat datang di halaman editor! Anda memiliki akses untuk mengelola
+          konten di aplikasi ini. Di sini, Anda dapat membuat, mengedit, dan
+          menghapus artikel atau konten lainnya. Pastikan untuk menggunakan hak
+          akses Anda dengan bijak.
+        </p>
+      </div>
+    </div>
+  );
+};
 
-Screenshot akses `/admin` dengan role admin → berhasil masuk:
-
-![Admin Access](Images/admin-access.png)
+export default HalamanEditor;
+```
 
 ---
 
-## 5) Implementasi Callback URL
+## 2) GitHub Provider
 
-Callback URL diimplementasikan agar setelah login, user diarahkan ke halaman yang sebelumnya ingin diakses.
+GitHub OAuth ditambahkan sebagai provider login alternatif selain Google.
 
-### Di `withAuth.ts` — set callbackUrl saat redirect ke login:
+### Konfigurasi — `src/pages/api/auth/[...nextauth].ts`
 
 ```ts
-const Url = new URL("/auth/login", req.url);
-Url.searchParams.set("callbackUrl", encodeURI(req.url));
-return NextResponse.redirect(Url);
+import GithubProvider from "next-auth/providers/github";
+
+providers: [
+  GithubProvider({
+    clientId: process.env.GITHUB_CLIENT_ID || "",
+    clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+  }),
+  // ... GoogleProvider, CredentialsProvider
+],
 ```
 
-### Di `views/auth/login/index.tsx` — baca callbackUrl dari query dan gunakan setelah login:
+### JWT Callback untuk GitHub
 
-```tsx
-const { push, query } = useRouter();
-const callbackUrl: any = query.callbackUrl || "/";
-
-const res = await signIn("credentials", {
-  redirect: false,
-  email: event.target.email.value,
-  password: event.target.password.value,
-  callbackUrl,
-});
-
-if (!res?.error) {
-  push(callbackUrl);
+```ts
+if (account?.provider === "github") {
+  const data = {
+    fullname: profile?.name || profile?.login,
+    email: profile?.email,
+    image: profile?.avatar_url,
+    type: "github",
+  };
+  await signInWithGoogle(data, (result: any) => {
+    if (result.status === "success") {
+      token.fullname = data.fullname;
+      token.email = data.email;
+      token.image = data.image;
+      token.role = result.data?.role || "member";
+      token.type = "github";
+    }
+  });
 }
 ```
 
-Screenshot: akses `/profile` tanpa login → redirect ke `/auth/login?callbackUrl=...` → login → kembali ke `/profile`:
+### Environment Variables — `.env.local`
 
-![Callback URL](Images/callback-url.png)
+```env
+GITHUB_CLIENT_ID=<your_github_client_id>
+GITHUB_CLIENT_SECRET=<your_github_client_secret>
+```
+
+Daftarkan OAuth App di: **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
+
+Callback URL: `http://localhost:3000/api/auth/callback/github`
+
+---
+
+## 3) Refactor signInWithOAuth (Reusable)
+
+Fungsi `signInWithGoogle` di-refactor menjadi `signInWithOAuth` yang dapat digunakan oleh semua provider OAuth (Google, GitHub, dll).
+
+### Fungsi Baru — `src/utils/db/servicefirebase.ts`
+
+```ts
+export async function signInWithOAuth(
+  userData: {
+    fullname: string | null | undefined;
+    email: string | null | undefined;
+    image: string | null | undefined;
+    type: string;
+  },
+  callback: Function,
+) {
+  const q = query(
+    collection(db, "users"),
+    where("email", "==", userData.email),
+  );
+  const querySnapshot = await getDocs(q);
+  const existingData = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  if (existingData.length > 0) {
+    // Update data existing, pertahankan role
+    const existingUser: any = existingData[0];
+    await updateDoc(doc(db, "users", existingUser.id), {
+      fullname: userData.fullname,
+      image: userData.image,
+      type: userData.type,
+    });
+    callback({ status: "success", data: existingUser });
+  } else {
+    // Buat user baru dengan role default "member"
+    const newUser = {
+      ...userData,
+      role: "member",
+      password: null,
+    };
+    await addDoc(collection(db, "users"), newUser)
+      .then(() => {
+        callback({ status: "success", data: newUser });
+      })
+      .catch((error) => {
+        callback({ status: "error", message: error.message });
+      });
+  }
+}
+
+// Alias untuk backward compatibility
+export const signInWithGoogle = signInWithOAuth;
+```
+
+**Keuntungan refactor:**
+- Satu fungsi untuk semua provider OAuth
+- Role user yang sudah ada dipertahankan (tidak direset ke "member")
+- Data profil (nama, foto) selalu diperbarui saat login
+
+---
+
+## 4) next/image untuk Optimasi Avatar
+
+Elemen `<img>` biasa diganti dengan komponen `<Image>` dari `next/image` untuk optimasi gambar otomatis (lazy loading, format WebP, resize).
+
+### Perubahan — `src/components/layouts/navbar/index.tsx`
+
+```tsx
+import Image from "next/image";
+
+// Sebelum:
+// <img src={data.user?.image} alt="avatar" className={styles.navbar__user__image} />
+
+// Sesudah:
+{data.user?.image && (
+  <Image
+    src={data.user.image}
+    alt={data.user.fullname || "avatar"}
+    width={42}
+    height={42}
+    className={styles.navbar__user__image}
+  />
+)}
+```
+
+### Konfigurasi Domain — `next.config.ts`
+
+```ts
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
+  },
+};
+```
+
+**Keuntungan:**
+- Gambar di-lazy load secara otomatis
+- Next.js mengonversi ke format WebP jika browser mendukung
+- Ukuran gambar dibatasi (42×42 px) → tidak unduh gambar berlebihan
 
 ---
 
 ## Ringkasan
 
-- ✅ Login terhubung Firestore dengan validasi password `bcrypt`
-- ✅ Role tersimpan di Firestore dan dibawa ke JWT token & session
-- ✅ Halaman `/profile` menampilkan nama user dari session
-- ✅ Halaman `/admin` hanya bisa diakses role `"admin"`
-- ✅ User non-admin yang akses `/admin` di-redirect ke `/`
-- ✅ Callback URL berfungsi — setelah login user kembali ke halaman tujuan semula
+- ✅ Role `editor` ditambahkan — dapat mengakses `/editor` (juga bisa diakses `admin`)
+- ✅ Halaman `/editor` dibuat dan diproteksi via `withAuth.ts` + `middleware.ts`
+- ✅ GitHub Provider ditambahkan ke NextAuth — login dengan akun GitHub
+- ✅ `signInWithOAuth` refactored — reusable untuk semua provider OAuth
+- ✅ `signInWithGoogle` dipertahankan sebagai alias (backward compatibility)
+- ✅ `<img>` diganti `<Image>` dari `next/image` — avatar Google/GitHub ter-optimasi
 
 </details>
 
@@ -665,8 +569,6 @@ Screenshot email sudah terdaftar (error "Email already exists"):
 - ✅ Password di-hash dengan `bcrypt` sebelum disimpan
 - ✅ Pesan error tampil di UI saat validasi gagal atau email sudah ada
 - ✅ Redirect ke `/auth/login` setelah register sukses
-
-</details>
 
 ---
 

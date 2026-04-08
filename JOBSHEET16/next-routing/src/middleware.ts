@@ -6,9 +6,9 @@ export const middleware = withAuth(
   function middleware(request: NextRequest) {
     return NextResponse.next();
   },
-  ["/profile", "/admin"]
+  ["/profile", "/admin", "/editor"]
 );
 
 export const config = {
-  matcher: ["/profile", "/admin"],
+  matcher: ["/profile", "/admin", "/editor"],
 };
